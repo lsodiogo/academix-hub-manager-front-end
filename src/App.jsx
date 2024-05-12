@@ -1,29 +1,35 @@
-import { useState } from "react";
-import reactLogo    from "../public/images/logo.png";
+import { Route, Switch } from "wouter";
 
+import ScrollToTop from "./components/scroll_top";
+
+import LoginView from "./views/login_view";
+import HomeView from "./views/home_view";
+import RegisterView from "./views/register_view";
 
 function App() {
-  const [count, setCount] = useState(0);
 
   return (
     <>
-      <div>
-        <a href="https://localhost:3000" target="_blank">
-          <img src={reactLogo} alt="Login"/>
-          {console.log("olá")}
-        </a>
-      </div>
+      <ScrollToTop />
+      
+      <Switch>
 
-      <h1>ACADEMIX HUB MANAGER</h1>
+        <Route path="/">
+          <HomeView />
+        </Route>
 
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
+        <Route path="/login">
+          <LoginView />
+        </Route>
+
+        <Route path="/register">
+          <RegisterView />
+        </Route>
+
+      </Switch>
     </>
   );
-};
 
+};
 
 export default App;
