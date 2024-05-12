@@ -1,1 +1,4 @@
-# academix-hub-manager-front-end
+# ACADEMIX HUB MANAGER - FRONT-END
+
+---
+---
