@@ -8,4 +8,5 @@ function RegisterView() {
 
 };
 
+
 export default RegisterView;

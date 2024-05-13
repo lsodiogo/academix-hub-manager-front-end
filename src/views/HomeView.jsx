@@ -9,12 +9,15 @@ function HomeView() {
             <span>LOGIN</span>
          </Link>
 
+         <br/>
+         
          <Link href="/register">
-            <span>CREATE</span>
+            <span>SIGN IN</span>
          </Link> 
       </>
    );
 
 };
+
 
 export default HomeView;

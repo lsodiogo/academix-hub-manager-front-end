@@ -1,10 +1,10 @@
 import { Route, Switch } from "wouter";
 
-import ScrollToTop from "./components/scroll_top";
+import ScrollToTop from "./components/ScrollToTop";
 
-import LoginView from "./views/login_view";
-import HomeView from "./views/home_view";
-import RegisterView from "./views/register_view";
+import LoginView from "./views/LoginView";
+import HomeView from "./views/HomeView";
+import RegisterView from "./views/RegisterUserView";
 
 function App() {
 
