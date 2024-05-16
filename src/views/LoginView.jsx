@@ -1,14 +1,17 @@
+import { Link } from "wouter";
 import { useState, useEffect } from "react";
 
 import apiService from "../services/apiService";
 
 
 function LoginView() {
+
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
-   const [logoutButton, setLogoutButton] = useState(false);
+   const [showLogoutButton, setLogoutButton] = useState(false);
    const [showLoginForm, setShowLoginForm] = useState(false);
-   const [user, setUser] = useState({});
+
+   const [loginResult, setLoginResult] = useState({}); 
 
 
    useEffect(function() {
@@ -18,13 +21,11 @@ function LoginView() {
 
          console.log(result);
 
-         if (result.error === "SUCCESS") {
+         if (result.error != "WARNING") {
             setLogoutButton(true);
          } else {
             setShowLoginForm(true);
          };
-         
-         setUser(result);
       })();
    }, []);
 
@@ -41,6 +42,7 @@ function LoginView() {
       const result = await apiService.fetchData("login", "POST", body);
 
       console.log(result);
+      setLoginResult(result);
 
       if (result.error === "SUCCESS") {
          setLogoutButton(true);
@@ -66,44 +68,91 @@ function LoginView() {
   
    return (
       <>
-      {showLoginForm ? 
          <div>
-            <form onSubmit={login}>
-               <div>
-                  <input
-                     placeholder="email"
-                     name="email"
-                     // type="email"
-                     value={email}
-                     onChange={(event) => setEmail(event.target.value)}
-                  />
-               </div>
-               <div>
-                  <input
-                     placeholder="password"
-                     name="password"
-                     type="password"
-                     value={password}
-                     onChange={(event) => setPassword(event.target.value)}
-                  />
-               </div>
-               <div>
-                  <button typeof="SUBMIT">LOGIN</button>
-               </div>
-            </form>
-            <div>
-               {}
-            </div>
+            <h1>ACADEMIX HUB MANAGER</h1>
          </div>
-         :
-         <div>{user.message}</div>
-      }
 
-      {logoutButton &&
-         <div>
-            <button onClick={logout}>LOGOUT</button>
-         </div>
-      }
+         {showLogoutButton &&
+            <div>
+               <button onClick={logout}>LOGOUT</button>
+            </div>
+         }
+
+         {showLoginForm ? 
+            <div>
+               <form onSubmit={login}>
+                  <div>
+                     <input
+                        placeholder="email"
+                        name="email"
+                        type="email"
+                        value={email}
+                        onChange={(event) => setEmail(event.target.value)}
+                     />
+                  </div>
+                  <div>
+                     <input
+                        placeholder="password"
+                        name="password"
+                        type="password"
+                        value={password}
+                        onChange={(event) => setPassword(event.target.value)}
+                     />
+                  </div>
+                  <div>
+                     <button typeof="SUBMIT">LOGIN</button>
+                  </div>
+               </form>
+
+               <div>
+                  <p>{loginResult.error} {loginResult.message}</p>
+               </div>
+            </div>
+
+            :
+
+            <div>
+               <Link href="/x">
+                  <span>SCHOOL</span>
+               </Link>
+
+               <br/>
+
+               <Link href="/x">
+                  <span>COURSES</span>
+               </Link>
+
+               <br/>
+
+               <Link href="/x">
+                  <span>LESSONS SCHEDULES</span>
+               </Link>
+
+               <br/>
+
+               <Link href="/x">
+                  <span>TEACHERS</span>
+               </Link>
+
+               <br/>
+
+               <Link href="/students">
+                  <span>STUDENTS</span>
+               </Link>
+
+               <br/>
+
+               <Link href="/x">
+                  <span>USERS</span>
+               </Link>
+
+               <br/>
+
+               <Link href="/x">
+                  <span>BACKLOG</span>
+               </Link>
+            </div>
+         }
       </>
    );
 };

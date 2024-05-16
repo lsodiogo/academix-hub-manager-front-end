@@ -1,7 +1,5 @@
 async function fetchData(endpoint, method, body) {
    
-   /* console.log("params: ", endpoint, method, body); */
-
    const options = {
       method,
       headers: {
@@ -13,8 +11,6 @@ async function fetchData(endpoint, method, body) {
    if (body) {
       options.body = JSON.stringify(body);
    };
-
-   /* console.log("options: ", options); */
 
    // TO DO: change local path to server path
    const baseDomain = import.meta.env.VITE_BASE_DOMAIN;
@@ -28,4 +24,3 @@ async function fetchData(endpoint, method, body) {
 export default {
    fetchData
 };
-/* export default fetchData; */

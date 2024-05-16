@@ -3,8 +3,10 @@ import { Route, Switch } from "wouter";
 import ScrollToTop from "./components/ScrollToTop";
 
 import LoginView from "./views/LoginView";
-import HomeView from "./views/HomeView";
-import RegisterView from "./views/RegisterUserView";
+import StudentView from "./views/StudentView";
+import NotFoundView from "./views/NotFoundView";
+
+import "@picocss/pico";
 
 function App() {
 
@@ -15,15 +17,15 @@ function App() {
       <Switch>
 
         <Route path="/">
-          <HomeView />
-        </Route>
-
-        <Route path="/login">
           <LoginView />
         </Route>
 
-        <Route path="/register">
-          <RegisterView />
+        <Route path="/students">
+          <StudentView />
+        </Route>
+
+        <Route>
+          <NotFoundView />
         </Route>
 
       </Switch>
