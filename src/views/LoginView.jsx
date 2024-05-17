@@ -112,45 +112,49 @@ function LoginView() {
             :
 
             <div>
-               <Link href="/x">
-                  <span>SCHOOL</span>
-               </Link>
+               <ul>
+                  <li>
+                     <Link href="/x">
+                        <span>SCHOOL</span>
+                     </Link>
+                  </li>
 
-               <br/>
+                  <li>
+                     <Link href="/allcourses">
+                        <span>COURSES</span>
+                     </Link>
+                  </li>
 
-               <Link href="/x">
-                  <span>COURSES</span>
-               </Link>
+                  <li>
+                     <Link href="/x">
+                        <span>LESSONS SCHEDULES</span>
+                     </Link>
+                  </li>
 
-               <br/>
+                  <li>
+                     <Link href="/x">
+                        <span>TEACHERS</span>
+                     </Link>
+                  </li>
 
-               <Link href="/x">
-                  <span>LESSONS SCHEDULES</span>
-               </Link>
+                  <li>
+                     <Link href="/allstudents">
+                        <span>STUDENTS</span>
+                     </Link>
+                  </li>
 
-               <br/>
+                  <li>
+                     <Link href="/x">
+                        <span>USERS</span>
+                     </Link>
+                  </li>
 
-               <Link href="/x">
-                  <span>TEACHERS</span>
-               </Link>
-
-               <br/>
-
-               <Link href="/students">
-                  <span>STUDENTS</span>
-               </Link>
-
-               <br/>
-
-               <Link href="/x">
-                  <span>USERS</span>
-               </Link>
-
-               <br/>
-
-               <Link href="/x">
-                  <span>BACKLOG</span>
-               </Link>
+                  <li>
+                     <Link href="/x">
+                        <span>BACKLOG</span>
+                     </Link>
+                  </li>
+               </ul>
             </div>
          }
       </>

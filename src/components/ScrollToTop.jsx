@@ -4,7 +4,7 @@ import { useLocation } from "wouter";
 
 function ScrollToTop() {
 
-  const  [ pathname ] = useLocation();
+  const [ pathname ] = useLocation();
 
   useEffect(function() {
     window.scrollTo(0, 0);

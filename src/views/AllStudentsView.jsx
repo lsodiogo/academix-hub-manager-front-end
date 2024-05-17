@@ -1,8 +1,9 @@
+import { Link } from "wouter";
 import { useState, useEffect } from "react";
 
 import apiService from "../services/apiService";
 
-function StudentView() {
+function AllStudentView() {
 
    const [userLoggedIn, setUserLoggedIn] = useState({});
    const [studentInfo, setStudentInfo] = useState([]);
@@ -57,7 +58,7 @@ function StudentView() {
    async function handlePerPageChange(event) {
       const value = event.target.value;
 
-      await handlePageChange(`students/?limit=${value}`);
+      await handlePageChange(`students/?limit=${value}&offset=${paginationLinks.offset}`);
    };
 
 
@@ -88,6 +89,14 @@ function StudentView() {
       };
    };
 
+   function userCategoryCheck(item) {
+      if (userLoggedIn.userCategory === "admin" || userLoggedIn.userCategory === "teacher" || (userLoggedIn.userCategory === "student" && userLoggedIn.userEmail === item.email)) {
+         return true;
+      } else {
+         return false;
+      };
+   };
+
    
    return (
       <>
@@ -97,16 +106,20 @@ function StudentView() {
             <table>
                <thead>
                   <tr>
-                     <th>Names</th>
-                     <th>Surnames</th>
+                     <th>Name</th>
                   </tr>
                </thead>
                <tbody>
                   {studentInfo
-                     .map(item => 
+                     .map(item =>
                         <tr key={item.id}>
-                           <td>{item.names}</td>
-                           <td>{item.surnames}</td>
+                           <td>
+                              {userCategoryCheck(item) ? (
+                                 <Link href={"/students/" + item.id}>{item.name} {item.surname}</Link>
+                              ) : (
+                                 <span>{item.name} {item.surname}</span>
+                              )}
+                           </td>
                         </tr>
                      )
                   }
@@ -133,4 +146,4 @@ function StudentView() {
 };
 
 
-export default StudentView;
+export default AllStudentView;
