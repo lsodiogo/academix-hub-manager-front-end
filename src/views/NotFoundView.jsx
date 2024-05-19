@@ -3,17 +3,18 @@ import { Link } from "wouter";
 
 function NotFoundView() {
     
+    
     return (
         <>
             <div>
-                <h1>PAGE NOT FOUND</h1>
+                <h2>PAGE NOT FOUND</h2>
+
                 <Link href="/">
                   <span>go back home</span>
                 </Link>
             </div>
         </>
     );
-    
 };
 
 

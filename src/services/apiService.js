@@ -21,6 +21,7 @@ async function fetchData(endpoint, method, body) {
    return result;
 };
 
+
 export default {
    fetchData
 };

@@ -2,8 +2,9 @@ import { Route, Switch } from "wouter";
 
 import ScrollToTop from "./components/ScrollToTop";
 import Breadcrumbs from "./components/Breadcrumbs";
+import Header from "./components/Header";
 
-import LoginView from "./views/LoginView";
+import HomeView from "./views/HomeView";
 import AllStudentsView from "./views/AllStudentsView";
 import AllCoursesView from "./views/AllCoursesView";
 import StudentByIdView from "./views/StudentByIdView";
@@ -18,11 +19,13 @@ function App() {
   return (
     <>
       <ScrollToTop />
+
+      <Header />
       
       <Switch>
 
         <Route path="/">
-          <LoginView />
+          <HomeView />
         </Route>
 
         <Route path="/allstudents">
@@ -33,11 +36,11 @@ function App() {
           <AllCoursesView />
         </Route>
 
-        <Route path="/students/:id">
+        <Route path="/student/:id">
           {params => <StudentByIdView pathParams={params.id}/>}
         </Route>
 
-        <Route path="/courses/:id">
+        <Route path="/course/:id">
           {params => <CourseByIdView pathParams={params.id}/>}
         </Route>
 
@@ -48,7 +51,6 @@ function App() {
       </Switch>
     </>
   );
-  
 };
 
 
