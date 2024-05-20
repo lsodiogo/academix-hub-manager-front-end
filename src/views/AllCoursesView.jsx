@@ -1,5 +1,4 @@
-import { Link } from "wouter";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import apiService from "../services/apiService";
 
@@ -7,10 +6,9 @@ import PaginationButtons from "../components/PaginationButtons";
 import AllCoursesData from "../components/AllCoursesData";
 
 
-function AllStudentView() {
+function AllCoursesView() {
 
    const [allCoursesInfo, setAllCoursesInfo] = useState([]);
-   const [allInfoCount, setAllInfoCount] = useState({});
    const [paginationLinks, setPaginationLinks] = useState({});
    const [paginationButtons, setPaginationButtons] = useState({
       firstPage: true,
@@ -24,14 +22,11 @@ function AllStudentView() {
       async function getAllData() {
 
          const result = await apiService.fetchData("courses", "GET");
-
          console.log(result);
 
-         setAllInfoCount(result.totalItems);
          setAllCoursesInfo(result.results);
          setPaginationLinks(result.paginationLinksAccess);
-
-         await showPageButton(result.paginationLinksAccess);
+         showPageButton(result.paginationLinksAccess);
       };
       getAllData();
    }, []);
@@ -40,13 +35,11 @@ function AllStudentView() {
    async function handlePageChange(paginationUrl) {
 
       const result = await apiService.fetchData(paginationUrl, "GET");
-
       console.log(result);
-
+      
       setAllCoursesInfo(result.results);
       setPaginationLinks(result.paginationLinksAccess);
-
-      await showPageButton(result.paginationLinksAccess);
+      showPageButton(result.paginationLinksAccess);
    };
 
    
@@ -76,15 +69,15 @@ function AllStudentView() {
             allCoursesInfo = {allCoursesInfo}
          />
          
-         {allInfoCount > paginationLinks.limit && <PaginationButtons
+         <PaginationButtons
             handlePageChange = {handlePageChange}
             paginationLinks = {paginationLinks}
             paginationButtons = {paginationButtons}
             handlePerPageLimit = {handlePerPageLimit}
-         />}
+         />
       </>
    );
 };
 
 
-export default AllStudentView;
+export default AllCoursesView;

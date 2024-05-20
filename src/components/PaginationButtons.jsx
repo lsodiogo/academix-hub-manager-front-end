@@ -1,6 +1,6 @@
 function PaginationButtons({ handlePageChange, paginationLinks, paginationButtons, handlePerPageLimit }) {
 
-   
+
    return (
       <>
          <div className="grid">
@@ -16,6 +16,10 @@ function PaginationButtons({ handlePageChange, paginationLinks, paginationButton
                </button>
             }
 
+            {!Object.values(paginationButtons).every(value => value === false) ?
+            <>{paginationLinks.currentPage} / {paginationLinks.totalPages}</>
+            : null}
+
             {paginationButtons.nextPage &&
                <button onClick={() => handlePageChange(paginationLinks.nextPage)}>
                   NEXT
@@ -28,12 +32,14 @@ function PaginationButtons({ handlePageChange, paginationLinks, paginationButton
                </button>
             }
 
-            <select onChange={handlePerPageLimit}>
-               <option value="5">5</option>
-               <option value="10">10</option>
-               <option value="15">15</option>
-               <option value="20">20</option>
-            </select>
+            {!Object.values(paginationButtons).every(value => value === false) ? 
+               <select onChange={handlePerPageLimit}>
+                  <option value="5">Show per page: 5</option>
+                  <option value="10">Show per page: 10</option>
+                  <option value="15">Show per page: 15</option>
+                  <option value="20">Show per page: 20</option>
+               </select>
+            : null}
          </div>
       </>
    );

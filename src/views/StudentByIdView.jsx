@@ -5,20 +5,19 @@ import apiService from "../services/apiService";
 import StudentDetailedData from "../components/StudentDetailedData";
 
 
-function StudentByIdView({pathParams}) {
+function StudentByIdView({ pathParams }) {
  
    const [detailedStudentInfo, setDetailedStudentInfo] = useState({});
    const [hideWhenDataNull, setHideWhenDataNull] = useState(false);
-   const [showDataAuthorized, setShowDataAuthorized] = useState(true);
+   const [checkErrorOk, setCheckErrorOk] = useState(true);
 
 
    useEffect(function() {
       async function getAllData() {
 
          const result = await apiService.fetchData(`students/${pathParams}`, "GET");
-
          console.log(result);
-
+         
          setDetailedStudentInfo(result);
 
          if (!result.grade || !result.graduated_at) {
@@ -26,7 +25,7 @@ function StudentByIdView({pathParams}) {
          };
 
          if (result.error === "WARNING") {
-            setShowDataAuthorized(false);
+            setCheckErrorOk(false);
          };
       };
       getAllData();
@@ -36,9 +35,9 @@ function StudentByIdView({pathParams}) {
    return (
       <>
          <StudentDetailedData
-            detailedStudentInfo={detailedStudentInfo}
-            hideWhenDataNull={hideWhenDataNull}
-            showDataAuthorized={showDataAuthorized}
+            detailedStudentInfo = {detailedStudentInfo}
+            hideWhenDataNull = {hideWhenDataNull}
+            checkErrorOk = {checkErrorOk}
          />
       </>
    );

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import apiService from "../services/apiService";
 
@@ -8,18 +8,21 @@ import NavigationTables from "../components/NavigationTables";
 
 function HomeView() {
 
+   const [userLoggedIn, setUserLoggedIn] = useState({});
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
    const [rememberMe, setRememberMe] = useState(false);
-   const [login, setLogin] = useState({}); 
+   const [loginResult, setLoginResult] = useState({}); 
    const [showLoginForm, setShowLoginForm] = useState(false);
+
 
    useEffect(function() {
       async function checkLogin() {
 
          const result = await apiService.fetchData("login", "GET");
-
          console.log(result);
+
+         setUserLoggedIn(result);
 
          if (result.error === "WARNING") {
             setShowLoginForm(true);
@@ -40,13 +43,16 @@ function HomeView() {
       };
 
       const result = await apiService.fetchData("login", "POST", body);
-
       console.log(result);
 
-      setLogin(result);
+      setLoginResult(result);
 
       if (result.error === "SUCCESS") {
          setShowLoginForm(false);
+
+         // To get check login information again to be sent to Navigation Tables component
+         const result = await apiService.fetchData("login", "GET");
+         setUserLoggedIn(result);
       };
    };
 
@@ -56,9 +62,8 @@ function HomeView() {
       event.preventDefault();
 
       const result = await apiService.fetchData("login/logout", "GET");
-
       console.log(result);
-
+      
       if (result.error === "SUCCESS") {
          setShowLoginForm(true);
          
@@ -84,15 +89,17 @@ function HomeView() {
                   loginPost = {loginPost}
                />
                
-               {login.error === "WARNING" && <div>
-                  <p>{login.error} {login.message}</p>
+               {loginResult.error === "WARNING" && <div>
+                  <p>{loginResult.error} {loginResult.message}</p>
                </div>}
             </div>
 
             :
 
             <div>
-               <NavigationTables />
+               <NavigationTables
+                  userLoggedIn = {userLoggedIn}
+               />
 
                <div>
                   <button onClick={logoutPost}>LOGOUT</button>

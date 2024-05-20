@@ -2,22 +2,22 @@ import { useEffect, useState } from "react";
 
 import apiService from "../services/apiService";
 
-import CourseDetailedData from "../components/CourseDetailedData";
+import LessonScheduleDetailedData from "../components/LessonScheduleDetailedData";
 
 
-function CourseByIdView({ pathParams }) {
+function LessonScheduleByIdView({ pathParams }) {
  
-   const [detailedCourseInfo, setDetailedCourseInfo] = useState({});
+   const [detailedLessonScheduleInfo, setDetailedLessonScheduleInfo] = useState({});
    const [hideWhenDataNull, setHideWhenDataNull] = useState(false);
    const [checkErrorOk, setCheckErrorOk] = useState(true);
 
    useEffect(function() {
       async function getAllData() {
 
-         const result = await apiService.fetchData(`courses/${pathParams}`, "GET");
+         const result = await apiService.fetchData(`lessons_schedule/${pathParams}`, "GET");
          console.log(result);
          
-         setDetailedCourseInfo(result);
+         setDetailedLessonScheduleInfo(result);
 
          if (!result.description) {
             setHideWhenDataNull(true);
@@ -33,8 +33,8 @@ function CourseByIdView({ pathParams }) {
 
    return (
       <>
-         <CourseDetailedData
-            detailedCourseInfo = {detailedCourseInfo}
+         <LessonScheduleDetailedData
+            detailedLessonScheduleInfo = {detailedLessonScheduleInfo}
             hideWhenDataNull = {hideWhenDataNull}
             checkErrorOk = {checkErrorOk}
          />
@@ -43,4 +43,4 @@ function CourseByIdView({ pathParams }) {
 };
 
 
-export default CourseByIdView;
+export default LessonScheduleByIdView;

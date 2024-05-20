@@ -1,10 +1,10 @@
 import { Link } from "wouter";
 
 
-function AllStudentsData({ allStudentsInfo, userLoggedIn }) {
+function AllTeachersData({ allTeachersInfo, userLoggedIn }) {
    
    function userCategoryCheck(item) {
-      if (userLoggedIn.userCategory === "admin" || userLoggedIn.userCategory === "teacher" || (userLoggedIn.userCategory === "student" && userLoggedIn.userEmail === item.email)) {
+      if (userLoggedIn.userCategory === "admin" || (userLoggedIn.userCategory === "teacher" && userLoggedIn.userEmail === item.email)) {
          return true;
       } else {
          return false;
@@ -25,11 +25,11 @@ function AllStudentsData({ allStudentsInfo, userLoggedIn }) {
                </thead>
                
                <tbody>
-                  {allStudentsInfo.map(item =>
+                  {allTeachersInfo.map(item =>
                      <tr key={item.id}>
                         <td>
                            {userCategoryCheck(item) ? (
-                              <Link href={"/student/" + item.id}>{item.name} {item.surname}</Link>
+                              <Link href={"/teacher/" + item.id}>{item.name} {item.surname}</Link>
                            ) : (
                               <span>{item.name} {item.surname}</span>
                            )}
@@ -44,4 +44,4 @@ function AllStudentsData({ allStudentsInfo, userLoggedIn }) {
 };
 
 
-export default AllStudentsData;
+export default AllTeachersData;

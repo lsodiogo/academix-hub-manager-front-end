@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import apiService from "../services/apiService";
 
 import PaginationButtons from "../components/PaginationButtons";
-import AllStudentData from "../components/AllStudentsData";
+import AllTeachersData from "../components/AllTeachersData";
 
 
-function AllStudentsView() {
+function AllTeachersView() {
 
    const [userLoggedIn, setUserLoggedIn] = useState({});
-   const [allStudentsInfo, setAllStudentsInfo] = useState([]);
+   const [allTeachersInfo, setAllTeachersInfo] = useState([]);
    const [paginationLinks, setPaginationLinks] = useState({});
    const [paginationButtons, setPaginationButtons] = useState({
       firstPage: true,
@@ -34,10 +34,10 @@ function AllStudentsView() {
    useEffect(function() {
       async function getAllData() {
 
-         const result = await apiService.fetchData("students", "GET");
+         const result = await apiService.fetchData("teachers", "GET");
          console.log(result);
 
-         setAllStudentsInfo(result.results);
+         setAllTeachersInfo(result.results);
          setPaginationLinks(result.paginationLinksAccess);
          showPageButton(result.paginationLinksAccess);
       };
@@ -50,7 +50,7 @@ function AllStudentsView() {
       const result = await apiService.fetchData(paginationUrl, "GET");
       console.log(result);
       
-      setAllStudentsInfo(result.results);
+      setAllTeachersInfo(result.results);
       setPaginationLinks(result.paginationLinksAccess);
       showPageButton(result.paginationLinksAccess);
    };
@@ -59,7 +59,7 @@ function AllStudentsView() {
    async function handlePerPageLimit(event) {
       const value = event.target.value;
 
-      await handlePageChange(`students/?limit=${value}&offset=${paginationLinks.offset}`);
+      await handlePageChange(`teachers/?limit=${value}&offset=${paginationLinks.offset}`);
    };
 
 
@@ -78,8 +78,8 @@ function AllStudentsView() {
 
    return (
       <>
-         <AllStudentData
-            allStudentsInfo = {allStudentsInfo}
+         <AllTeachersData
+            allTeachersInfo = {allTeachersInfo}
             userLoggedIn = {userLoggedIn}
          />
          
@@ -88,10 +88,10 @@ function AllStudentsView() {
             paginationLinks = {paginationLinks}
             paginationButtons = {paginationButtons}
             handlePerPageLimit = {handlePerPageLimit}
-         />
+         /> 
       </>
    );
 };
 
 
-export default AllStudentsView;
+export default AllTeachersView;

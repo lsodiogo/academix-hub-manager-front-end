@@ -15,6 +15,7 @@ function AllCoursesData({ allCoursesInfo }) {
                      <th>Name</th>
                   </tr>
                </thead>
+               
                <tbody>
                   {allCoursesInfo.map(item =>
                      <tr key={item.id}>

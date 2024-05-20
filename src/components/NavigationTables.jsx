@@ -1,54 +1,70 @@
+import { useEffect, useState } from "react";
 import { Link } from "wouter";
 
 
-function NavigationTables() {
+function NavigationTables({ userLoggedIn }) {
+
+   function userCategoryCheck(item) {
+      if (userLoggedIn.userCategory !== "admin" && (item === "backlog" || item === "status") ||
+            (userLoggedIn.userCategory === "student" && item === "teachers")) {
+         return false;
+      } else {
+         return true;
+      };
+   };
 
    
    return (
       <>
          <div>
             <ul>
+               {/* <li>
+                  <Link href="/school">
+                     SCHOOL
+                  </Link>
+               </li> */}
+
                <li>
-                  <Link href="/x">
-                     <span>SCHOOL</span>
+                  <Link href="/courses">
+                     COURSES
                   </Link>
                </li>
 
                <li>
-                  <Link href="/allcourses">
-                     <span>COURSES</span>
+                  <Link href="/lessons_schedule">
+                     LESSONS SCHEDULES
+                  </Link>
+               </li>
+
+               {userCategoryCheck("teachers") && <li>
+                  <Link href="/teachers">
+                     TEACHERS
+                  </Link>
+               </li>}
+
+               <li>
+                  <Link href="/students">
+                     STUDENTS
                   </Link>
                </li>
 
                <li>
-                  <Link href="/x">
-                     <span>LESSONS SCHEDULES</span>
+                  <Link href="/users">
+                     USERS
                   </Link>
                </li>
 
-               <li>
-                  <Link href="/x">
-                     <span>TEACHERS</span>
+               {/* {userCategoryCheck("status") && <li>
+                  <Link href="/status">
+                     STATUS
                   </Link>
-               </li>
+               </li>} */}
 
-               <li>
-                  <Link href="/allstudents">
-                     <span>STUDENTS</span>
+               {userCategoryCheck("backlog") && <li>
+                  <Link href="/backlog">
+                     BACKLOG
                   </Link>
-               </li>
-
-               <li>
-                  <Link href="/x">
-                     <span>USERS</span>
-                  </Link>
-               </li>
-
-               <li>
-                  <Link href="/x">
-                     <span>BACKLOG</span>
-                  </Link>
-               </li>
+               </li>}
             </ul>
          </div>
       </>

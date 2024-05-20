@@ -3,13 +3,12 @@ import { useEffect, useState } from "react";
 import apiService from "../services/apiService";
 
 import PaginationButtons from "../components/PaginationButtons";
-import AllStudentData from "../components/AllStudentsData";
+import AllLessonsScheduleData from "../components/AllLessonsScheduleData";
 
 
-function AllStudentsView() {
+function AllLessonsScheduleView() {
 
-   const [userLoggedIn, setUserLoggedIn] = useState({});
-   const [allStudentsInfo, setAllStudentsInfo] = useState([]);
+   const [allLessonsScheduleInfo, setAllLessonsScheduleInfo] = useState([]);
    const [paginationLinks, setPaginationLinks] = useState({});
    const [paginationButtons, setPaginationButtons] = useState({
       firstPage: true,
@@ -20,24 +19,12 @@ function AllStudentsView() {
 
 
    useEffect(function() {
-      async function checkLogin() {
-
-         const result = await apiService.fetchData("login", "GET");
-         console.log(result);
-
-         setUserLoggedIn(result);
-      };
-      checkLogin();
-   }, []);
-
-
-   useEffect(function() {
       async function getAllData() {
 
-         const result = await apiService.fetchData("students", "GET");
+         const result = await apiService.fetchData("lessons_schedule", "GET");
          console.log(result);
 
-         setAllStudentsInfo(result.results);
+         setAllLessonsScheduleInfo(result.results);
          setPaginationLinks(result.paginationLinksAccess);
          showPageButton(result.paginationLinksAccess);
       };
@@ -50,16 +37,16 @@ function AllStudentsView() {
       const result = await apiService.fetchData(paginationUrl, "GET");
       console.log(result);
       
-      setAllStudentsInfo(result.results);
+      setAllLessonsScheduleInfo(result.results);
       setPaginationLinks(result.paginationLinksAccess);
       showPageButton(result.paginationLinksAccess);
    };
 
-
+   
    async function handlePerPageLimit(event) {
       const value = event.target.value;
 
-      await handlePageChange(`students/?limit=${value}&offset=${paginationLinks.offset}`);
+      await handlePageChange(`lessons_schedule/?limit=${value}&offset=${paginationLinks.offset}`);
    };
 
 
@@ -78,9 +65,8 @@ function AllStudentsView() {
 
    return (
       <>
-         <AllStudentData
-            allStudentsInfo = {allStudentsInfo}
-            userLoggedIn = {userLoggedIn}
+         <AllLessonsScheduleData
+            allLessonsScheduleInfo = {allLessonsScheduleInfo}
          />
          
          <PaginationButtons
@@ -94,4 +80,4 @@ function AllStudentsView() {
 };
 
 
-export default AllStudentsView;
+export default AllLessonsScheduleView;
