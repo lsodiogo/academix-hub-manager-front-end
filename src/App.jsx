@@ -17,7 +17,7 @@ import TeacherByIdView from "./views/TeacherByIdView";
 import StudentByIdView from "./views/StudentByIdView";
 import UserByIdView from "./views/UserByIdView";
 
-import NotFoundView from "./views/NotFoundView";
+import NotFoundView from "./views/PageNotFoundView";
 
 import "@picocss/pico";
 

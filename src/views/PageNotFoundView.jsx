@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 
 
-function NotFoundView() {
+function PageNotFoundView() {
     
     
     return (
@@ -18,4 +18,4 @@ function NotFoundView() {
 };
 
 
-export default NotFoundView;
+export default PageNotFoundView;

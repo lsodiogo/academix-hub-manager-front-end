@@ -22,11 +22,11 @@ function HomeView() {
          const result = await apiService.fetchData("login", "GET");
          console.log(result);
 
-         setUserLoggedIn(result);
-
          if (result.error === "WARNING") {
             setShowLoginForm(true);
          };
+
+         setUserLoggedIn(result);
       };
       checkLogin();
    }, []);
@@ -89,9 +89,11 @@ function HomeView() {
                   loginPost = {loginPost}
                />
                
-               {loginResult.error === "WARNING" && <div>
-                  <p>{loginResult.error} {loginResult.message}</p>
-               </div>}
+               {loginResult.error === "WARNING" &&
+                  <div>
+                     <p>{loginResult.error} {loginResult.message}</p>
+                  </div>
+               }
             </div>
 
             :

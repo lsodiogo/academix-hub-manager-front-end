@@ -9,7 +9,6 @@ function CourseByIdView({ pathParams }) {
  
    const [detailedCourseInfo, setDetailedCourseInfo] = useState({});
    const [hideWhenDataNull, setHideWhenDataNull] = useState(false);
-   const [checkErrorOk, setCheckErrorOk] = useState(true);
 
    useEffect(function() {
       async function getAllData() {
@@ -17,14 +16,15 @@ function CourseByIdView({ pathParams }) {
          const result = await apiService.fetchData(`courses/${pathParams}`, "GET");
          console.log(result);
          
+         if (result.error === "WARNING") {
+            window.location.href = "/pagenotfound";
+            return;
+         };
+         
          setDetailedCourseInfo(result);
 
          if (!result.description) {
             setHideWhenDataNull(true);
-         };
-
-         if (result.error === "WARNING") {
-            setCheckErrorOk(false);
          };
       };
       getAllData();
@@ -36,7 +36,6 @@ function CourseByIdView({ pathParams }) {
          <CourseDetailedData
             detailedCourseInfo = {detailedCourseInfo}
             hideWhenDataNull = {hideWhenDataNull}
-            checkErrorOk = {checkErrorOk}
          />
       </>
    );

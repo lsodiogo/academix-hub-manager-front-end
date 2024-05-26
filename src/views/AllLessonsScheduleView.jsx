@@ -24,6 +24,11 @@ function AllLessonsScheduleView() {
          const result = await apiService.fetchData("lessons_schedule", "GET");
          console.log(result);
 
+         if (result.error === "WARNING") {
+            window.location.href = "/pagenotfound";
+            return;
+         };
+
          setAllLessonsScheduleInfo(result.results);
          setPaginationLinks(result.paginationLinksAccess);
          showPageButton(result.paginationLinksAccess);

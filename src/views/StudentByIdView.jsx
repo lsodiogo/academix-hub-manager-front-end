@@ -9,7 +9,6 @@ function StudentByIdView({ pathParams }) {
  
    const [detailedStudentInfo, setDetailedStudentInfo] = useState({});
    const [hideWhenDataNull, setHideWhenDataNull] = useState(false);
-   const [checkErrorOk, setCheckErrorOk] = useState(true);
 
 
    useEffect(function() {
@@ -18,14 +17,15 @@ function StudentByIdView({ pathParams }) {
          const result = await apiService.fetchData(`students/${pathParams}`, "GET");
          console.log(result);
          
+         if (result.error === "WARNING") {
+            window.location.href = "/pagenotfound";
+            return;
+         };
+
          setDetailedStudentInfo(result);
 
          if (!result.grade || !result.graduated_at) {
             setHideWhenDataNull(true);
-         };
-
-         if (result.error === "WARNING") {
-            setCheckErrorOk(false);
          };
       };
       getAllData();
@@ -37,7 +37,6 @@ function StudentByIdView({ pathParams }) {
          <StudentDetailedData
             detailedStudentInfo = {detailedStudentInfo}
             hideWhenDataNull = {hideWhenDataNull}
-            checkErrorOk = {checkErrorOk}
          />
       </>
    );

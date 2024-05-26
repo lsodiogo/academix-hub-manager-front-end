@@ -19,6 +19,15 @@ function PaginationButtons({ handlePageChange, paginationLinks, paginationButton
             {!Object.values(paginationButtons).every(value => value === false) ?
             <>{paginationLinks.currentPage} / {paginationLinks.totalPages}</>
             : null}
+            
+            {!Object.values(paginationButtons).every(value => value === false) && paginationLinks.currentPage !== paginationLinks.totalPages ? 
+               <select onChange={handlePerPageLimit} value={paginationLinks.limit}>
+                  <option value="5">Show per page: 5</option>
+                  <option value="10">Show per page: 10</option>
+                  <option value="15">Show per page: 15</option>
+                  <option value="20">Show per page: 20</option>
+               </select>
+            : null}
 
             {paginationButtons.nextPage &&
                <button onClick={() => handlePageChange(paginationLinks.nextPage)}>
@@ -31,15 +40,6 @@ function PaginationButtons({ handlePageChange, paginationLinks, paginationButton
                   LAST PAGE
                </button>
             }
-
-            {!Object.values(paginationButtons).every(value => value === false) ? 
-               <select onChange={handlePerPageLimit}>
-                  <option value="5">Show per page: 5</option>
-                  <option value="10">Show per page: 10</option>
-                  <option value="15">Show per page: 15</option>
-                  <option value="20">Show per page: 20</option>
-               </select>
-            : null}
          </div>
       </>
    );

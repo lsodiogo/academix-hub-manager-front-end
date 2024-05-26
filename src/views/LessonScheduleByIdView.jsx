@@ -9,7 +9,6 @@ function LessonScheduleByIdView({ pathParams }) {
  
    const [detailedLessonScheduleInfo, setDetailedLessonScheduleInfo] = useState({});
    const [hideWhenDataNull, setHideWhenDataNull] = useState(false);
-   const [checkErrorOk, setCheckErrorOk] = useState(true);
 
    useEffect(function() {
       async function getAllData() {
@@ -17,14 +16,15 @@ function LessonScheduleByIdView({ pathParams }) {
          const result = await apiService.fetchData(`lessons_schedule/${pathParams}`, "GET");
          console.log(result);
          
+         if (result.error === "WARNING") {
+            window.location.href = "/pagenotfound";
+            return;
+         };
+
          setDetailedLessonScheduleInfo(result);
 
          if (!result.description) {
             setHideWhenDataNull(true);
-         };
-
-         if (result.error === "WARNING") {
-            setCheckErrorOk(false);
          };
       };
       getAllData();
@@ -36,7 +36,6 @@ function LessonScheduleByIdView({ pathParams }) {
          <LessonScheduleDetailedData
             detailedLessonScheduleInfo = {detailedLessonScheduleInfo}
             hideWhenDataNull = {hideWhenDataNull}
-            checkErrorOk = {checkErrorOk}
          />
       </>
    );

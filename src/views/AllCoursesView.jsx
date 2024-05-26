@@ -24,6 +24,11 @@ function AllCoursesView() {
          const result = await apiService.fetchData("courses", "GET");
          console.log(result);
 
+         if (result.error === "WARNING") {
+            window.location.href = "/pagenotfound";
+            return;
+         };
+
          setAllCoursesInfo(result.results);
          setPaginationLinks(result.paginationLinksAccess);
          showPageButton(result.paginationLinksAccess);

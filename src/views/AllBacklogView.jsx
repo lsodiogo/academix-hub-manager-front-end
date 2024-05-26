@@ -23,6 +23,11 @@ function AllBacklogView() {
 
          const result = await apiService.fetchData("backlog", "GET");
          console.log(result);
+         
+         if (result.error === "WARNING") {
+            window.location.href = "/pagenotfound";
+            return;
+         };
 
          setAllBacklogInfo(result.results);
          setPaginationLinks(result.paginationLinksAccess);

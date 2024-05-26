@@ -37,6 +37,11 @@ function AllTeachersView() {
          const result = await apiService.fetchData("teachers", "GET");
          console.log(result);
 
+         if (result.error === "WARNING") {
+            window.location.href = "/pagenotfound";
+            return;
+         };
+
          setAllTeachersInfo(result.results);
          setPaginationLinks(result.paginationLinksAccess);
          showPageButton(result.paginationLinksAccess);

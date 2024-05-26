@@ -7,8 +7,6 @@ import UserDetailedData from "../components/UserDetailedData";
 function UserByIdView({ pathParams }) {
  
    const [detailedUserInfo, setDetailedUserInfo] = useState({});
-   const [checkErrorOk, setCheckErrorOk] = useState(true);
-
 
    useEffect(function() {
       async function getAllData() {
@@ -16,11 +14,12 @@ function UserByIdView({ pathParams }) {
          const result = await apiService.fetchData(`users/${pathParams}`, "GET");
          console.log(result);
          
-         setDetailedUserInfo(result);
-
          if (result.error === "WARNING") {
-            setCheckErrorOk(false);
+            window.location.href = "/pagenotfound";
+            return;
          };
+         
+         setDetailedUserInfo(result);
       };
       getAllData();
    }, []);
@@ -30,7 +29,6 @@ function UserByIdView({ pathParams }) {
       <>
          <UserDetailedData
             detailedUserInfo = {detailedUserInfo}
-            checkErrorOk = {checkErrorOk}
          />
       </>
    );

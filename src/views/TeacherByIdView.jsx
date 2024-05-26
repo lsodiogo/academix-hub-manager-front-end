@@ -8,7 +8,6 @@ import TeacherDetailedData from "../components/TeacherDetailedData";
 function TeacherByIdView({ pathParams }) {
  
    const [detailedTeacherInfo, setDetailedTeacherInfo] = useState({});
-   const [checkErrorOk, setCheckErrorOk] = useState(true);
 
 
    useEffect(function() {
@@ -17,11 +16,12 @@ function TeacherByIdView({ pathParams }) {
          const result = await apiService.fetchData(`teachers/${pathParams}`, "GET");
          console.log(result);
          
-         setDetailedTeacherInfo(result);
-
          if (result.error === "WARNING") {
-            setCheckErrorOk(false);
+            window.location.href = "/pagenotfound";
+            return;
          };
+         
+         setDetailedTeacherInfo(result);
       };
       getAllData();
    }, []);
@@ -31,7 +31,6 @@ function TeacherByIdView({ pathParams }) {
       <>
          <TeacherDetailedData
             detailedTeacherInfo = {detailedTeacherInfo}
-            checkErrorOk = {checkErrorOk}
          />
       </>
    );

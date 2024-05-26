@@ -37,6 +37,11 @@ function AllStudentsView() {
          const result = await apiService.fetchData("students", "GET");
          console.log(result);
 
+         if (result.error === "WARNING") {
+            window.location.href = "/pagenotfound";
+            return;
+         };
+
          setAllStudentsInfo(result.results);
          setPaginationLinks(result.paginationLinksAccess);
          showPageButton(result.paginationLinksAccess);

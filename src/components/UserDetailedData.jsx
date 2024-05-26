@@ -1,23 +1,15 @@
-function UserDetailedData({ detailedUserInfo, checkErrorOk }) {
+function UserDetailedData({ detailedUserInfo }) {
    
    
    return (
       <>
          <h2>USERS</h2>
          
-         {checkErrorOk ?
-            <div>
-               <h3>{detailedUserInfo.email}</h3>
+         <div>
+            <h3>{detailedUserInfo.email}</h3>
 
-               <p>Category: {detailedUserInfo.category}</p>
-            </div>
-         
-         :
-         
-            <div>
-               <p>{detailedUserInfo.error} {detailedUserInfo.message}</p>
-            </div>
-         }
+            <p>Category: {detailedUserInfo.category}</p>
+         </div>
       </>
    );
 };

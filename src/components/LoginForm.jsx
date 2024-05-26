@@ -1,4 +1,4 @@
-function LoginForm({ email,setEmail, password, setPassword, rememberMe, setRememberMe, loginPost }) {
+function LoginForm({ email, setEmail, password, setPassword, rememberMe, setRememberMe, loginPost }) {
 
    
    return (
