@@ -1,7 +1,7 @@
 function TeacherDetailedData({ detailedTeacherInfo }) {
    
    function formatDate(item) {
-      const dateFormated = new Date(item).toLocaleDateString("en-US", { day: "2-digit", month: "2-digit", year: "numeric" });
+      const dateFormated = new Date(item).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" });
 
       return dateFormated;
    };

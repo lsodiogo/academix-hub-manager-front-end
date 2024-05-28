@@ -2,20 +2,14 @@ import { Route, Switch } from "wouter";
 
 import ScrollToTop from "./components/ScrollToTop";
 import Header from "./components/Header";
-
 import HomeView from "./views/HomeView";
-import AllCoursesView from "./views/AllCoursesView";
-import AllLessonsScheduleView from "./views/AllLessonsScheduleView";
-import AllTeachersView from "./views/AllTeachersView";
-import AllStudentsView from "./views/AllStudentsView";
-import AllUsersView from "./views/AllUsersView";
-import AllBacklogView from "./views/AllBacklogView";
 
-import CourseByIdView from "./views/CourseByIdView";
-import LessonScheduleByIdView from "./views/LessonScheduleByIdView";
-import TeacherByIdView from "./views/TeacherByIdView";
-import StudentByIdView from "./views/StudentByIdView";
-import UserByIdView from "./views/UserByIdView";
+import CoursesView from "./views/CoursesView";
+import LessonsScheduleView from "./views/LessonsScheduleView";
+import TeachersView from "./views/TeachersView";
+import StudentsView from "./views/StudentsView";
+import UsersView from "./views/UsersView";
+import BacklogView from "./views/BacklogView";
 
 import NotFoundView from "./views/PageNotFoundView";
 
@@ -37,47 +31,47 @@ function App() {
         </Route>
         
         <Route path="/courses">
-          <AllCoursesView />
+          <CoursesView />
         </Route>
 
         <Route path="/lessons_schedule">
-          <AllLessonsScheduleView />
+          <LessonsScheduleView />
         </Route>
 
         <Route path="/teachers">
-          <AllTeachersView />
+          <TeachersView />
         </Route>
 
         <Route path="/students">
-          <AllStudentsView />
+          <StudentsView />
         </Route>
 
         <Route path="/users">
-          <AllUsersView />
+          <UsersView />
         </Route>
 
         <Route path="/backlog">
-          <AllBacklogView />
+          <BacklogView />
         </Route>
 
-        <Route path="/course/:id">
-          {params => <CourseByIdView pathParams={params.id}/>}
+        <Route path="/courses/:id">
+          {params => <CoursesView pathParams={params.id}/>}
         </Route>
 
-        <Route path="/lesson_schedule/:id">
-          {params => <LessonScheduleByIdView pathParams={params.id}/>}
+        <Route path="/lessons_schedule/:id">
+          {params => <LessonsScheduleView pathParams={params.id}/>}
         </Route>
 
-        <Route path="/teacher/:id">
-          {params => <TeacherByIdView pathParams={params.id}/>}
+        <Route path="/teachers/:id">
+          {params => <TeachersView pathParams={params.id}/>}
         </Route>
 
-        <Route path="/student/:id">
-          {params => <StudentByIdView pathParams={params.id}/>}
+        <Route path="/students/:id">
+          {params => <StudentsView pathParams={params.id}/>}
         </Route>
 
-        <Route path="/user/:id">
-          {params => <UserByIdView pathParams={params.id}/>}
+        <Route path="/users/:id">
+          {params => <UsersView pathParams={params.id}/>}
         </Route>
 
         <Route>

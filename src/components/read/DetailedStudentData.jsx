@@ -4,7 +4,7 @@ import { Link } from "wouter";
 function StudentDetailedData({ detailedStudentInfo, hideWhenDataNull }) {
    
    function formatDate(item) {
-      const dateFormated = new Date(item).toLocaleDateString("en-US", { day: "2-digit", month: "2-digit", year: "numeric" });
+      const dateFormated = new Date(item).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" });
 
       return dateFormated;
    };
@@ -28,7 +28,7 @@ function StudentDetailedData({ detailedStudentInfo, hideWhenDataNull }) {
             <p>Enrolled at: {formatDate(detailedStudentInfo.enrolled_at)}</p>
 
             <p>Course:&nbsp;
-               <Link href={"/course/" + detailedStudentInfo.course_id}>
+               <Link href={"/courses/" + detailedStudentInfo.course_id}>
                   {detailedStudentInfo.course_name}
                </Link>
             </p>

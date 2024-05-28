@@ -1,10 +1,10 @@
 import { Link } from "wouter";
 
 
-function LessonScheduleDetailedData({ detailedLessonScheduleInfo, hideWhenDataNull }) {
+function DetailedLessonScheduleData({ detailedLessonScheduleInfo, hideWhenDataNull }) {
    
    function formatDate(item) {
-      const dateFormated = new Date(item).toLocaleDateString("en-US", { day: "2-digit", month: "2-digit", year: "numeric" });
+      const dateFormated = new Date(item).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" });
 
       return dateFormated;
    };
@@ -26,7 +26,7 @@ function LessonScheduleDetailedData({ detailedLessonScheduleInfo, hideWhenDataNu
             }
 
             <p>COURSE:&nbsp;
-               <Link href={"/course/" + detailedLessonScheduleInfo.course_id}>
+               <Link href={"/courses/" + detailedLessonScheduleInfo.course_id}>
                   {detailedLessonScheduleInfo.course_name}
                </Link>
             </p>
@@ -38,4 +38,4 @@ function LessonScheduleDetailedData({ detailedLessonScheduleInfo, hideWhenDataNu
 };
 
 
-export default LessonScheduleDetailedData;
+export default DetailedLessonScheduleData;

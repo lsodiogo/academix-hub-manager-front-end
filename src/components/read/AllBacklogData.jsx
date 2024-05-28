@@ -1,7 +1,7 @@
 function AllBacklogData({ allBacklogInfo }) {
 
    function formatDate(item) {
-      const dateFormated = new Date(item).toLocaleDateString("en-US", { day: "2-digit", month: "2-digit", year: "numeric" });
+      const dateFormated = new Date(item).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" });
 
       return dateFormated;
    };
@@ -16,12 +16,12 @@ function AllBacklogData({ allBacklogInfo }) {
                <thead>
                   <tr>
                      <th>ID</th>
-                     <th>Action</th>
-                     <th>Table</th>
-                     <th>ID Table Row</th>
-                     <th>Action Description</th>
-                     <th>User</th>
-                     <th>Created at</th>
+                     <th>ACTION</th>
+                     <th>TABLE</th>
+                     <th>ID TABLE ROW</th>
+                     <th>ACTION DESCRIPTION</th>
+                     <th>USER</th>
+                     <th>CREATED</th>
                   </tr>
                </thead>
                

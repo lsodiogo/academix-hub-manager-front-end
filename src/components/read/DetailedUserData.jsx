@@ -1,4 +1,4 @@
-function UserDetailedData({ detailedUserInfo }) {
+function DetailedUserData({ detailedUserInfo }) {
    
    
    return (
@@ -15,4 +15,4 @@ function UserDetailedData({ detailedUserInfo }) {
 };
 
 
-export default UserDetailedData;
+export default DetailedUserData;

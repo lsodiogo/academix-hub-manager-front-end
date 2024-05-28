@@ -8,7 +8,7 @@ import NavigationTables from "../components/NavigationTables";
 
 function HomeView() {
 
-   const [userLoggedIn, setUserLoggedIn] = useState({});
+   const [cookieInfo, setCookieInfo] = useState({});
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
    const [rememberMe, setRememberMe] = useState(false);
@@ -26,7 +26,7 @@ function HomeView() {
             setShowLoginForm(true);
          };
 
-         setUserLoggedIn(result);
+         setCookieInfo(result);
       };
       checkLogin();
    }, []);
@@ -52,7 +52,7 @@ function HomeView() {
 
          // To get check login information again to be sent to Navigation Tables component
          const result = await apiService.fetchData("login", "GET");
-         setUserLoggedIn(result);
+         setCookieInfo(result);
       };
    };
 
@@ -78,15 +78,15 @@ function HomeView() {
    return (
       <>
          {showLoginForm ? 
-            <div>
+            (<div>
                <LoginForm
-                  email = {email}
-                  setEmail = {setEmail}
-                  password = {password}
-                  setPassword = {setPassword}
-                  rememberMe = {rememberMe}
-                  setRememberMe = {setRememberMe}
-                  loginPost = {loginPost}
+                  email={email}
+                  setEmail={setEmail}
+                  password={password}
+                  setPassword={setPassword}
+                  rememberMe={rememberMe}
+                  setRememberMe={setRememberMe}
+                  loginPost={loginPost}
                />
                
                {loginResult.error === "WARNING" &&
@@ -94,19 +94,19 @@ function HomeView() {
                      <p>{loginResult.error} {loginResult.message}</p>
                   </div>
                }
-            </div>
+            </div>)
 
             :
 
-            <div>
+            (<div>
                <NavigationTables
-                  userLoggedIn = {userLoggedIn}
+                  cookieInfo={cookieInfo}
                />
 
                <div>
                   <button onClick={logoutPost}>LOGOUT</button>
                </div>
-            </div>
+            </div>)
          }
       </>
    );

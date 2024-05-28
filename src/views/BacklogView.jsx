@@ -3,13 +3,12 @@ import { useEffect, useState } from "react";
 import apiService from "../services/apiService";
 
 import PaginationButtons from "../components/PaginationButtons";
-import AllTeachersData from "../components/AllTeachersData";
+import AllBacklogData from "../components/read/AllBacklogData";
 
 
-function AllTeachersView() {
+function BacklogView() {
 
-   const [userLoggedIn, setUserLoggedIn] = useState({});
-   const [allTeachersInfo, setAllTeachersInfo] = useState([]);
+   const [allBacklogInfo, setAllBacklogInfo] = useState([]);
    const [paginationLinks, setPaginationLinks] = useState({});
    const [paginationButtons, setPaginationButtons] = useState({
       firstPage: true,
@@ -17,32 +16,22 @@ function AllTeachersView() {
       nextPage: true,
       lastPage: true
    });
-
-
-   useEffect(function() {
-      async function checkLogin() {
-
-         const result = await apiService.fetchData("login", "GET");
-         console.log(result);
-
-         setUserLoggedIn(result);
-      };
-      checkLogin();
-   }, []);
+   const [userNotAuthorized, setUserNotAuthorized] = useState(false);
+   const [error, setError] = useState({});
 
 
    useEffect(function() {
       async function getAllData() {
 
-         const result = await apiService.fetchData("teachers", "GET");
+         const result = await apiService.fetchData("backlog", "GET");
          console.log(result);
-
+         
          if (result.error === "WARNING") {
-            window.location.href = "/pagenotfound";
-            return;
+            setUserNotAuthorized(true);
+            setError(result);
          };
 
-         setAllTeachersInfo(result.results);
+         setAllBacklogInfo(result.results);
          setPaginationLinks(result.paginationLinksAccess);
          showPageButton(result.paginationLinksAccess);
       };
@@ -55,16 +44,16 @@ function AllTeachersView() {
       const result = await apiService.fetchData(paginationUrl, "GET");
       console.log(result);
       
-      setAllTeachersInfo(result.results);
+      setAllBacklogInfo(result.results);
       setPaginationLinks(result.paginationLinksAccess);
-      showPageButton(result.paginationLinksAccess);
+      showPageButton(result.paginationLinksAccess); 
    };
 
-
+   
    async function handlePerPageLimit(event) {
       const value = event.target.value;
 
-      await handlePageChange(`teachers/?limit=${value}&offset=${paginationLinks.offset}`);
+      await handlePageChange(`backlog/?limit=${value}&offset=${paginationLinks.offset}`);
    };
 
 
@@ -83,20 +72,29 @@ function AllTeachersView() {
 
    return (
       <>
-         <AllTeachersData
-            allTeachersInfo = {allTeachersInfo}
-            userLoggedIn = {userLoggedIn}
-         />
+         {userNotAuthorized ? 
+            (<div>
+               <p>{error.error} - {error.message}</p>
+            </div>)
+
+            :
          
-         <PaginationButtons
-            handlePageChange = {handlePageChange}
-            paginationLinks = {paginationLinks}
-            paginationButtons = {paginationButtons}
-            handlePerPageLimit = {handlePerPageLimit}
-         /> 
+            (<div>
+               <AllBacklogData
+                  allBacklogInfo = {allBacklogInfo}
+               />
+
+               <PaginationButtons
+                  handlePageChange = {handlePageChange}
+                  paginationLinks = {paginationLinks}
+                  paginationButtons = {paginationButtons}
+                  handlePerPageLimit = {handlePerPageLimit}
+               />
+            </div>)
+         }
       </>
    );
 };
 
 
-export default AllTeachersView;
+export default BacklogView;

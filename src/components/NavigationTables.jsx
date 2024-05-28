@@ -1,11 +1,11 @@
 import { Link } from "wouter";
 
 
-function NavigationTables({ userLoggedIn }) {
+function NavigationTables({ cookieInfo }) {
 
    function userCategoryCheck(item) {
-      if (userLoggedIn.userCategory !== "admin" && (item === "backlog" || item === "status") ||
-            (userLoggedIn.userCategory === "student" && item === "teachers")) {
+      if (cookieInfo.userCategory !== "admin" && (item === "backlog" || item === "status") ||
+            (cookieInfo.userCategory === "student" && item === "teachers")) {
          return false;
       } else {
          return true;
