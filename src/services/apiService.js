@@ -12,7 +12,6 @@ async function fetchData(endpoint, method, body) {
       options.body = JSON.stringify(body);
    };
 
-   // TO DO: change local path to server path
    const baseDomain = import.meta.env.VITE_BASE_DOMAIN;
 
    const response = await fetch(baseDomain + endpoint, options);

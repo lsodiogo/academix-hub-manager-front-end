@@ -8,7 +8,6 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
    if (!selectedLessonSchedule) {
       return;
    };
-   console.log(selectedLessonSchedule)
 
 
    const [formData, setFormData] = useState({

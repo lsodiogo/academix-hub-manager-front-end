@@ -55,6 +55,30 @@ function CreateStudentForm({ showCreateDialog, setShowCreateDialog }) {
    };
 
 
+   const getTomorrowDate = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split("T")[0];
+   
+   function getMaxBirthdate() {
+      const today = new Date();
+      today.setFullYear(today.getFullYear() - 16);
+  
+      const year = today.getFullYear();
+      let month = String(today.getMonth() + 1);
+      let day = String(today.getDate());
+  
+      if (month.length < 2) {
+        month = "0" + month;
+      };
+  
+      if (day.length < 2) {
+        day = "0" + day;
+      };
+  
+      const maxBirthdate = `${year}-${month}-${day}`;
+
+      return maxBirthdate;
+   };
+
+
    async function handleSubmit(event) {
       event.preventDefault();
 
@@ -147,9 +171,11 @@ function CreateStudentForm({ showCreateDialog, setShowCreateDialog }) {
                            <input
                               type="date"
                               name="birthdate"
+                              max={getMaxBirthdate()}
                               value={formData.birthdate}
                               onChange={(event) => handleChange(event)}
                            />
+                           <p className="instruction">Student must be at least 16 years</p>
                         </label>
 
                         <label>
@@ -233,6 +259,7 @@ function CreateStudentForm({ showCreateDialog, setShowCreateDialog }) {
                            <input
                               type="date"
                               name="graduated"
+                              max={getTomorrowDate}
                               value={formData.graduated}
                               onChange={(event) => handleChange(event)}
                            />

@@ -46,6 +46,28 @@ function CreateTeacherForm({ showCreateDialog, setShowCreateDialog }) {
    };
 
 
+   function getMaxBirthdate() {
+      const today = new Date();
+      today.setFullYear(today.getFullYear() - 18);
+  
+      const year = today.getFullYear();
+      let month = String(today.getMonth() + 1);
+      let day = String(today.getDate());
+  
+      if (month.length < 2) {
+        month = "0" + month;
+      };
+  
+      if (day.length < 2) {
+        day = "0" + day;
+      };
+  
+      const maxBirthdate = `${year}-${month}-${day}`;
+
+      return maxBirthdate;
+   };
+
+
    async function handleSubmit(event) {
       event.preventDefault();
 
@@ -135,9 +157,11 @@ function CreateTeacherForm({ showCreateDialog, setShowCreateDialog }) {
                            <input
                               type="date"
                               name="birthdate"
+                              max={getMaxBirthdate()}
                               value={formData.birthdate}
                               onChange={(event) => handleChange(event)}
                            />
+                           <p className="instruction">Teacher must be at least 18 years</p>
                         </label>
 
                         <label>

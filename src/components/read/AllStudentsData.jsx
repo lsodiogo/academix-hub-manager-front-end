@@ -72,7 +72,7 @@ function AllStudentsData({ allStudentsInfo, cookieInfo }) {
                         <td>
                            {item.status_name}
                         </td>
-
+                        
                         {cookieInfo.userCategory === "admin" &&
                            <td>
                               <button
