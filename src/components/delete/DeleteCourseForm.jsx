@@ -10,8 +10,8 @@ function DeleteCourseForm({ selectedCourse, showDeleteDialog, setShowDeleteDialo
    };
 
 
-   const [showDialogMessageResult, setShowDialogMessageResult] = useState(false);
    const [dialogMessageResult, setDialogMessageResult] = useState(null);
+   const [showDialogMessageResult, setShowDialogMessageResult] = useState(false);
 
 
    async function handleDelete() {
@@ -21,8 +21,8 @@ function DeleteCourseForm({ selectedCourse, showDeleteDialog, setShowDeleteDialo
 
       setShowDeleteDialog(false);
 
-      setShowDialogMessageResult(true);
       setDialogMessageResult("Course deleted with success!");
+      setShowDialogMessageResult(true);
    };
 
     

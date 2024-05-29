@@ -20,8 +20,8 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
    const [status, setStatus] = useState([]);
    
    const [fieldsRequired, setFieldsRequired] = useState(false);
-   const [showDialogMessageResult, setShowDialogMessageResult] = useState(false);
    const [dialogMessageResult, setDialogMessageResult] = useState(null);
+   const [showDialogMessageResult, setShowDialogMessageResult] = useState(false);
 
 
    useEffect(function() {
@@ -69,7 +69,7 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
    async function handleSubmit(event) {
       event.preventDefault();
 
-      if (!formData.name || !formData.edition || !formData.duration || !formData.start || !formData.finish || !formData.teacher || !formData.status) {
+      if (!formData.name || !formData.edition || !formData.duration || !formData.start || !formData.finish || !formData.teacher || !formData.status || formData.teacher === "notanoption" || formData.status === "notanoption") {
          setFieldsRequired(true);
          return;
       };
@@ -80,8 +80,8 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
       setFieldsRequired(false);
 
       if (result.error === "WARNING") {
-         setShowDialogMessageResult(true);
          setDialogMessageResult("Same name and same edition number already exists!");
+         setShowDialogMessageResult(true);
 
       } else {
          setFormData({
@@ -97,8 +97,8 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
 
          setShowCreateDialog(false);
 
-         setShowDialogMessageResult(true);
          setDialogMessageResult("Course created with success!");
+         setShowDialogMessageResult(true);
       };
    };
 
@@ -193,7 +193,7 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
                            value={formData.teacher}
                            onChange={(event) => handleChange(event)}
                            >
-                              <option>select teacher</option>
+                              <option value="notanoption">select teacher</option>
                               {teachers
                                  .filter((teacher) => teacher.status_name === "Active")
                                  .map((teacher) =>
@@ -210,7 +210,7 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
                            value={formData.status}
                            onChange={(event) => handleChange(event)}
                            >
-                              <option>select status</option>
+                              <option value="notanoption">select status</option>
                               {status
                                  .filter((status) => status.description.includes("courses"))
                                  .map((status) =>

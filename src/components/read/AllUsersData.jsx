@@ -1,5 +1,8 @@
 import { Link } from "wouter";
 import { useState } from "react";
+
+import CreateUserForm from "../create/CreateUserForm";
+import UpdateUserForm from "../update/UpdateUserForm";
 import DeleteUserForm from "../delete/DeleteUserForm";
 
 
@@ -49,7 +52,7 @@ function AllUsersData({ allUsersInfo, userLoggedInInfo, cookieInfo }) {
                                  {item.email === cookieInfo.userEmail &&
                                     <button
                                        onClick={() => {
-                                          setSelectedUser(userLoggedInInfo);
+                                          setSelectedUser(item);
                                           setShowUpdateDialog(true);
                                        }}
                                     >
@@ -83,14 +86,16 @@ function AllUsersData({ allUsersInfo, userLoggedInInfo, cookieInfo }) {
                            </td>
 
                            <td>
-                              <button
-                                 onClick={() => {
-                                    setSelectedUser(userLoggedInInfo);
-                                    setShowUpdateDialog(true);
-                                 }}
-                              >
-                                 ✏️
-                              </button>
+                              {userLoggedInInfo.email === cookieInfo.userEmail &&
+                                 <button
+                                    onClick={() => {
+                                       setSelectedUser(userLoggedInInfo);
+                                       setShowUpdateDialog(true);
+                                    }}
+                                 >
+                                    ✏️
+                                 </button>
+                              }
                            </td>
                         </tr>
                      )
@@ -100,6 +105,11 @@ function AllUsersData({ allUsersInfo, userLoggedInInfo, cookieInfo }) {
 
             {cookieInfo.userCategory === "admin" &&
                <div>
+                  <CreateUserForm
+                     showCreateDialog={showCreateDialog}
+                     setShowCreateDialog={setShowCreateDialog}
+                  />
+
                   <DeleteUserForm
                      showDeleteDialog={showDeleteDialog}
                      setShowDeleteDialog={setShowDeleteDialog}
@@ -108,6 +118,13 @@ function AllUsersData({ allUsersInfo, userLoggedInInfo, cookieInfo }) {
                   />
                </div>
             }
+
+            <UpdateUserForm
+               showUpdateDialog={showUpdateDialog}
+               setShowUpdateDialog={setShowUpdateDialog}
+               selectedUser={selectedUser}
+               cookieInfo={cookieInfo}
+            />
          </div>
       </>
    );

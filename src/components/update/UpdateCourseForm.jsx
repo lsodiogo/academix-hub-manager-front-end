@@ -25,8 +25,8 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
    const [status, setStatus] = useState([]);
 
    const [fieldsRequired, setFieldsRequired] = useState(false);
-   const [showDialogMessageResult, setShowDialogMessageResult] = useState(false);
    const [dialogMessageResult, setDialogMessageResult] = useState(null);
+   const [showDialogMessageResult, setShowDialogMessageResult] = useState(false);
 
 
    useEffect(function() {
@@ -82,14 +82,14 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
       setFieldsRequired(false);
 
       if (result.error === "WARNING") {
-         setShowDialogMessageResult(true);
          setDialogMessageResult("Same name and same edition number already exists!");
+         setShowDialogMessageResult(true);
 
       } else {
          setShowUpdateDialog(false);
 
-         setShowDialogMessageResult(true);
          setDialogMessageResult("Course updated with success!");
+         setShowDialogMessageResult(true);
       };
    };
 

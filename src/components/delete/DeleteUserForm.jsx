@@ -1,4 +1,4 @@
-import { useState } from "react";
+/* import { useState } from "react"; */
 
 import apiService from "../../services/apiService";
 
@@ -10,8 +10,8 @@ function DeleteUserForm({ selectedUser, showDeleteDialog, setShowDeleteDialog, c
    };
 
 
-   const [showDialogMessageResult, setShowDialogMessageResult] = useState(false);
-   const [dialogMessageResult, setDialogMessageResult] = useState(null);
+   /* const [dialogMessageResult, setDialogMessageResult] = useState(null);
+   const [showDialogMessageResult, setShowDialogMessageResult] = useState(false); */
 
 
    async function handleDelete() {
@@ -21,13 +21,13 @@ function DeleteUserForm({ selectedUser, showDeleteDialog, setShowDeleteDialog, c
 
       setShowDeleteDialog(false);
 
-      setShowDialogMessageResult(true);
-      setDialogMessageResult("User deleted with success!");
+      /* setDialogMessageResult("User deleted with success!");
+      setShowDialogMessageResult(true); */
 
       if (selectedUser.email === cookieInfo.userEmail) {
          await apiService.fetchData("login/logout", "GET");
-
          window.location.href = "/";
+
       } else {
          window.location.reload();
       };
@@ -50,12 +50,12 @@ function DeleteUserForm({ selectedUser, showDeleteDialog, setShowDeleteDialog, c
             </dialog>
          )}
 
-         <dialog open={showDialogMessageResult}>
+         {/* <dialog open={showDialogMessageResult}>
             <div>
                <h2>{dialogMessageResult}</h2>
                <button onClick={() => setShowDialogMessageResult(false)}>OK</button>
             </div>
-         </dialog>
+         </dialog> */}
       </>
    );
 };

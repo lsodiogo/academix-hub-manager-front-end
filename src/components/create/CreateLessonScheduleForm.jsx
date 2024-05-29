@@ -18,8 +18,8 @@ function CreateLessonScheduleForm({ showCreateDialog, setShowCreateDialog }) {
    const [status, setStatus] = useState([]);
    
    const [fieldsRequired, setFieldsRequired] = useState(false);
-   const [showDialogMessageResult, setShowDialogMessageResult] = useState(false);
    const [dialogMessageResult, setDialogMessageResult] = useState(null);
+   const [showDialogMessageResult, setShowDialogMessageResult] = useState(false);
 
 
    useEffect(function() {
@@ -56,7 +56,7 @@ function CreateLessonScheduleForm({ showCreateDialog, setShowCreateDialog }) {
    async function handleSubmit(event) {
       event.preventDefault();
 
-      if (!formData.date || !formData.begin || !formData.end || !formData.course || !formData.status) {
+      if (!formData.date || !formData.begin || !formData.end || !formData.course || !formData.status || formData.course === "notanoption" || formData.status === "notanoption") {
          setFieldsRequired(true);
          return;
       };
@@ -67,8 +67,8 @@ function CreateLessonScheduleForm({ showCreateDialog, setShowCreateDialog }) {
       setFieldsRequired(false);
 
       if (result.error === "WARNING") {
-         setShowDialogMessageResult(true);
          setDialogMessageResult("Same date, same begin time, same end time and same course already exists!");
+         setShowDialogMessageResult(true);
 
       } else {
          setFormData({
@@ -82,8 +82,8 @@ function CreateLessonScheduleForm({ showCreateDialog, setShowCreateDialog }) {
    
          setShowCreateDialog(false);
    
-         setShowDialogMessageResult(true);
          setDialogMessageResult("Lesson schedule created with success!");
+         setShowDialogMessageResult(true);
       };
    };
 
@@ -150,7 +150,7 @@ function CreateLessonScheduleForm({ showCreateDialog, setShowCreateDialog }) {
                            value={formData.course}
                            onChange={(event) => handleChange(event)}
                            >
-                              <option>select course</option>
+                              <option value="notanoption">select course</option>
                               {courses
                                  .filter((course) => course.status_name === "Active")
                                  .map((course) =>
@@ -167,7 +167,7 @@ function CreateLessonScheduleForm({ showCreateDialog, setShowCreateDialog }) {
                            value={formData.status}
                            onChange={(event) => handleChange(event)}
                            >
-                              <option>select status</option>
+                              <option value="notanoption">select status</option>
                               {status
                                  .filter((status) => status.description.includes("lessons_schedule"))
                                  .map((status) =>

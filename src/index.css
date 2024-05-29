@@ -1,14 +1,19 @@
 .fieldsRequired {
    background-color: #F8D7DA;
-   line-height: 50px;
+   font-size: 15px;
+   margin-bottom: 15px;
+   padding: 10px;
    border-radius: 10px;
-   margin-bottom: 10px;
 }
 
 .instruction {
-   font-size: 12px;
-   color: #666;
-   margin-top: 5px;
+   color: #666666;
+   font-size: 15px;
+   margin: 5px;
+}
+
+.instruction span {
+   display: block;
 }
 
 .dialogScroll {

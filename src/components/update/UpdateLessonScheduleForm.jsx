@@ -24,8 +24,8 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
    const [status, setStatus] = useState([]);
    
    const [fieldsRequired, setFieldsRequired] = useState(false);
-   const [showDialogMessageResult, setShowDialogMessageResult] = useState(false);
    const [dialogMessageResult, setDialogMessageResult] = useState(null);
+   const [showDialogMessageResult, setShowDialogMessageResult] = useState(false);
 
 
    useEffect(function() {
@@ -72,14 +72,14 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
       setFieldsRequired(false);
 
       if (result.error === "WARNING") {
-         setShowDialogMessageResult(true);
          setDialogMessageResult("Same date, same begin time, same end time and same course already exists!");
+         setShowDialogMessageResult(true);
 
       } else {  
          setShowUpdateDialog(false);
    
-         setShowDialogMessageResult(true);
          setDialogMessageResult("Lesson schedule updated with success!");
+         setShowDialogMessageResult(true);
       };
    };
 

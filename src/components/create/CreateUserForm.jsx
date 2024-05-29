@@ -3,16 +3,16 @@ import { useEffect, useState } from "react";
 import apiService from "../../services/apiService";
 
 
-function UpdateUserForm({ selectedUser, showUpdateDialog, setShowUpdateDialog, cookieInfo }) {
-   
-   if (!selectedUser) {
-      return;
-   };
-
+function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
 
    const [formData, setFormData] = useState({
-      password: ""
+      email: "",
+      password: "",
+      category: ""
    });
+   
+   const [teachers, setTeachers] = useState([]);
+   const [students, setStudents] = useState([]);
    
    const [showPassword, setShowPassword] = useState(false);
    const [fieldsRequired, setFieldsRequired] = useState(false);
@@ -20,7 +20,7 @@ function UpdateUserForm({ selectedUser, showUpdateDialog, setShowUpdateDialog, c
    const [showDialogMessageResult, setShowDialogMessageResult] = useState(false);
 
 
-   /* useEffect(function() {
+   useEffect(function() {
       async function getDataToCheckTeacherStudentEmail() {
 
          const getTotalTeachers = await apiService.fetchData("teachers", "GET");
@@ -34,7 +34,7 @@ function UpdateUserForm({ selectedUser, showUpdateDialog, setShowUpdateDialog, c
          setStudents(resultStudents.results);
       };
       getDataToCheckTeacherStudentEmail();
-   }, []); */
+   }, []);
 
 
    function handleChange(event) {
@@ -84,11 +84,12 @@ function UpdateUserForm({ selectedUser, showUpdateDialog, setShowUpdateDialog, c
       return strength;
    };
 
+  
 
    async function handleSubmit(event) {
       event.preventDefault();
-
-      if (!formData.password) {
+      
+      if (!formData.email || !formData.password || !formData.category || formData.category === "notanoption") {
          setFieldsRequired(true);
          return;
       };
@@ -97,43 +98,74 @@ function UpdateUserForm({ selectedUser, showUpdateDialog, setShowUpdateDialog, c
       const strength = getPasswordStrength(formData.password);
 
       if (!strength.length || !strength.lowercase || !strength.uppercase || !strength.number || !strength.specialCharacter) {
-         setDialogMessageResult("Password must contain at least: 8 characters, one lowercase letter, one uppercase letter, one number and one special character.");
+         setDialogMessageResult("Password must be at least 8 characters, contain at least one lowercase letter, one uppercase letter, one number, and one special character.");
          setShowDialogMessageResult(true);
          return;
       }
 
+
+      const studentEmailExists = students.some(student => student.email === formData.email);
+      const teacherEmailExists = teachers.some(teacher => teacher.email === formData.email);
       
-      const result = await apiService.fetchData(`users/${selectedUser.id}`, "PUT", formData);
+      if (formData.category === "student" && !studentEmailExists) {
+         setFieldsRequired(false);
+
+         setDialogMessageResult("User you are trying to introduce is not yet registered as a student!");
+         setShowDialogMessageResult(true);
+         return;
+
+      } else if (formData.category === "teacher" && !teacherEmailExists) {
+         setFieldsRequired(false);
+
+         setDialogMessageResult("User you are trying to introduce is not yet registered as a teacher!");
+         setShowDialogMessageResult(true);
+         return;
+      };
+      
+
+      const result = await apiService.fetchData("users", "POST", formData);
       console.log(result);
 
       setFieldsRequired(false);
 
-      setFormData({
-         password: ""
-      });
-
-      setShowUpdateDialog(false);
-
-      /* setDialogMessageResult("User deleted with success!");
-      setShowDialogMessageResult(true); */
-
-      if (selectedUser.email === cookieInfo.userEmail) {
-         await apiService.fetchData("login/logout", "GET");
-         window.location.href = "/";
+      
+      if (result.error === "WARNING") {
+         setDialogMessageResult("User already exists!");
+         setShowDialogMessageResult(true);
 
       } else {
-         window.location.reload();
+         setFormData({
+            email: "",
+            password: "",
+            category: ""
+         });
+
+         setShowCreateDialog(false);
+
+         setDialogMessageResult("User created with success!");
+         setShowDialogMessageResult(true);
       };
    };
 
  
    return (
         <>
-            <dialog open={showUpdateDialog}>
+            <dialog open={showCreateDialog}>
                <div className="dialogScroll">
                   <form onSubmit={handleSubmit}>
                      <fieldset>
-                        <h2>Update user</h2>
+                        <h2>Create new user</h2>
+
+                        <label>
+                           Email *
+                           <input
+                              type="email"
+                              name="email"
+                              maxLength="255"
+                              value={formData.email}
+                              onChange={(event) => handleChange(event)}
+                           />
+                        </label>
 
                         <label>
                            Password *
@@ -173,6 +205,20 @@ function UpdateUserForm({ selectedUser, showUpdateDialog, setShowUpdateDialog, c
                            </div>
                         </label>
 
+                        <label>
+                           Category *
+                           <select
+                           name="category"
+                           value={formData.category}
+                           onChange={(event) => handleChange(event)}
+                           >
+                              <option value="notanoption">select category</option>
+                              <option value="admin">Admin</option>
+                              <option value="student">Student</option>
+                              <option value="teacher">Teacher</option>
+                           </select>
+                        </label>
+
                         {fieldsRequired &&
                            <div className="fieldsRequired">
                            * fields required!
@@ -181,9 +227,9 @@ function UpdateUserForm({ selectedUser, showUpdateDialog, setShowUpdateDialog, c
 
                         <div>
                            <button type="submit">
-                              UPDATE
+                              CREATE
                            </button>
-                           <button type="button" onClick={() => setShowUpdateDialog(false)}>
+                           <button type="button" onClick={() => setShowCreateDialog(false)}>
                               CANCEL
                            </button>
                         </div>
@@ -192,15 +238,15 @@ function UpdateUserForm({ selectedUser, showUpdateDialog, setShowUpdateDialog, c
                </div>
             </dialog>
 
-            {<dialog open={showDialogMessageResult}>
+            <dialog open={showDialogMessageResult}>
                <div>
                   <h2>{dialogMessageResult}</h2>
                   <button onClick={() => setShowDialogMessageResult(false)}>OK</button>
                </div>
-            </dialog>}
+            </dialog>
         </>
    );
 };
 
 
-export default UpdateUserForm;
+export default CreateUserForm;
