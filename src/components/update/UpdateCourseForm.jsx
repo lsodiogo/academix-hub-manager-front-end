@@ -18,8 +18,9 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
       finish: new Date(selectedCourse.end_date).toISOString().split('T')[0],
       description: selectedCourse.description !== null ? selectedCourse.description : "",
       teacher: selectedCourse.teacher_id,
-      status: selectedCourse.status_id,
+      status: selectedCourse.status_id
    });
+   const [result, setResult] = useState({});
 
    const [teachers, setTeachers] = useState([]);
    const [status, setStatus] = useState([]);
@@ -49,22 +50,10 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
    function handleChange(event) {
       event.preventDefault();
 
-      limitInputLength(document.getElementById("edition"), 5);
-      limitInputLength(document.getElementById("duration"), 4);
-
       const { name, value } = event.target;
       
       setFieldsRequired(false);
       setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
-   };
-
-
-   function limitInputLength(inputElement, maxLength) {
-      inputElement.addEventListener("input", function(event) {
-        if (event.target.value.length > maxLength) {
-            event.target.value = event.target.value.slice(0, maxLength);
-         };
-      });
    };
 
 
@@ -78,6 +67,7 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
       
       const result = await apiService.fetchData(`courses/${selectedCourse.id}`, "PUT", formData);
       console.log(result);
+      setResult(result);
 
       setFieldsRequired(false);
 
@@ -91,6 +81,20 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
          setDialogMessageResult("Course updated with success!");
          setShowDialogMessageResult(true);
       };
+   };
+
+
+   async function handleMessageResultButtonClick() {
+      setShowDialogMessageResult(false);
+      
+      if (result.error !== "WARNING") {
+         window.location.reload();
+      };
+   };
+
+
+   async function handleCancelClick() {
+      window.location.reload();
    };
 
  
@@ -113,7 +117,6 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
                                  value={formData.name}
                                  onChange={(event) => handleChange(event)}
                               />
-                              <p className="instruction">Max 255 characters</p>
                            </label>
 
                            <label>
@@ -122,12 +125,13 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
                                  placeholder="ex: 12345"
                                  type="number"
                                  name="edition"
-                                 id="edition"
                                  min="0"
                                  max="99999"
+                                 maxLength="5"
                                  value={formData.edition}
                                  onChange={(event) => handleChange(event)}
                               />
+                              <p className="instruction">Max 5 numbers</p>
                            </label>
 
                            <label>
@@ -136,12 +140,12 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
                                  placeholder="ex: 720"
                                  type="number"
                                  name="duration"
-                                 id="duration"
                                  min="0"
                                  max="9999"
                                  value={formData.duration}
                                  onChange={(event) => handleChange(event)}
                               />
+                              <p className="instruction">Max 4 numbers</p>
                            </label>
 
                            <label>
@@ -169,6 +173,7 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
                            <label>
                               Description
                               <input
+                                 placeholder="description"
                                  type="text"
                                  name="description"
                                  maxLength="255"
@@ -218,7 +223,7 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
                               <button type="submit">
                                  UPDATE
                               </button>
-                              <button type="button" onClick={() => setShowUpdateDialog(false)}>
+                              <button type="button" onClick={handleCancelClick}>
                                  CANCEL
                               </button>
                            </div>
@@ -231,7 +236,7 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
             <dialog open={showDialogMessageResult}>
                <div>
                   <h2>{dialogMessageResult}</h2>
-                  <button onClick={() => setShowDialogMessageResult(false)}>OK</button>
+                  <button type="button" onClick={handleMessageResultButtonClick}>OK</button>
                </div>
             </dialog>
         </>

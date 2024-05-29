@@ -10,10 +10,12 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
       password: "",
       category: ""
    });
+   const [result, setResult] = useState({});
    
    const [teachers, setTeachers] = useState([]);
    const [students, setStudents] = useState([]);
-   
+
+   const [passwordRepeated, setPasswordRepeated] =  useState("");
    const [showPassword, setShowPassword] = useState(false);
    const [fieldsRequired, setFieldsRequired] = useState(false);
    const [dialogMessageResult, setDialogMessageResult] = useState(null);
@@ -101,7 +103,14 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
          setDialogMessageResult("Password must be at least 8 characters, contain at least one lowercase letter, one uppercase letter, one number, and one special character.");
          setShowDialogMessageResult(true);
          return;
-      }
+      };
+
+      
+      if (formData.password !== passwordRepeated) {
+         setDialogMessageResult("Passwords do not match!");
+         setShowDialogMessageResult(true);
+         return;
+      };
 
 
       const studentEmailExists = students.some(student => student.email === formData.email);
@@ -125,6 +134,7 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
 
       const result = await apiService.fetchData("users", "POST", formData);
       console.log(result);
+      setResult(result);
 
       setFieldsRequired(false);
 
@@ -147,6 +157,20 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
       };
    };
 
+
+   async function handleMessageResultButtonClick() {
+      setShowDialogMessageResult(false);
+      
+      if (result.error !== "WARNING") {
+         window.location.reload();
+      };
+   };
+
+
+   async function handleCancelClick() {
+      window.location.reload();
+   };
+
  
    return (
         <>
@@ -159,6 +183,7 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
                         <label>
                            Email *
                            <input
+                              placeholder="email"
                               type="email"
                               name="email"
                               maxLength="255"
@@ -170,12 +195,22 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
                         <label>
                            Password *
                            <input
+                              placeholder="password"
                               type={showPassword ? "text" : "password"}
                               name="password"
                               minLength="8"
                               maxLength="18"
                               value={formData.password}
                               onChange={(event) => handleChange(event)}
+                           />
+                           <input
+                              placeholder="repeat password"
+                              type={showPassword ? "text" : "password"}
+                              name="passwordRepeated"
+                              minLength="8"
+                              maxLength="18"
+                              value={passwordRepeated}
+                              onChange={(event) => setPasswordRepeated(event.target.value)}
                            />
 
                            <div className="instruction">
@@ -229,7 +264,7 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
                            <button type="submit">
                               CREATE
                            </button>
-                           <button type="button" onClick={() => setShowCreateDialog(false)}>
+                           <button type="button" onClick={handleCancelClick}>
                               CANCEL
                            </button>
                         </div>
@@ -241,7 +276,7 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
             <dialog open={showDialogMessageResult}>
                <div>
                   <h2>{dialogMessageResult}</h2>
-                  <button onClick={() => setShowDialogMessageResult(false)}>OK</button>
+                  <button type="button" onClick={handleMessageResultButtonClick}>OK</button>
                </div>
             </dialog>
         </>

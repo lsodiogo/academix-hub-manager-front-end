@@ -25,6 +25,18 @@ function DeleteLessonScheduleForm({ selectedLessonSchedule, showDeleteDialog, se
       setShowDialogMessageResult(true);
    };
 
+   
+   async function handleMessageResultButtonClick() {
+      setShowDialogMessageResult(false);
+      
+      window.location.reload();
+   };
+
+
+   async function handleCancelClick() {
+      window.location.reload();
+   };
+
     
    return (
       <>
@@ -35,7 +47,7 @@ function DeleteLessonScheduleForm({ selectedLessonSchedule, showDeleteDialog, se
                   <button type="submit" onClick={handleDelete}>
                      CONFIRM
                   </button>
-                  <button type="button" onClick={() => setShowDeleteDialog(false)}>
+                  <button type="button" onClick={handleCancelClick}>
                      CANCEL
                   </button>
                </div>
@@ -45,7 +57,7 @@ function DeleteLessonScheduleForm({ selectedLessonSchedule, showDeleteDialog, se
          <dialog open={showDialogMessageResult}>
             <div>
                <h2>{dialogMessageResult}</h2>
-               <button onClick={() => setShowDialogMessageResult(false)}>OK</button>
+               <button type="button" onClick={handleMessageResultButtonClick}>OK</button>
             </div>
          </dialog>
       </>

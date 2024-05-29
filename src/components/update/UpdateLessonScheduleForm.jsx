@@ -19,6 +19,7 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
       course: selectedLessonSchedule.course_id,
       status: selectedLessonSchedule.status_id
    });
+   const [result, setResult] = useState({});
    
    const [courses, setCourses] = useState([]);
    const [status, setStatus] = useState([]);
@@ -68,6 +69,7 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
       
       const result = await apiService.fetchData(`lessons_schedule/${selectedLessonSchedule.id}`, "PUT", formData);
       console.log(result);
+      setResult(result);
 
       setFieldsRequired(false);
 
@@ -83,6 +85,20 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
       };
    };
 
+
+   async function handleMessageResultButtonClick() {
+      setShowDialogMessageResult(false);
+      
+      if (result.error !== "WARNING") {
+         window.location.reload();
+      };
+   };
+
+
+   async function handleCancelClick() {
+      window.location.reload();
+   };
+
  
    return (
         <>
@@ -90,7 +106,7 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
                <div className="dialogScroll">
                   <form onSubmit={handleSubmit}>
                      <fieldset>
-                        <h2>Update lesson schedule</h2>
+                        <h2>Update lesson schedule for {selectedLessonSchedule.course_name} -  {new Date(selectedLessonSchedule.date).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" })}</h2>
 
                         <label>
                            Date *
@@ -130,6 +146,7 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
                         <label>
                            Description
                            <input
+                              placeholder="description"
                               type="text"
                               name="description"
                               maxLength="255"
@@ -181,7 +198,7 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
                            <button type="submit">
                               UPDATE
                            </button>
-                           <button type="button" onClick={() => setShowUpdateDialog(false)}>
+                           <button type="button" onClick={handleCancelClick}>
                               CANCEL
                            </button>
                         </div>
@@ -193,7 +210,7 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
             <dialog open={showDialogMessageResult}>
                <div>
                   <h2>{dialogMessageResult}</h2>
-                  <button onClick={() => setShowDialogMessageResult(false)}>OK</button>
+                  <button type="button" onClick={handleMessageResultButtonClick}>OK</button>
                </div>
             </dialog>
         </>

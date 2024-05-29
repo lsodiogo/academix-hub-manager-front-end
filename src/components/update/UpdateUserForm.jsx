@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import apiService from "../../services/apiService";
 
@@ -14,27 +14,11 @@ function UpdateUserForm({ selectedUser, showUpdateDialog, setShowUpdateDialog, c
       password: ""
    });
    
+   const [passwordRepeated, setPasswordRepeated] =  useState("");
    const [showPassword, setShowPassword] = useState(false);
    const [fieldsRequired, setFieldsRequired] = useState(false);
    const [dialogMessageResult, setDialogMessageResult] = useState(null);
    const [showDialogMessageResult, setShowDialogMessageResult] = useState(false);
-
-
-   /* useEffect(function() {
-      async function getDataToCheckTeacherStudentEmail() {
-
-         const getTotalTeachers = await apiService.fetchData("teachers", "GET");
-         const resultTeachers = await apiService.fetchData(`teachers/?limit=${getTotalTeachers.totalItems}&offset=0`, "GET");
-
-         setTeachers(resultTeachers.results);
-
-         const getTotalStudents = await apiService.fetchData("students", "GET");
-         const resultStudents = await apiService.fetchData(`students/?limit=${getTotalStudents.totalItems}&offset=0`, "GET");
-
-         setStudents(resultStudents.results);
-      };
-      getDataToCheckTeacherStudentEmail();
-   }, []); */
 
 
    function handleChange(event) {
@@ -100,7 +84,14 @@ function UpdateUserForm({ selectedUser, showUpdateDialog, setShowUpdateDialog, c
          setDialogMessageResult("Password must contain at least: 8 characters, one lowercase letter, one uppercase letter, one number and one special character.");
          setShowDialogMessageResult(true);
          return;
-      }
+      };
+
+
+      if (formData.password !== passwordRepeated) {
+         setDialogMessageResult("Passwords do not match!");
+         setShowDialogMessageResult(true);
+         return;
+      };
 
       
       const result = await apiService.fetchData(`users/${selectedUser.id}`, "PUT", formData);
@@ -114,9 +105,14 @@ function UpdateUserForm({ selectedUser, showUpdateDialog, setShowUpdateDialog, c
 
       setShowUpdateDialog(false);
 
-      /* setDialogMessageResult("User deleted with success!");
-      setShowDialogMessageResult(true); */
+      setDialogMessageResult("Password updated with success! Please, login again.");
+      setShowDialogMessageResult(true);
+   };
 
+
+   async function handleMessageResultButtonClick() {
+      setShowDialogMessageResult(false);
+      
       if (selectedUser.email === cookieInfo.userEmail) {
          await apiService.fetchData("login/logout", "GET");
          window.location.href = "/";
@@ -126,6 +122,11 @@ function UpdateUserForm({ selectedUser, showUpdateDialog, setShowUpdateDialog, c
       };
    };
 
+
+   async function handleCancelClick() {
+      window.location.reload();
+   };
+
  
    return (
         <>
@@ -133,17 +134,27 @@ function UpdateUserForm({ selectedUser, showUpdateDialog, setShowUpdateDialog, c
                <div className="dialogScroll">
                   <form onSubmit={handleSubmit}>
                      <fieldset>
-                        <h2>Update user</h2>
+                        <h2>Update password</h2>
 
                         <label>
-                           Password *
+                           New Password *
                            <input
+                              placeholder="new password"
                               type={showPassword ? "text" : "password"}
                               name="password"
                               minLength="8"
                               maxLength="18"
                               value={formData.password}
                               onChange={(event) => handleChange(event)}
+                           />
+                           <input
+                              placeholder="repeat password"
+                              type={showPassword ? "text" : "password"}
+                              name="passwordRepeated"
+                              minLength="8"
+                              maxLength="18"
+                              value={passwordRepeated}
+                              onChange={(event) => setPasswordRepeated(event.target.value)}
                            />
 
                            <div className="instruction">
@@ -183,7 +194,7 @@ function UpdateUserForm({ selectedUser, showUpdateDialog, setShowUpdateDialog, c
                            <button type="submit">
                               UPDATE
                            </button>
-                           <button type="button" onClick={() => setShowUpdateDialog(false)}>
+                           <button type="button" onClick={handleCancelClick}>
                               CANCEL
                            </button>
                         </div>
@@ -195,7 +206,7 @@ function UpdateUserForm({ selectedUser, showUpdateDialog, setShowUpdateDialog, c
             {<dialog open={showDialogMessageResult}>
                <div>
                   <h2>{dialogMessageResult}</h2>
-                  <button onClick={() => setShowDialogMessageResult(false)}>OK</button>
+                  <button type="button" onClick={handleMessageResultButtonClick}>OK</button>
                </div>
             </dialog>}
         </>

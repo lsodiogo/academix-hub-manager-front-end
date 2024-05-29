@@ -15,6 +15,7 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
       teacher: "",
       status: ""
    });
+   const [result, setResult] = useState({});
    
    const [teachers, setTeachers] = useState([]);
    const [status, setStatus] = useState([]);
@@ -47,22 +48,10 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
    function handleChange(event) {
       event.preventDefault();
 
-      limitInputLength(document.getElementById("edition"), 5);
-      limitInputLength(document.getElementById("duration"), 4);
-
       const { name, value } = event.target;
 
       setFieldsRequired(false);
       setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
-   };
-
-   
-   function limitInputLength(inputElement, maxLength) {
-      inputElement.addEventListener("input", function(event) {
-        if (event.target.value.length > maxLength) {
-            event.target.value = event.target.value.slice(0, maxLength);
-         };
-      });
    };
 
 
@@ -76,6 +65,7 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
       
       const result = await apiService.fetchData("courses", "POST", formData);
       console.log(result);
+      setResult(result);
 
       setFieldsRequired(false);
 
@@ -102,6 +92,20 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
       };
    };
 
+
+   async function handleMessageResultButtonClick() {
+      setShowDialogMessageResult(false);
+      
+      if (result.error !== "WARNING") {
+         window.location.reload();
+      };
+   };
+
+
+   async function handleCancelClick() {
+      window.location.reload();
+   };
+
  
    return (
         <>
@@ -121,7 +125,6 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
                               value={formData.name}
                               onChange={(event) => handleChange(event)}
                            />
-                           <p className="instruction">Max 255 characters</p>
                         </label>
 
                         <label>
@@ -130,12 +133,13 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
                               placeholder="ex: 12345"
                               type="number"
                               name="edition"
-                              id="edition"
                               min="0"
                               max="99999"
+                              maxLength="5"
                               value={formData.edition}
                               onChange={(event) => handleChange(event)}
                            />
+                           <p className="instruction">Max 5 numbers</p>
                         </label>
 
                         <label>
@@ -144,12 +148,12 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
                               placeholder="ex: 720"
                               type="number"
                               name="duration"
-                              id="duration"
                               min="0"
                               max="9999"
                               value={formData.duration}
                               onChange={(event) => handleChange(event)}
                            />
+                           <p className="instruction">Max 4 numbers</p>
                         </label>
 
                         <label>
@@ -177,6 +181,7 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
                         <label>
                            Description
                            <input
+                              placeholder="description"
                               type="text"
                               name="description"
                               maxLength="255"
@@ -230,7 +235,7 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
                            <button type="submit">
                               CREATE
                            </button>
-                           <button type="button" onClick={() => setShowCreateDialog(false)}>
+                           <button type="button" onClick={handleCancelClick}>
                               CANCEL
                            </button>
                         </div>
@@ -242,7 +247,7 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
             <dialog open={showDialogMessageResult}>
                <div>
                   <h2>{dialogMessageResult}</h2>
-                  <button onClick={() => setShowDialogMessageResult(false)}>OK</button>
+                  <button type="button" onClick={handleMessageResultButtonClick}>OK</button>
                </div>
             </dialog>
         </>

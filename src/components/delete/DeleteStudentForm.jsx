@@ -3,9 +3,9 @@ import { useState } from "react";
 import apiService from "../../services/apiService";
 
 
-function DeleteUserForm({ selectedUser, showDeleteDialog, setShowDeleteDialog, cookieInfo }) {
+function DeleteStudentForm({ selectedStudent, showDeleteDialog, setShowDeleteDialog }) {
 
-   if (!selectedUser) {
+   if (!selectedStudent) {
       return;
    };
 
@@ -16,12 +16,12 @@ function DeleteUserForm({ selectedUser, showDeleteDialog, setShowDeleteDialog, c
 
    async function handleDelete() {
 
-      const result = await apiService.fetchData(`users/${selectedUser.id}`, "DELETE");
+      const result = await apiService.fetchData(`students/${selectedStudent.id}`, "DELETE");
       console.log(result);
 
       setShowDeleteDialog(false);
 
-      setDialogMessageResult("User deleted with success!");
+      setDialogMessageResult("Student deleted with success!");
       setShowDialogMessageResult(true);
    };
 
@@ -29,13 +29,7 @@ function DeleteUserForm({ selectedUser, showDeleteDialog, setShowDeleteDialog, c
    async function handleMessageResultButtonClick() {
       setShowDialogMessageResult(false);
       
-      if (selectedUser.email === cookieInfo.userEmail) {
-         await apiService.fetchData("login/logout", "GET");
-         window.location.href = "/";
-
-      } else {
-         window.location.reload();
-      };
+      window.location.reload();
    };
 
 
@@ -46,10 +40,10 @@ function DeleteUserForm({ selectedUser, showDeleteDialog, setShowDeleteDialog, c
     
    return (
       <>
-         {selectedUser && (
+         {selectedStudent && (
             <dialog open={showDeleteDialog}>
                <div>
-                  <h2>Are you sure you want to delete this user?</h2>
+                  <h2>Are you sure you want to delete this student?</h2>
                   <button type="submit" onClick={handleDelete}>
                      CONFIRM
                   </button>
@@ -60,15 +54,15 @@ function DeleteUserForm({ selectedUser, showDeleteDialog, setShowDeleteDialog, c
             </dialog>
          )}
 
-         {<dialog open={showDialogMessageResult}>
+         <dialog open={showDialogMessageResult}>
             <div>
                <h2>{dialogMessageResult}</h2>
                <button type="button" onClick={handleMessageResultButtonClick}>OK</button>
             </div>
-         </dialog>}
+         </dialog>
       </>
    );
 };
  
  
-export default DeleteUserForm;
+export default DeleteStudentForm;
