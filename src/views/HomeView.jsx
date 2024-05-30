@@ -57,28 +57,10 @@ function HomeView() {
    };
 
 
-   async function logoutPost(event) {
-    
-      event.preventDefault();
-
-      const result = await apiService.fetchData("login/logout", "GET");
-      console.log(result);
-      
-      if (result.error === "SUCCESS") {
-         setShowLoginForm(true);
-         
-         // To reset state variables
-         setEmail("");
-         setPassword("");
-         setRememberMe(false);
-      };
-   };
-
-
    return (
       <>
          {showLoginForm ? (
-            <div>
+            <div className="container">
                <LoginForm
                   email={email}
                   setEmail={setEmail}
@@ -90,8 +72,8 @@ function HomeView() {
                />
                
                {loginResult.error === "WARNING" &&
-                  <div>
-                     <p>{loginResult.error} {loginResult.message}</p>
+                  <div className="warning-message">
+                     <div>{loginResult.error}: {loginResult.message}</div>
                   </div>
                }
             </div>
@@ -102,10 +84,6 @@ function HomeView() {
                <NavigationTables
                   cookieInfo={cookieInfo}
                />
-
-               <div>
-                  <button onClick={logoutPost}>LOGOUT</button>
-               </div>
             </div>
          )}
       </>

@@ -102,7 +102,7 @@ function StudentsView({ pathParams }) {
       <>
          {userNotAuthorized ? (
             <div>
-               <p>{error.error} - {error.message}</p>
+               <div>{error.error} - {error.message}</div>
             </div>
             
          ) : (

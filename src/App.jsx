@@ -2,6 +2,7 @@ import { Route, Switch } from "wouter";
 
 import ScrollToTop from "./components/ScrollToTop";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import HomeView from "./views/HomeView";
 
 import CoursesView from "./views/CoursesView";
@@ -79,6 +80,8 @@ function App() {
         </Route>
 
       </Switch>
+
+      <Footer />
     </>
   );
 };

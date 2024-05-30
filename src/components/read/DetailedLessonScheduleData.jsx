@@ -17,21 +17,21 @@ function DetailedLessonScheduleData({ detailedLessonScheduleInfo, hideWhenDataNu
          <div>
             <h3>{formatDate(detailedLessonScheduleInfo.date)}</h3>
 
-            <p>BEGIN: {detailedLessonScheduleInfo.begin_time}</p>
+            <div>BEGIN: {detailedLessonScheduleInfo.begin_time}</div>
 
-            <p>END: {detailedLessonScheduleInfo.end_time}</p>
+            <div>END: {detailedLessonScheduleInfo.end_time}</div>
 
             {!hideWhenDataNull &&
-               <p>DESCRIPTION: {detailedLessonScheduleInfo.description}</p>
+               <div>DESCRIPTION: {detailedLessonScheduleInfo.description}</div>
             }
 
-            <p>COURSE:&nbsp;
+            <div>COURSE:&nbsp;
                <Link href={"/courses/" + detailedLessonScheduleInfo.course_id}>
                   {detailedLessonScheduleInfo.course_name}
                </Link>
-            </p>
+            </div>
             
-            <p>STATUS: {detailedLessonScheduleInfo.status_name}</p>
+            <div>STATUS: {detailedLessonScheduleInfo.status_name}</div>
          </div>
       </>
    );

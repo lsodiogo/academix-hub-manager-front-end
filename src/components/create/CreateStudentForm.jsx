@@ -175,7 +175,7 @@ function CreateStudentForm({ showCreateDialog, setShowCreateDialog }) {
                               value={formData.birthdate}
                               onChange={(event) => handleChange(event)}
                            />
-                           <p className="instruction">Student must be at least 16 years</p>
+                           <div className="instruction">Student must be at least 16 years</div>
                         </label>
 
                         <label>
@@ -211,7 +211,7 @@ function CreateStudentForm({ showCreateDialog, setShowCreateDialog }) {
                               value={formData.address}
                               onChange={(event) => handleChange(event)}
                            />
-                           <p className="instruction">Max 255 characters</p>
+                           <div className="instruction">Max 255 characters</div>
                         </label>
 
                         <label>
@@ -239,7 +239,7 @@ function CreateStudentForm({ showCreateDialog, setShowCreateDialog }) {
                                  )
                               }
                            </select>
-                           <p className="instruction">Only courses with active status</p>
+                           <div className="instruction">Only courses with active status</div>
                         </label>
 
                         <label>
@@ -253,7 +253,7 @@ function CreateStudentForm({ showCreateDialog, setShowCreateDialog }) {
                               value={formData.grade}
                               onChange={(event) => handleChange(event)}
                            />
-                           <p className="instruction">From 0 to 20</p>
+                           <div className="instruction">From 0 to 20</div>
                         </label>
 
                         <label>

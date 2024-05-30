@@ -185,7 +185,7 @@ function CreateLessonScheduleForm({ showCreateDialog, setShowCreateDialog }) {
                               value={formData.description}
                               onChange={(event) => handleChange(event)}
                            />
-                           <p className="instruction">Max 255 characters</p>
+                           <div className="instruction">Max 255 characters</div>
                         </label>
 
                         <label>
@@ -203,7 +203,7 @@ function CreateLessonScheduleForm({ showCreateDialog, setShowCreateDialog }) {
                                  )
                               }
                            </select>
-                           <p className="instruction">Only courses with active status</p>
+                           <div className="instruction">Only courses with active status</div>
                         </label>
 
                         <label>

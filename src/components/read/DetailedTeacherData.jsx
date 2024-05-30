@@ -14,17 +14,17 @@ function TeacherDetailedData({ detailedTeacherInfo }) {
          <div>
             <h3>{detailedTeacherInfo.name} {detailedTeacherInfo.surname}</h3>
 
-            <p>Birthdate: {formatDate(detailedTeacherInfo.birthdate)}</p>
+            <div>Birthdate: {formatDate(detailedTeacherInfo.birthdate)}</div>
 
-            <p>Email: {detailedTeacherInfo.email}</p>
+            <div>Email: {detailedTeacherInfo.email}</div>
 
-            <p>Phone: {detailedTeacherInfo.telef}</p>
+            <div>Phone: {detailedTeacherInfo.telef}</div>
 
-            <p>Address: {detailedTeacherInfo.address}</p>
+            <div>Address: {detailedTeacherInfo.address}</div>
 
-            <p>Started at: {formatDate(detailedTeacherInfo.started_at)}</p>
+            <div>Started at: {formatDate(detailedTeacherInfo.started_at)}</div>
 
-            <p>Status: {detailedTeacherInfo.status_name}</p>
+            <div>Status: {detailedTeacherInfo.status_name}</div>
          </div>
       </>
    );

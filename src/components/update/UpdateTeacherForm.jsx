@@ -154,7 +154,7 @@ function UpdateTeacherForm({ selectedTeacher, showUpdateDialog, setShowUpdateDia
                               value={formData.birthdate}
                               onChange={(event) => handleChange(event)}
                            />
-                           <p className="instruction">Teacher must be at least 18 years</p>
+                           <div className="instruction">Teacher must be at least 18 years</div>
                         </label>
 
                         <label>
@@ -190,7 +190,7 @@ function UpdateTeacherForm({ selectedTeacher, showUpdateDialog, setShowUpdateDia
                               value={formData.address}
                               onChange={(event) => handleChange(event)}
                            />
-                           <p className="instruction">Max 255 characters</p>
+                           <div className="instruction">Max 255 characters</div>
                         </label>
 
                         <label>

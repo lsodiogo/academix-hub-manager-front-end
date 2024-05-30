@@ -17,31 +17,31 @@ function StudentDetailedData({ detailedStudentInfo, hideWhenDataNull }) {
          <div>
             <h3>{detailedStudentInfo.name} {detailedStudentInfo.surname}</h3>
 
-            <p>Birthdate: {formatDate(detailedStudentInfo.birthdate)}</p>
+            <div>Birthdate: {formatDate(detailedStudentInfo.birthdate)}</div>
 
-            <p>Email: {detailedStudentInfo.email}</p>
+            <div>Email: {detailedStudentInfo.email}</div>
 
-            <p>Phone: {detailedStudentInfo.telef}</p>
+            <div>Phone: {detailedStudentInfo.telef}</div>
 
-            <p>Address: {detailedStudentInfo.address}</p>
+            <div>Address: {detailedStudentInfo.address}</div>
 
-            <p>Enrolled at: {formatDate(detailedStudentInfo.enrolled_at)}</p>
+            <div>Enrolled at: {formatDate(detailedStudentInfo.enrolled_at)}</div>
 
-            <p>Course:&nbsp;
+            <div>Course:&nbsp;
                <Link href={"/courses/" + detailedStudentInfo.course_id}>
                   {detailedStudentInfo.course_name}
                </Link>
-            </p>
+            </div>
 
             {!hideWhenDataNull &&
-               <p>Grade: {detailedStudentInfo.grade}</p>
+               <div>Grade: {detailedStudentInfo.grade}</div>
             }
 
             {!hideWhenDataNull &&
-               <p>Graduated at: {detailedStudentInfo.graduated_at}</p>
+               <div>Graduated at: {detailedStudentInfo.graduated_at}</div>
             }
 
-            <p>Status: {detailedStudentInfo.status_name}</p>
+            <div>Status: {detailedStudentInfo.status_name}</div>
          </div>
       </>
    );

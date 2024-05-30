@@ -200,7 +200,7 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
                               value={formData.address}
                               onChange={(event) => handleChange(event)}
                            />
-                           <p className="instruction">Max 255 characters</p>
+                           <div className="instruction">Max 255 characters</div>
                         </label>
 
                         <label>
@@ -227,7 +227,7 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
                                  )
                               }
                            </select>
-                           <p className="instruction">Only courses with active status</p>
+                           <div className="instruction">Only courses with active status</div>
                         </label>
 
                         <label>
@@ -241,7 +241,7 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
                               value={formData.grade}
                               onChange={(event) => handleChange(event)}
                            />
-                           <p className="instruction">From 0 to 20</p>
+                           <div className="instruction">From 0 to 20</div>
                         </label>
 
                         <label>

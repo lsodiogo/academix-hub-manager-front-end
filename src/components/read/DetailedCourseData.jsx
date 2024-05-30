@@ -25,19 +25,19 @@ function CourseDetailedData({ detailedCourseInfo, hideWhenDataNull, cookieInfo }
          <div>
             <h3>{detailedCourseInfo.name}</h3>
 
-            <p>Edition: {detailedCourseInfo.edition_number}</p>
+            <div>Edition: {detailedCourseInfo.edition_number}</div>
 
-            <p>Duration: {detailedCourseInfo.hours_duration}h</p>
+            <div>Duration: {detailedCourseInfo.hours_duration}h</div>
 
-            <p>Begin: {formatDate(detailedCourseInfo.begin_date)}</p>
+            <div>Begin: {formatDate(detailedCourseInfo.begin_date)}</div>
 
-            <p>End: {formatDate(detailedCourseInfo.end_date)}</p>
+            <div>End: {formatDate(detailedCourseInfo.end_date)}</div>
 
             {!hideWhenDataNull &&
-               <p>Description: {detailedCourseInfo.description}</p>
+               <div>Description: {detailedCourseInfo.description}</div>
             }
 
-            <p>Teacher:&nbsp;
+            <div>Teacher:&nbsp;
                {userCategoryCheck(detailedCourseInfo) ? (
                   <Link href={"/teachers/" + detailedCourseInfo.teacher_id}>
                      {detailedCourseInfo.teacher_name}
@@ -49,9 +49,9 @@ function CourseDetailedData({ detailedCourseInfo, hideWhenDataNull, cookieInfo }
                      {detailedCourseInfo.teacher_name}
                   </span>
                )}
-            </p>
+            </div>
             
-            <p>Status: {detailedCourseInfo.status_name}</p>
+            <div>Status: {detailedCourseInfo.status_name}</div>
          </div>
       </>
    );

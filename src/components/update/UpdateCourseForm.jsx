@@ -131,7 +131,7 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
                                  value={formData.edition}
                                  onChange={(event) => handleChange(event)}
                               />
-                              <p className="instruction">Max 5 numbers</p>
+                              <div className="instruction">Max 5 numbers</div>
                            </label>
 
                            <label>
@@ -145,7 +145,7 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
                                  value={formData.duration}
                                  onChange={(event) => handleChange(event)}
                               />
-                              <p className="instruction">Max 4 numbers</p>
+                              <div className="instruction">Max 4 numbers</div>
                            </label>
 
                            <label>
@@ -180,7 +180,7 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
                                  value={formData.description}
                                  onChange={(event) => handleChange(event)}
                               />
-                              <p className="instruction">Max 255 characters</p>
+                              <div className="instruction">Max 255 characters</div>
                            </label>
 
                            <label>
@@ -197,7 +197,7 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
                                     )
                                  }
                               </select>
-                              <p className="instruction">Only teachers with active status</p>
+                              <div className="instruction">Only teachers with active status</div>
                            </label>
 
                            <label>

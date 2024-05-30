@@ -3,11 +3,11 @@ function LoginForm({ email, setEmail, password, setPassword, rememberMe, setReme
    
    return (
       <>
-         <form onSubmit={loginPost}>
-            <fieldset className="grid">
-               <label>
+         <form className="login-form" onSubmit={loginPost}>
+            <fieldset className="input-field">
+               <label className="input-label">
                   Email
-                  <input
+                  <input className="input-text"
                      placeholder="email"
                      type="email"
                      name="email"
@@ -17,9 +17,9 @@ function LoginForm({ email, setEmail, password, setPassword, rememberMe, setReme
                   />
                </label>
 
-               <label>
+               <label className="input-label">
                   Password
-                  <input
+                  <input className="input-text"
                      placeholder="password"
                      type="password"
                      name="password"
@@ -31,19 +31,19 @@ function LoginForm({ email, setEmail, password, setPassword, rememberMe, setReme
             </fieldset>
 
             <fieldset>
-               <label>
-                  <input
+               <label className="input-label">
+                  Remember me
+                  <input className="checkbox"
                      type="checkbox"
                      role="switch"
                      name="remember"
                      checked={rememberMe}
                      onChange={(event) => setRememberMe(event.target.checked)}
                   />
-                  Remember me
                </label>
 
                <label>
-                  <button type="submit">
+                  <button className="submit-button" type="submit">
                      LOGIN
                   </button>
                </label>
