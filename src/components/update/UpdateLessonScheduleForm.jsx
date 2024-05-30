@@ -169,6 +169,7 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
                                  )
                               }
                            </select>
+                           <p className="instruction">Only courses with active status</p>
                         </label>
 
                         <label>

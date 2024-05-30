@@ -206,6 +206,7 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
                                  )
                               }
                            </select>
+                           <p className="instruction">Only teachers with active status</p>
                         </label>
 
                         <label>

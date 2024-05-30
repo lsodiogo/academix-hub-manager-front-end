@@ -16,6 +16,7 @@ function StudentsView({ pathParams }) {
       nextPage: true,
       lastPage: true
    });
+   const [showPaginationButtons, setshowPaginationButtons] = useState(true);
 
    const [cookieInfo, setCookieInfo] = useState({});
    const [allStudentsInfo, setAllStudentsInfo] = useState([]);
@@ -99,38 +100,41 @@ function StudentsView({ pathParams }) {
 
    return (
       <>
-         {userNotAuthorized ? 
-            (<div>
+         {userNotAuthorized ? (
+            <div>
                <p>{error.error} - {error.message}</p>
-            </div>)
+            </div>
             
-            :
+         ) : (
             
-            (<div>
-               {pathParams ?
-                  (<DetailedStudentData
+            <div>
+               {pathParams ? (
+                  <DetailedStudentData
                      detailedStudentInfo={detailedStudentInfo}
                      hideWhenDataNull={hideWhenDataNull}
-                  />)
+                  />
             
-                  :
+               ) : (
                   
-                  (<div>
+                  <div>
                      <AllStudentsData
                         allStudentsInfo={allStudentsInfo}
                         cookieInfo={cookieInfo}
+                        setshowPaginationButtons={setshowPaginationButtons}
                      />
 
-                     <PaginationButtons
-                        handlePageChange={handlePageChange}
-                        paginationLinks={paginationLinks}
-                        paginationButtons={paginationButtons}
-                        handlePerPageLimit={handlePerPageLimit}
-                     />
-                  </div>)
-               }
-            </div>)
-         }
+                     {showPaginationButtons && 
+                        <PaginationButtons
+                           handlePageChange={handlePageChange}
+                           paginationLinks={paginationLinks}
+                           paginationButtons={paginationButtons}
+                           handlePerPageLimit={handlePerPageLimit}
+                        />
+                     }
+                  </div>
+               )}
+            </div>
+         )}
       </>
    );
 };

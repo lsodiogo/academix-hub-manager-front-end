@@ -1,12 +1,14 @@
 import { Link } from "wouter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import apiService from "../../services/apiService";
 
 import CreateStudentForm from "../create/CreateStudentForm";
 import UpdateStudentForm from "../update/UpdateStudentForm";
 import DeleteStudentForm from "../delete/DeleteStudentForm";
 
 
-function AllStudentsData({ allStudentsInfo, cookieInfo }) {
+function AllStudentsData({ allStudentsInfo, cookieInfo, setshowPaginationButtons }) {
    
    const [showCreateDialog, setShowCreateDialog] = useState(false);
    const [showUpdateDialog, setShowUpdateDialog] = useState(false);
@@ -22,16 +24,62 @@ function AllStudentsData({ allStudentsInfo, cookieInfo }) {
       };
    };
 
+
+   const [students, setStudents] = useState([]);
+   const [searchTerm, setSearchTerm] = useState("");
+   const [searchResults, setSearchResults] = useState([]);
+
+   useEffect(function() {
+      async function getAllStudentsWithNoPaginationForSearchBar() {
+
+         const getTotalStudents = await apiService.fetchData("students", "GET");
+         const resultStudents = await apiService.fetchData(`students/?limit=${getTotalStudents.totalItems}&offset=0`, "GET");
+
+         setStudents(resultStudents.results);
+      };
+      getAllStudentsWithNoPaginationForSearchBar();
+   }, []);
+
+   useEffect(function() {
+      const results = students.filter((item) =>
+         item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+         item.surname.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+
+      setSearchResults(results);
+   }, [students, searchTerm]);
+
+   function handleSearch(event) {
+      const inputValue = event.target.value.trim();
+
+      if (inputValue !== "") {
+         setSearchTerm(inputValue);
+         setshowPaginationButtons(false);
+      } else {
+         setSearchTerm("");
+         setshowPaginationButtons(true);
+      };
+   };
+
    
    return (
       <>
-         <h2>STUDENTS</h2>
+         <div className="grid">
+            <h2>STUDENTS</h2>
 
-         {cookieInfo.userCategory === "admin" &&
-            <button onClick={() => setShowCreateDialog(true)}>
-               ADD NEW
-            </button>
-         }
+            {cookieInfo.userCategory === "admin" &&
+               <button onClick={() => setShowCreateDialog(true)}>
+                  ADD NEW
+               </button>
+            }
+
+            <input
+               type="text"
+               placeholder="Search..."
+               value={searchTerm}
+               onChange={(event) => handleSearch(event)}
+            />
+         </div>
 
          <div>
             <table>
@@ -46,59 +94,125 @@ function AllStudentsData({ allStudentsInfo, cookieInfo }) {
                   </tr>
                </thead>
                
-               <tbody>
-                  {allStudentsInfo.map(item =>
-                     <tr key={item.id}>
-                        <td>
-                           {userCategoryCheck(item) ?
-                              (<Link href={"/students/" + item.id}>
-                                 {item.name} {item.surname}
-                              </Link>)
+               {searchTerm ? (
+                  <tbody>
+                     {searchResults.length === 0 ? (
+                        <tr>
+                           <td colSpan={4}>No results found for {searchTerm}</td>
+                        </tr>
 
-                              :
+                     ) : (
 
-                              (<span>
-                                 {item.name} {item.surname}
-                              </span>)
-                           }
-                        </td>
+                        searchResults.map(item =>
+                           <tr key={item.id}>
+                              <td>
+                                 {userCategoryCheck(item) ? (
+                                    <Link href={"/students/" + item.id}>
+                                       {item.name} {item.surname}
+                                    </Link>
 
-                        <td>
-                           <Link href={"/courses/" + item.course_id}>
-                              {item.course_name}
-                           </Link>
-                        </td>
+                                 ) : (
 
-                        <td>
-                           {item.status_name}
-                        </td>
-                        
-                        {cookieInfo.userCategory === "admin" &&
+                                    <span>
+                                       {item.name} {item.surname}
+                                    </span>
+                                 )}
+                              </td>
+
+                              <td>
+                                 <Link href={"/courses/" + item.course_id}>
+                                    {item.course_name}
+                                 </Link>
+                              </td>
+
+                              <td>
+                                 {item.status_name}
+                              </td>
+                              
+                              {cookieInfo.userCategory === "admin" &&
+                                 <td>
+                                    <button
+                                       onClick={() => {
+                                          setSelectedStudent(item);
+                                          setShowUpdateDialog(true);
+                                       }}
+                                    >
+                                       ✏️
+                                    </button>
+                                    
+                                    &nbsp;
+                                    
+                                    <button
+                                       onClick={() => {
+                                          setSelectedStudent(item);
+                                          setShowDeleteDialog(true);
+                                       }}
+                                    >
+                                       ❌
+                                    </button>
+                                 </td>
+                              }
+                           </tr>
+                        )
+                     )}
+                  </tbody>
+
+               ) : (
+
+                  <tbody>
+                     {allStudentsInfo.map(item =>
+                        <tr key={item.id}>
                            <td>
-                              <button
-                                 onClick={() => {
-                                    setSelectedStudent(item);
-                                    setShowUpdateDialog(true);
-                                 }}
-                              >
-                                 ✏️
-                              </button>
-                              
-                              &nbsp;
-                              
-                              <button
-                                 onClick={() => {
-                                    setSelectedStudent(item);
-                                    setShowDeleteDialog(true);
-                                 }}
-                              >
-                                 ❌
-                              </button>
+                              {userCategoryCheck(item) ? (
+                                 <Link href={"/students/" + item.id}>
+                                    {item.name} {item.surname}
+                                 </Link>
+
+                              ) : (
+
+                                 <span>
+                                    {item.name} {item.surname}
+                                 </span>
+                              )}
                            </td>
-                        }
-                     </tr>
-                  )}
-               </tbody>
+
+                           <td>
+                              <Link href={"/courses/" + item.course_id}>
+                                 {item.course_name}
+                              </Link>
+                           </td>
+
+                           <td>
+                              {item.status_name}
+                           </td>
+                           
+                           {cookieInfo.userCategory === "admin" &&
+                              <td>
+                                 <button
+                                    onClick={() => {
+                                       setSelectedStudent(item);
+                                       setShowUpdateDialog(true);
+                                    }}
+                                 >
+                                    ✏️
+                                 </button>
+                                 
+                                 &nbsp;
+                                 
+                                 <button
+                                    onClick={() => {
+                                       setSelectedStudent(item);
+                                       setShowDeleteDialog(true);
+                                    }}
+                                 >
+                                    ❌
+                                 </button>
+                              </td>
+                           }
+                        </tr>
+                     )}
+                  </tbody>
+               )}
             </table>
 
             {cookieInfo.userCategory === "admin" &&

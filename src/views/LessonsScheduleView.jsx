@@ -16,6 +16,7 @@ function LessonsScheduleView({ pathParams }) {
       nextPage: true,
       lastPage: true
    });
+   const [showPaginationButtons, setshowPaginationButtons] = useState(true);
 
    const [cookieInfo, setCookieInfo] = useState({});
 
@@ -100,38 +101,41 @@ function LessonsScheduleView({ pathParams }) {
 
    return (
       <>
-         {userNotAuthorized ? 
-            (<div>
+         {userNotAuthorized ? (
+            <div>
                <p>{error.error} - {error.message}</p>
-            </div>)
+            </div>
             
-            :
+         ) : (
             
-            (<div>
-               {pathParams ?
-                  (<DetailedLessonScheduleData
+            <div>
+               {pathParams ? (
+                  <DetailedLessonScheduleData
                      detailedLessonScheduleInfo={detailedLessonScheduleInfo}
                      hideWhenDataNull={hideWhenDataNull}
-                  />)
+                  />
             
-                  :
+               ) : (
                   
-                  (<div>
+                  <div>
                      <AllLessonsScheduleData
                         allLessonsScheduleInfo={allLessonsScheduleInfo}
                         cookieInfo={cookieInfo}
+                        setshowPaginationButtons={setshowPaginationButtons}
                      />
 
-                     <PaginationButtons
-                        handlePageChange={handlePageChange}
-                        paginationLinks={paginationLinks}
-                        paginationButtons={paginationButtons}
-                        handlePerPageLimit={handlePerPageLimit}
-                     />
-                  </div>)
-               }
-            </div>)
-         }
+                     {showPaginationButtons && 
+                        <PaginationButtons
+                           handlePageChange={handlePageChange}
+                           paginationLinks={paginationLinks}
+                           paginationButtons={paginationButtons}
+                           handlePerPageLimit={handlePerPageLimit}
+                        />
+                     }
+                  </div>
+               )}
+            </div>
+         )}
       </>
    );
 };

@@ -203,6 +203,7 @@ function CreateLessonScheduleForm({ showCreateDialog, setShowCreateDialog }) {
                                  )
                               }
                            </select>
+                           <p className="instruction">Only courses with active status</p>
                         </label>
 
                         <label>

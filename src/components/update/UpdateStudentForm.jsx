@@ -227,6 +227,7 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
                                  )
                               }
                            </select>
+                           <p className="instruction">Only courses with active status</p>
                         </label>
 
                         <label>
@@ -240,6 +241,7 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
                               value={formData.grade}
                               onChange={(event) => handleChange(event)}
                            />
+                           <p className="instruction">From 0 to 20</p>
                         </label>
 
                         <label>

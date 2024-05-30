@@ -239,6 +239,7 @@ function CreateStudentForm({ showCreateDialog, setShowCreateDialog }) {
                                  )
                               }
                            </select>
+                           <p className="instruction">Only courses with active status</p>
                         </label>
 
                         <label>
@@ -252,6 +253,7 @@ function CreateStudentForm({ showCreateDialog, setShowCreateDialog }) {
                               value={formData.grade}
                               onChange={(event) => handleChange(event)}
                            />
+                           <p className="instruction">From 0 to 20</p>
                         </label>
 
                         <label>

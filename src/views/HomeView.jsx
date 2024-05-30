@@ -77,8 +77,8 @@ function HomeView() {
 
    return (
       <>
-         {showLoginForm ? 
-            (<div>
+         {showLoginForm ? (
+            <div>
                <LoginForm
                   email={email}
                   setEmail={setEmail}
@@ -94,11 +94,11 @@ function HomeView() {
                      <p>{loginResult.error} {loginResult.message}</p>
                   </div>
                }
-            </div>)
+            </div>
 
-            :
+         ) : (
 
-            (<div>
+            <div>
                <NavigationTables
                   cookieInfo={cookieInfo}
                />
@@ -106,8 +106,8 @@ function HomeView() {
                <div>
                   <button onClick={logoutPost}>LOGOUT</button>
                </div>
-            </div>)
-         }
+            </div>
+         )}
       </>
    );
 };

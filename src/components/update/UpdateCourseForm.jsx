@@ -197,6 +197,7 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
                                     )
                                  }
                               </select>
+                              <p className="instruction">Only teachers with active status</p>
                            </label>
 
                            <label>

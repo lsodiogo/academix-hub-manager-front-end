@@ -97,26 +97,27 @@ function UsersView({ pathParams }) {
 
    return (
       <>
-         {userNotAuthorized ? 
-            (<div>
+         {userNotAuthorized ? (
+            <div>
                <p>{error.error} - {error.message}</p>
-            </div>)
+            </div>
             
-            :
+         ) : (
             
-            (<div>
-               {pathParams ?
-                  (<DetailedUserData
+            <div>
+               {pathParams ? (
+                  <DetailedUserData
                      detailedUserInfo={detailedUserInfo}
-                  />)
+                  />
             
-                  :
+               ) : (
                   
-                  (<div>
+                  <div>
                      <AllUsersData
                         allUsersInfo={allUsersInfo}
                         userLoggedInInfo={userLoggedInInfo}
                         cookieInfo={cookieInfo}
+                        setshowPaginationButtons={setshowPaginationButtons}
                      />
 
                      {showPaginationButtons && 
@@ -127,10 +128,10 @@ function UsersView({ pathParams }) {
                            handlePerPageLimit={handlePerPageLimit}
                         />
                      }
-                  </div>)
-               }
-            </div>)
-         }
+                  </div>
+               )}
+            </div>
+         )}
       </>
    );
 };

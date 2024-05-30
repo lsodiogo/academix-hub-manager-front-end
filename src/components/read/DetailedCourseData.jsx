@@ -38,17 +38,17 @@ function CourseDetailedData({ detailedCourseInfo, hideWhenDataNull, cookieInfo }
             }
 
             <p>Teacher:&nbsp;
-               {userCategoryCheck(detailedCourseInfo) ?
-                  (<Link href={"/teachers/" + detailedCourseInfo.teacher_id}>
+               {userCategoryCheck(detailedCourseInfo) ? (
+                  <Link href={"/teachers/" + detailedCourseInfo.teacher_id}>
                      {detailedCourseInfo.teacher_name}
-                  </Link>)
+                  </Link>
                   
-                  :
+               ) : (
                   
-                  (<span>
+                  <span>
                      {detailedCourseInfo.teacher_name}
-                  </span>)
-               }
+                  </span>
+               )}
             </p>
             
             <p>Status: {detailedCourseInfo.status_name}</p>

@@ -72,14 +72,14 @@ function BacklogView() {
 
    return (
       <>
-         {userNotAuthorized ? 
-            (<div>
+         {userNotAuthorized ? (
+            <div>
                <p>{error.error} - {error.message}</p>
-            </div>)
+            </div>
 
-            :
+         ) : (
          
-            (<div>
+            <div>
                <AllBacklogData
                   allBacklogInfo = {allBacklogInfo}
                />
@@ -90,8 +90,8 @@ function BacklogView() {
                   paginationButtons = {paginationButtons}
                   handlePerPageLimit = {handlePerPageLimit}
                />
-            </div>)
-         }
+            </div>
+         )}
       </>
    );
 };

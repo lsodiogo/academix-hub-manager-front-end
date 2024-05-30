@@ -16,6 +16,7 @@ function CoursesView({ pathParams }) {
       nextPage: true,
       lastPage: true
    });
+   const [showPaginationButtons, setshowPaginationButtons] = useState(true);
 
    const [cookieInfo, setCookieInfo] = useState({});
   
@@ -113,39 +114,42 @@ function CoursesView({ pathParams }) {
 
    return (
       <>
-         {userNotAuthorized ? 
-            (<div>
+         {userNotAuthorized ? (
+            <div>
                <p>{error.error} - {error.message}</p>
-            </div>)
+            </div>
             
-            :
+         ) : (
             
-            (<div>
-               {pathParams ?
-                  (<DetailedCourseData
+            <div>
+               {pathParams ? (
+                  <DetailedCourseData
                      detailedCourseInfo={detailedCourseInfo}
                      hideWhenDataNull={hideWhenDataNull}
                      cookieInfo={cookieInfo}
-                   />)
+                   />
             
-                  :
+               ) : (
                   
-                  (<div>
+                  <div>
                      <AllCoursesData
                         allCoursesInfo={allCoursesInfo}
                         cookieInfo={cookieInfo}
+                        setshowPaginationButtons={setshowPaginationButtons}
                      />
 
-                     <PaginationButtons
-                        handlePageChange={handlePageChange}
-                        paginationLinks={paginationLinks}
-                        paginationButtons={paginationButtons}
-                        handlePerPageLimit={handlePerPageLimit}
-                     />
-                  </div>)
-               }
-            </div>)
-         }
+                     {showPaginationButtons && 
+                        <PaginationButtons
+                           handlePageChange={handlePageChange}
+                           paginationLinks={paginationLinks}
+                           paginationButtons={paginationButtons}
+                           handlePerPageLimit={handlePerPageLimit}
+                        />
+                     }
+                  </div>
+               )}
+            </div>
+         )}
       </>
    );
 };
