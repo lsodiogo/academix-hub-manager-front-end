@@ -26,14 +26,15 @@ function BacklogView() {
          const result = await apiService.fetchData("backlog", "GET");
          console.log(result);
          
-         if (result.error === "WARNING") {
+         if (result.type === "WARNING") {
             setUserNotAuthorized(true);
             setError(result);
-         };
 
-         setAllBacklogInfo(result.results);
-         setPaginationLinks(result.paginationLinksAccess);
-         showPageButton(result.paginationLinksAccess);
+         } else {
+            setAllBacklogInfo(result.results);
+            setPaginationLinks(result.paginationLinksAccess);
+            showPageButton(result.paginationLinksAccess);
+         };
       };
       getAllData();
    }, []);
@@ -43,6 +44,11 @@ function BacklogView() {
 
       const result = await apiService.fetchData(paginationUrl, "GET");
       console.log(result);
+
+      if (result.type === "WARNING") {
+         setUserNotAuthorized(true);
+         setError(result);
+      };
       
       setAllBacklogInfo(result.results);
       setPaginationLinks(result.paginationLinksAccess);
@@ -73,8 +79,8 @@ function BacklogView() {
    return (
       <>
          {userNotAuthorized ? (
-            <div>
-               <div>{error.error} - {error.message}</div>
+            <div className="warning-message">
+               <div>{error.type}: {error.message}</div>
             </div>
 
          ) : (

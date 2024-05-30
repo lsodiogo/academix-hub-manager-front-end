@@ -40,12 +40,12 @@ function LessonsScheduleView({ pathParams }) {
             const result = await apiService.fetchData(`lessons_schedule/${pathParams}`, "GET");
             console.log(result);
 
-            if (result.error === "WARNING") {
+            if (result.type === "WARNING") {
                setUserNotAuthorized(true);
                setError(result);
+            } else {
+               setDetailedLessonScheduleInfo(result);
             };
-
-            setDetailedLessonScheduleInfo(result);
 
             if (!result.description) {
                setHideWhenDataNull(true);
@@ -56,14 +56,15 @@ function LessonsScheduleView({ pathParams }) {
             const result = await apiService.fetchData("lessons_schedule", "GET");
             console.log(result);
 
-            if (result.error === "WARNING") {
+            if (result.type === "WARNING") {
                setUserNotAuthorized(true);
                setError(result);
+            
+            } else {
+               setAllLessonsScheduleInfo(result.results);
+               setPaginationLinks(result.paginationLinksAccess);
+               showPageButton(result.paginationLinksAccess);
             };
-
-            setAllLessonsScheduleInfo(result.results);
-            setPaginationLinks(result.paginationLinksAccess);
-            showPageButton(result.paginationLinksAccess);
          };
       };
       checkLoginAndGetData();
@@ -74,9 +75,15 @@ function LessonsScheduleView({ pathParams }) {
          const result = await apiService.fetchData(paginationUrl, "GET");
          console.log(result);
 
-         setAllLessonsScheduleInfo(result.results);
-         setPaginationLinks(result.paginationLinksAccess);
-         showPageButton(result.paginationLinksAccess);
+         if (result.type === "WARNING") {
+            setUserNotAuthorized(true);
+            setError(result);
+         
+         } else {
+            setAllLessonsScheduleInfo(result.results);
+            setPaginationLinks(result.paginationLinksAccess);
+            showPageButton(result.paginationLinksAccess);
+         };
       };
 
 
@@ -102,8 +109,8 @@ function LessonsScheduleView({ pathParams }) {
    return (
       <>
          {userNotAuthorized ? (
-            <div>
-               <div>{error.error} - {error.message}</div>
+            <div className="warning-message">
+               <div>{error.type}: {error.message}</div>
             </div>
             
          ) : (

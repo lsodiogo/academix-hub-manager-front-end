@@ -2,8 +2,8 @@ import { Route, Switch } from "wouter";
 
 import ScrollToTop from "./components/ScrollToTop";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
 import HomeView from "./views/HomeView";
+import NavigationTables from "./components/NavigationTables";
 
 import CoursesView from "./views/CoursesView";
 import LessonsScheduleView from "./views/LessonsScheduleView";
@@ -13,6 +13,7 @@ import UsersView from "./views/UsersView";
 import BacklogView from "./views/BacklogView";
 
 import NotFoundView from "./views/PageNotFoundView";
+import Footer from "./components/Footer";
 
 import "@picocss/pico";
 
@@ -24,6 +25,8 @@ function App() {
       <ScrollToTop />
 
       <Header />
+
+      <NavigationTables />
       
       <Switch>
 

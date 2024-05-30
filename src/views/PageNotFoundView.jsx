@@ -6,9 +6,8 @@ function PageNotFoundView() {
     
     return (
         <>
-            <div>
-                <h2>PAGE NOT FOUND</h2>
-
+            <div className="notFoundContainer">
+                <div>PAGE NOT FOUND</div>
                 <Link href="/">
                   <span>go back home</span>
                 </Link>

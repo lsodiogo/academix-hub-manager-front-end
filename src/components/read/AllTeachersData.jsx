@@ -17,7 +17,7 @@ function AllTeachersData({ allTeachersInfo, cookieInfo, setshowPaginationButtons
    
 
    function userCategoryCheck(item) {
-      if (cookieInfo.userCategory === "admin" || (cookieInfo.userCategory === "teacher" && cookieInfo.userEmail === item.email)) {
+      if (cookieInfo.userCategory === "admin" || cookieInfo.userCategory === "teacher") {
          return true;
       } else {
          return false;
@@ -64,31 +64,32 @@ function AllTeachersData({ allTeachersInfo, cookieInfo, setshowPaginationButtons
    
    return (
       <>
-         <div className="grid">
-            <h2>TEACHERS</h2>
-
-            {cookieInfo.userCategory === "admin" &&
-               <button onClick={() => setShowCreateDialog(true)}>
-                  ADD NEW
-               </button>
-            }
-
+         <div className="table-top">
             <input
                type="text"
                placeholder="Search..."
                value={searchTerm}
                onChange={(event) => handleSearch(event)}
             />
+
+            {cookieInfo.userCategory === "admin" &&
+               <button onClick={() => setShowCreateDialog(true)}>
+                  <span>ADD NEW</span>
+                  <img src="./images/add-user.svg" alt="add-user-icon"/>
+               </button>
+            }
          </div>
 
-         <div>
+         <div className="table-container">
             <table>
+               <caption>TEACHERS</caption>
+
                <thead>
                   <tr>
                      <th>NAME</th>
                      <th>STATUS</th>
                      {cookieInfo.userCategory === "admin" &&
-                        <th></th>
+                        <th>ACTIONS</th>
                      }
                   </tr>
                </thead>
@@ -97,7 +98,7 @@ function AllTeachersData({ allTeachersInfo, cookieInfo, setshowPaginationButtons
                   <tbody>
                      {searchResults.length === 0 ? (
                         <tr>
-                           <td colSpan={4}>No results found for {searchTerm}</td>
+                           <td colSpan={3}>No results found for {searchTerm}</td>
                         </tr>
 
                      ) : (
@@ -124,24 +125,22 @@ function AllTeachersData({ allTeachersInfo, cookieInfo, setshowPaginationButtons
 
                               {cookieInfo.userCategory === "admin" &&
                                  <td>
-                                    <button
+                                    <button className="update-button"
                                        onClick={() => {
                                           setSelectedTeacher(item);
                                           setShowUpdateDialog(true);
                                        }}
                                     >
-                                       ✏️
+                                       <img src="./images/update.svg" alt="update-icon"/>
                                     </button>
                                     
-                                    &nbsp;
-                                    
-                                    <button
+                                    <button  className="delete-button"
                                        onClick={() => {
                                           setSelectedTeacher(item);
                                           setShowDeleteDialog(true);
                                        }}
                                     >
-                                       ❌
+                                       <img src="./images/delete.svg" alt="delete-icon"/>
                                     </button>
                                  </td>
                               }
@@ -175,24 +174,22 @@ function AllTeachersData({ allTeachersInfo, cookieInfo, setshowPaginationButtons
 
                            {cookieInfo.userCategory === "admin" &&
                               <td>
-                                 <button
+                                 <button className="update-button"
                                     onClick={() => {
                                        setSelectedTeacher(item);
                                        setShowUpdateDialog(true);
                                     }}
                                  >
-                                    ✏️
+                                    <img src="./images/update.svg" alt="update-icon"/>
                                  </button>
-                                 
-                                 &nbsp;
-                                 
-                                 <button
+                                                                  
+                                 <button  className="delete-button"
                                     onClick={() => {
                                        setSelectedTeacher(item);
                                        setShowDeleteDialog(true);
                                     }}
                                  >
-                                    ❌
+                                    <img src="./images/delete.svg" alt="delete-icon"/>
                                  </button>
                               </td>
                            }

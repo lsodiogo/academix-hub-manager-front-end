@@ -38,26 +38,27 @@ function TeachersView({ pathParams }) {
             const result = await apiService.fetchData(`teachers/${pathParams}`, "GET");
             console.log(result);
             
-            if (result.error === "WARNING") {
+            if (result.type === "WARNING") {
                setUserNotAuthorized(true);
                setError(result);
+            } else {
+               setDetailedTeacherInfo(result);
             };
-
-            setDetailedTeacherInfo(result);
 
          } else {
             // GET ALL TEACHERS
             const result = await apiService.fetchData("teachers", "GET");
             console.log(result);
 
-            if (result.error === "WARNING") {
+            if (result.type === "WARNING") {
                setUserNotAuthorized(true);
                setError(result);
-            };
 
-            setAllTeachersInfo(result.results);
-            setPaginationLinks(result.paginationLinksAccess);
-            showPageButton(result.paginationLinksAccess);
+            } else {
+               setAllTeachersInfo(result.results);
+               setPaginationLinks(result.paginationLinksAccess);
+               showPageButton(result.paginationLinksAccess);
+            };
          };
       };
       checkLoginAndGetData();
@@ -68,9 +69,15 @@ function TeachersView({ pathParams }) {
          const result = await apiService.fetchData(paginationUrl, "GET");
          console.log(result);
 
-         setAllTeachersInfo(result.results);
-         setPaginationLinks(result.paginationLinksAccess);
-         showPageButton(result.paginationLinksAccess);
+         if (result.type === "WARNING") {
+            setUserNotAuthorized(true);
+            setError(result);
+            
+         } else {
+            setAllTeachersInfo(result.results);
+            setPaginationLinks(result.paginationLinksAccess);
+            showPageButton(result.paginationLinksAccess);
+         };
       };
 
 
@@ -96,8 +103,8 @@ function TeachersView({ pathParams }) {
    return (
       <>
          {userNotAuthorized ? (
-            <div>
-               <div>{error.error} - {error.message}</div>
+            <div className="warning-message">
+               <div>{error.type}: {error.message}</div>
             </div>
             
          ) : (

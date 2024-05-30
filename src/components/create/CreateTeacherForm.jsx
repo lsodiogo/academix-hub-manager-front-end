@@ -82,7 +82,7 @@ function CreateTeacherForm({ showCreateDialog, setShowCreateDialog }) {
 
       setFieldsRequired(false);
 
-      if (result.error === "WARNING") {
+      if (result.type === "WARNING") {
          setDialogMessageResult("Teacher already exists!");
          setShowDialogMessageResult(true);
 
@@ -109,7 +109,7 @@ function CreateTeacherForm({ showCreateDialog, setShowCreateDialog }) {
    async function handleMessageResultButtonClick() {
       setShowDialogMessageResult(false);
       
-      if (result.error !== "WARNING") {
+      if (result.type !== "WARNING") {
          window.location.reload();
       };
    };

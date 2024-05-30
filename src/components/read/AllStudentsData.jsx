@@ -64,32 +64,33 @@ function AllStudentsData({ allStudentsInfo, cookieInfo, setshowPaginationButtons
    
    return (
       <>
-         <div className="grid">
-            <h2>STUDENTS</h2>
-
-            {cookieInfo.userCategory === "admin" &&
-               <button onClick={() => setShowCreateDialog(true)}>
-                  ADD NEW
-               </button>
-            }
-
+         <div className="table-top">
             <input
                type="text"
                placeholder="Search..."
                value={searchTerm}
                onChange={(event) => handleSearch(event)}
             />
+
+            {cookieInfo.userCategory === "admin" &&
+               <button onClick={() => setShowCreateDialog(true)}>
+                  <span>ADD NEW</span>
+                  <img src="./images/add-user.svg" alt="add-user-icon"/>
+               </button>
+            }
          </div>
 
-         <div>
+         <div className="table-container">
             <table>
+               <caption>STUDENTS</caption>
+
                <thead>
                   <tr>
                      <th>NAME</th>
                      <th>COURSE</th>
                      <th>STATUS</th>
                      {cookieInfo.userCategory === "admin" &&
-                        <th></th>
+                        <th>ACTIONS</th>
                      }
                   </tr>
                </thead>
@@ -131,24 +132,22 @@ function AllStudentsData({ allStudentsInfo, cookieInfo, setshowPaginationButtons
                               
                               {cookieInfo.userCategory === "admin" &&
                                  <td>
-                                    <button
+                                    <button className="update-button"
                                        onClick={() => {
                                           setSelectedStudent(item);
                                           setShowUpdateDialog(true);
                                        }}
                                     >
-                                       ✏️
+                                       <img src="./images/update.svg" alt="update-icon"/>
                                     </button>
                                     
-                                    &nbsp;
-                                    
-                                    <button
+                                    <button  className="delete-button"
                                        onClick={() => {
                                           setSelectedStudent(item);
                                           setShowDeleteDialog(true);
                                        }}
                                     >
-                                       ❌
+                                       <img src="./images/delete.svg" alt="delete-icon"/>
                                     </button>
                                  </td>
                               }
@@ -188,24 +187,22 @@ function AllStudentsData({ allStudentsInfo, cookieInfo, setshowPaginationButtons
                            
                            {cookieInfo.userCategory === "admin" &&
                               <td>
-                                 <button
+                                 <button className="update-button"
                                     onClick={() => {
                                        setSelectedStudent(item);
                                        setShowUpdateDialog(true);
                                     }}
                                  >
-                                    ✏️
+                                    <img src="./images/update.svg" alt="update-icon"/>
                                  </button>
-                                 
-                                 &nbsp;
-                                 
-                                 <button
+                                                                  
+                                 <button  className="delete-button"
                                     onClick={() => {
                                        setSelectedStudent(item);
                                        setShowDeleteDialog(true);
                                     }}
                                  >
-                                    ❌
+                                    <img src="./images/delete.svg" alt="delete-icon"/>
                                  </button>
                               </td>
                            }

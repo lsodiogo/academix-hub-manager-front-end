@@ -40,12 +40,12 @@ function CoursesView({ pathParams }) {
             const result = await apiService.fetchData(`courses/${pathParams}`, "GET");
             console.log(result);
 
-            if (result.error === "WARNING") {
+            if (result.type === "WARNING") {
                setUserNotAuthorized(true);
                setError(result);
+            } else {
+               setDetailedCourseInfo(result);
             };
-
-            setDetailedCourseInfo(result);
 
             if (!result.description) {
                setHideWhenDataNull(true);
@@ -56,14 +56,15 @@ function CoursesView({ pathParams }) {
             const result = await apiService.fetchData("courses", "GET");
             console.log(result);
 
-            if (result.error === "WARNING") {
+            if (result.type === "WARNING") {
                setUserNotAuthorized(true);
                setError(result);
-            };
 
-            setAllCoursesInfo(result.results);
-            setPaginationLinks(result.paginationLinksAccess);
-            showPageButton(result.paginationLinksAccess);
+            } else {
+               setAllCoursesInfo(result.results);
+               setPaginationLinks(result.paginationLinksAccess);
+               showPageButton(result.paginationLinksAccess);
+            };
          };
       };
       checkLoginAndGetData();
@@ -74,9 +75,15 @@ function CoursesView({ pathParams }) {
          const result = await apiService.fetchData(paginationUrl, "GET");
          console.log(result);
 
-         setAllCoursesInfo(result.results);
-         setPaginationLinks(result.paginationLinksAccess);
-         showPageButton(result.paginationLinksAccess);
+         if (result.type === "WARNING") {
+            setUserNotAuthorized(true);
+            setError(result);
+            
+         } else {
+            setAllCoursesInfo(result.results);
+            setPaginationLinks(result.paginationLinksAccess);
+            showPageButton(result.paginationLinksAccess);
+         };
       };
 
 
@@ -115,8 +122,8 @@ function CoursesView({ pathParams }) {
    return (
       <>
          {userNotAuthorized ? (
-            <div>
-               <div>{error.error} - {error.message}</div>
+            <div className="warning-message">
+               <div>{error.type}: {error.message}</div>
             </div>
             
          ) : (

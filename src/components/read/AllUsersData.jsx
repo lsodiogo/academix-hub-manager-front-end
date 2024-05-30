@@ -10,6 +10,10 @@ import DeleteUserForm from "../delete/DeleteUserForm";
 
 function AllUsersData({ allUsersInfo, userLoggedInInfo, cookieInfo, setshowPaginationButtons }) {
 
+   if(!userLoggedInInfo) {
+      return;
+   };
+
    const [showCreateDialog, setShowCreateDialog] = useState(false);
    const [showUpdateDialog, setShowUpdateDialog] = useState(false);
    const [showDeleteDialog, setShowDeleteDialog] = useState(false);
@@ -59,15 +63,7 @@ function AllUsersData({ allUsersInfo, userLoggedInInfo, cookieInfo, setshowPagin
 
    return (
       <>
-         <div className="grid">
-            <h2>USERS</h2>
-
-            {cookieInfo.userCategory === "admin" &&
-               <button onClick={() => setShowCreateDialog(true)}>
-                  ADD NEW
-               </button>
-            }
-
+         <div className="table-top">
             {Object.keys(userLoggedInInfo).length === 0 &&
                <input
                   type="text"
@@ -76,16 +72,25 @@ function AllUsersData({ allUsersInfo, userLoggedInInfo, cookieInfo, setshowPagin
                   onChange={(event) => handleSearch(event)}
                />
             }
+
+            {cookieInfo.userCategory === "admin" &&
+               <button onClick={() => setShowCreateDialog(true)}>
+                  <span>ADD NEW</span>
+                  <img src="./images/add-user.svg" alt="add-user-icon"/>
+               </button>
+            }
          </div>
 
-         <div>
+         <div className="table-container">
             <table>
+               <caption>USERS</caption>
+
                <thead>
                   <tr>
                      <th>EMAIL</th>
                      <th>CATEGORY</th>
                      {(cookieInfo.userCategory === "admin" || userLoggedInInfo) &&
-                        <th></th>
+                        <th>ACTIONS</th>
                      }
                   </tr>
                </thead>
@@ -96,7 +101,7 @@ function AllUsersData({ allUsersInfo, userLoggedInInfo, cookieInfo, setshowPagin
                      searchTerm ? (
                         searchResults.length === 0 ? (
                            <tr>
-                              <td colSpan={4}>No results found for {searchTerm}</td>
+                              <td colSpan={3}>No results found for {searchTerm}</td>
                            </tr>
    
                         ) : (
@@ -113,23 +118,23 @@ function AllUsersData({ allUsersInfo, userLoggedInInfo, cookieInfo, setshowPagin
 
                                  <td>
                                     {item.email === cookieInfo.userEmail &&
-                                       <button
+                                       <button className="update-button"
                                           onClick={() => {
                                              setSelectedUser(item);
                                              setShowUpdateDialog(true);
                                           }}
                                        >
-                                          ✏️
+                                          <img src="./images/update.svg" alt="update-icon"/>
                                        </button>
                                     }
 
-                                    {(item.email === cookieInfo.userEmail || item.category !== cookieInfo.userCategory) && <button
+                                    {(item.email === cookieInfo.userEmail || item.category !== cookieInfo.userCategory) && <button  className="delete-button"
                                        onClick={() => {
                                           setSelectedUser(item);
                                           setShowDeleteDialog(true);
                                        }}
                                     >
-                                       ❌
+                                       <img src="./images/delete.svg" alt="delete-icon"/>
                                     </button>}
                                  </td>
                               </tr>
@@ -150,23 +155,23 @@ function AllUsersData({ allUsersInfo, userLoggedInInfo, cookieInfo, setshowPagin
 
                               <td>
                                  {item.email === cookieInfo.userEmail &&
-                                    <button
+                                    <button className="update-button"
                                        onClick={() => {
                                           setSelectedUser(item);
                                           setShowUpdateDialog(true);
                                        }}
                                     >
-                                       ✏️
+                                       <img src="./images/update.svg" alt="update-icon"/>
                                     </button>
                                  }
 
-                                 {(item.email === cookieInfo.userEmail || item.category !== cookieInfo.userCategory) && <button
+                                 {(item.email === cookieInfo.userEmail || item.category !== cookieInfo.userCategory) && <button  className="delete-button"
                                     onClick={() => {
                                        setSelectedUser(item);
                                        setShowDeleteDialog(true);
                                     }}
                                  >
-                                    ❌
+                                    <img src="./images/delete.svg" alt="delete-icon"/>
                                  </button>}
                               </td>
                            </tr>
@@ -186,13 +191,13 @@ function AllUsersData({ allUsersInfo, userLoggedInInfo, cookieInfo, setshowPagin
 
                         <td>
                            {userLoggedInInfo.email === cookieInfo.userEmail &&
-                              <button
+                              <button className="update-button"
                                  onClick={() => {
                                     setSelectedUser(userLoggedInInfo);
                                     setShowUpdateDialog(true);
                                  }}
                               >
-                                 ✏️
+                                 <img src="./images/update.svg" alt="update-icon"/>
                               </button>
                            }
                         </td>

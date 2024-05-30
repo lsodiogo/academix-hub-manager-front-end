@@ -39,12 +39,12 @@ function StudentsView({ pathParams }) {
             const result = await apiService.fetchData(`students/${pathParams}`, "GET");
             console.log(result);
             
-            if (result.error === "WARNING") {
+            if (result.type === "WARNING") {
                setUserNotAuthorized(true);
                setError(result);
+            } else {
+               setDetailedStudentInfo(result);
             };
-
-            setDetailedStudentInfo(result);
 
             if (!result.grade || !result.graduated_at) {
                setHideWhenDataNull(true);
@@ -55,54 +55,61 @@ function StudentsView({ pathParams }) {
             const result = await apiService.fetchData("students", "GET");
             console.log(result);
 
-            if (result.error === "WARNING") {
+            if (result.type === "WARNING") {
                setUserNotAuthorized(true);
                setError(result);
+
+            } else {
+               setAllStudentsInfo(result.results);
+               setPaginationLinks(result.paginationLinksAccess);
+               showPageButton(result.paginationLinksAccess);
             };
 
-            setAllStudentsInfo(result.results);
-            setPaginationLinks(result.paginationLinksAccess);
-            showPageButton(result.paginationLinksAccess);
          };
       };
       checkLoginAndGetData();
-      }, [pathParams]);
+   }, [pathParams]);
 
 
-      async function handlePageChange(paginationUrl) {
-         const result = await apiService.fetchData(paginationUrl, "GET");
-         console.log(result);
+   async function handlePageChange(paginationUrl) {
+      const result = await apiService.fetchData(paginationUrl, "GET");
+      console.log(result);
 
+      if (result.type === "WARNING") {
+         setUserNotAuthorized(true);
+         setError(result);
+
+      } else {
          setAllStudentsInfo(result.results);
          setPaginationLinks(result.paginationLinksAccess);
          showPageButton(result.paginationLinksAccess);
       };
+   };
 
 
-      async function handlePerPageLimit(event) {
-         const value = event.target.value;
-   
-         await handlePageChange(`students/?limit=${value}&offset=${paginationLinks.offset}`);
+   async function handlePerPageLimit(event) {
+      const value = event.target.value;
+
+      await handlePageChange(`students/?limit=${value}&offset=${paginationLinks.offset}`);
+   };
+
+
+   function showPageButton(paginationLinks) {
+      const buttons = {
+         firstPage: paginationLinks.firstPage !== null,
+         previousPage: paginationLinks.previousPage !== null,
+         nextPage: paginationLinks.nextPage !== null,
+         lastPage: paginationLinks.lastPage !== null,
       };
-
-
-      function showPageButton(paginationLinks) {
-         const buttons = {
-            firstPage: paginationLinks.firstPage !== null,
-            previousPage: paginationLinks.previousPage !== null,
-            nextPage: paginationLinks.nextPage !== null,
-            lastPage: paginationLinks.lastPage !== null,
-         };
-        
-         setPaginationButtons(buttons);
-      };
-
+      
+      setPaginationButtons(buttons);
+   };
 
    return (
       <>
          {userNotAuthorized ? (
-            <div>
-               <div>{error.error} - {error.message}</div>
+            <div className="warning-message">
+               <div>{error.type}: {error.message}</div>
             </div>
             
          ) : (

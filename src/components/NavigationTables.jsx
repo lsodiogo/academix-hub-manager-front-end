@@ -4,23 +4,21 @@ import { useEffect, useState } from "react";
 import apiService from "../services/apiService";
 
 
-function NavigationTables({ cookieInfo }) {
+function NavigationTables() {
 
-   /* const [schoolInfo, setSchoolInfo] = useState({});
-
-
+   const [cookieInfo, setCookieInfo] = useState({});
+  
    useEffect(function() {
-      async function getAllData() {
+      async function checkLogin() {
 
-         const result = await apiService.fetchData("school", "GET");
+         const result = await apiService.fetchData("login", "GET");
          console.log(result);
 
-         setSchoolInfo(result.results);
+         setCookieInfo(result);
       };
-      getAllData();
-   }, []); */
-
-
+      checkLogin();
+   }, []);
+   
    async function logoutPost(event) {
     
       event.preventDefault();
@@ -28,7 +26,7 @@ function NavigationTables({ cookieInfo }) {
       const result = await apiService.fetchData("login/logout", "GET");
       console.log(result);
       
-      if (result.error === "SUCCESS") {        
+      if (result.type === "SUCCESS") {        
          window.location.href = "/";
       };
    };
@@ -43,60 +41,59 @@ function NavigationTables({ cookieInfo }) {
       };
    };
 
-   
+
    return (
       <>
-         <div className="navigation-tables-container">
-            <div className="navigation-tables-div">
-               <Link href="/courses" className="link">
-                  COURSES
-               </Link>
-            </div>
+         {!cookieInfo.type && <div className="navigation-tables-container">
 
-            <div className="navigation-tables-div">
-               <Link href="/lessons_schedule" className="link">
-                  LESSONS SCHEDULES
-               </Link>
-            </div>
+            <Link href="/courses">
+               <img src="./images/course.svg" alt="course-icon"/>
+               <span>COURSES</span>
+            </Link>
 
-            {userCategoryCheck("teachers") && <div className="navigation-tables-div">
-               <Link href="/teachers" className="link">
-                  TEACHERS
-               </Link>
-            </div>}
+            <Link href="/lessons_schedule">
+               <img src="./images/calendar.svg" alt="calendar-icon"/>
+               <span>LESSONS SCHEDULE</span>
+            </Link>
 
-            <div className="navigation-tables-div">
-               <Link href="/students" className="link">
-                  STUDENTS
+            {userCategoryCheck("teachers") &&
+               <Link href="/teachers">
+                  <img src="./images/teacher.svg" alt="teacher-icon"/>
+                  <span>TEACHERS</span>
                </Link>
-            </div>
+            }
 
-            <div className="navigation-tables-div">
-               <Link href="/users" className="link">
-                  USERS
-               </Link>
-            </div>
+            <Link href="/students">
+               <img src="./images/student.svg" alt="student-icon"/>
+               <span>STUDENTS</span>
+            </Link>
 
-            {/* {userCategoryCheck("status") && <div className="navigation-tables-div">
-               <Link href="/status" className="link">
+            <Link href="/users">
+               <img src="./images/user.svg" alt="user-icon"/>
+               <span>USERS</span>
+            </Link>
+
+
+            {/* {userCategoryCheck("status") &&
+               <Link href="/status">
                   STATUS
                </Link>
-            </div>} */}
+            } */}
 
-            {userCategoryCheck("backlog") && <div className="navigation-tables-div">
-               <Link href="/backlog" className="link">
-                  BACKLOG
+            {userCategoryCheck("backlog") && 
+               <Link href="/backlog">
+                  <img src="./images/backlog.svg" alt="backlog-icon"/>
+                  <span>BACKLOG</span>
                </Link>
-            </div>}
+            }
 
             <div>
                <button className="logout-button" onClick={logoutPost}>
-                  LOGOUT
+                  <span>LOGOUT</span>
+                  <img src="./images/logout.svg" alt="logout-icon"/>
                </button>
             </div>
-         </div>
-
-         <div className="welcome-container">WELCOME TO ACADEMIX HUB MANAGER OF {/* {schoolInfo.name} */} </div>
+         </div>}
       </>
    );
 };

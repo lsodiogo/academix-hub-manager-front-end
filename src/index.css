@@ -96,7 +96,7 @@ header h1 {
    align-items: center;
    justify-content: center;
    width: 100%;
-   min-height: calc(100vh - 2 * 234px);
+   min-height: calc(100vh - 2 * 250px);
 }
 
 .login-form {
@@ -139,6 +139,16 @@ header h1 {
    border: none;
    border-radius: 5px;
    cursor: pointer;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   gap: 10px;
+}
+
+.submit-button img {
+   width: 15px;
 }
 
 .warning-message {
@@ -148,6 +158,10 @@ header h1 {
    margin: 10px;
    border-radius: 5px;
    animation: zoom-in-zoom-out 2s ease infinite;
+   
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
 
 @keyframes zoom-in-zoom-out {
@@ -168,16 +182,23 @@ header h1 {
    width: 100%;
 }
 
-.navigation-tables-container .navigation-tables-div {
+.navigation-tables-container a {
    background-color: #EEEEEE;
+   color: #4B4C4D;
    margin: 15px;
    padding: 10px;
    border-radius: 10px;
    text-decoration: none;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   gap: 10px;
 }
 
-.navigation-tables-div .link {
-   color: #4B4C4D;
+.navigation-tables-container a img {
+   width: 15px;
 }
 
 .navigation-tables-container .navigation-tables-div:hover {
@@ -190,7 +211,7 @@ header h1 {
    align-items: center;
    justify-content: center;
    width: 100%;
-   min-height: calc(100vh - 2 * 274px);
+   min-height: calc(100vh - 2 * 250px);
    text-transform: uppercase;
    letter-spacing: 10px;
 }
@@ -203,21 +224,22 @@ header h1 {
    border: none;
    border-radius: 5px;
    cursor: pointer;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   gap: 10px;
+}
+
+.navigation-tables-container img {
+   width: 15px;
 }
 /* -------------------------------------------------- */
 
 
 
-
-
-.fieldsRequired {
-   background-color: #F8D7DA;
-   font-size: 15px;
-   margin-bottom: 15px;
-   padding: 10px;
-   border-radius: 10px;
-}
-
+/* ---------------------- FORM ----------------------- */
 .instruction {
    color: #666666;
    font-size: 15px;
@@ -228,8 +250,169 @@ header h1 {
    display: block;
 }
 
+.fieldsRequired {
+   background-color: #F8D7DA;
+   font-size: 15px;
+   margin-bottom: 15px;
+   padding: 10px;
+   border-radius: 10px;
+}
+
 .dialogScroll {
    overflow: auto;
    height: 90vh;
    width: 90vh;
+}
+/* -------------------------------------------------- */
+
+
+/* ----------------- LOGIN MESSAGE ------------------ */
+.message-test-container {
+   background-color: #EEF7FF;
+   font-size: 15px;
+   color: #4B4C4D;
+   border-radius: 5px;
+   margin-bottom: 10px;
+   padding: 10px;
+   font-family: "Poiret One", sans-serif;
+}
+
+.font-style {
+   font-family: "Montserrat", sans-serif;
+}
+
+.message-test-container div {
+   margin-bottom: 5px;
+}
+/* -------------------------------------------------- */
+
+
+
+/* ------------------- NOT FOUND  -------------------- */
+.notFoundContainer {
+   min-height: calc(100vh - 2 * 250px);
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   flex-direction: column;
+   gap: 50px;
+}
+/* -------------------------------------------------- */
+
+
+
+/* ---------------- TABLE --------------------------- */
+.table-top {
+   width: 50%;
+   margin: auto;
+   padding: 15px;
+}
+
+.table-top button {
+   width: 100%;
+   background-color: #007bff;
+   color: #FFFFFF;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 10px;
+}
+
+.table-top button img {
+   width: 15px;
+}
+
+.table-top input {
+   width: 100%;
+}
+
+
+.table-container {
+   display: flex;
+   padding: 10px;
+   width: 100%;
+   word-wrap: break-word;
+   overflow-wrap: break-word;
+}
+
+.table-container caption {
+   background-color: #272727;
+   color: #EEEEEE;
+
+   font-size: 24px;
+   letter-spacing: 15px;
+   font-family: "Lato", sans-serif;
+
+   padding: 10px;
+   line-height: 50px;
+}
+ 
+.table-container table {
+   border: 1px solid #272727;
+}
+
+.table-container th {
+   white-space: nowrap;
+   text-align: center;
+   background-color: #D1D8C5;
+   color: #4B4C4D;
+   height: 100px;
+   border: 1px solid #AAAAAA;
+}
+ 
+.table-container td {
+   padding: 10px;
+   text-align: center;
+   border: 1px solid #AAAAAA;
+}
+
+.table-container td button {
+   width: 75px;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+
+   display: inline-block;
+   align-items: center;
+   justify-content: center;
+   margin: 0px 10px;
+}
+
+.table-container td button img {
+   width: 15px;
+}
+
+.update-button {
+   background-color: #FEB941;
+}
+
+.delete-button {
+   background-color: #EE4E4E;
+}
+/* -------------------------------------------------- */
+
+
+
+.pagination-container {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   gap: 15px;
+   padding: 15px;
+}
+
+.pagination-container div button {
+   background-color: #4B4C4D;
+   border-radius: 50px;
+}
+
+.pagination-container div button img {
+   width: 15px;
 }

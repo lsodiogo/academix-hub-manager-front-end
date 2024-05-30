@@ -44,10 +44,20 @@ function LoginForm({ email, setEmail, password, setPassword, rememberMe, setReme
 
                <label>
                   <button className="submit-button" type="submit">
-                     LOGIN
+                     <span>LOGIN </span>
+                     <img src="./images/login.svg" alt="login-icon"/>
                   </button>
                </label>
             </fieldset>
+
+            <div className="message-test-container">
+               <div>This message is only for purpose of marketing test.</div>
+               <div>Use the following email and password to test the application:</div>
+               <div className="font-style">admin@admin.com | test</div>
+               <div className="font-style">student@student.com | test</div>
+               <div className="font-style">teacher@teacher.com | test</div>
+               <div>Enjoy!</div>
+            </div>
          </form>
       </>
    );

@@ -1,18 +1,12 @@
 function AllBacklogData({ allBacklogInfo }) {
 
-   function formatDate(item) {
-      const dateFormated = new Date(item).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" });
-
-      return dateFormated;
-   };
-
    
    return (
       <>
-         <h2>BACKLOG</h2>
-
-         <div>
+         <div className="table-container">
             <table>
+               <caption>BACKLOG</caption>
+
                <thead>
                   <tr>
                      <th>ID</th>
@@ -21,7 +15,6 @@ function AllBacklogData({ allBacklogInfo }) {
                      <th>ID TABLE ROW</th>
                      <th>ACTION DESCRIPTION</th>
                      <th>USER</th>
-                     <th>CREATED</th>
                   </tr>
                </thead>
                
@@ -45,9 +38,6 @@ function AllBacklogData({ allBacklogInfo }) {
                         </td>
                         <td>
                            {item.user_email}
-                        </td>
-                        <td>
-                           {formatDate(item.created_at)}
                         </td>
                      </tr>
                   )}

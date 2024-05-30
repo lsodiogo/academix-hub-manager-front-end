@@ -10,8 +10,9 @@ function CourseDetailedData({ detailedCourseInfo, hideWhenDataNull, cookieInfo }
          return false;
       };
    };
-   
-   function formatDate(item) {
+
+
+   function FormatDate(item) {
       const dateFormated = new Date(item).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" });
 
       return dateFormated;
@@ -25,19 +26,19 @@ function CourseDetailedData({ detailedCourseInfo, hideWhenDataNull, cookieInfo }
          <div>
             <h3>{detailedCourseInfo.name}</h3>
 
-            <div>Edition: {detailedCourseInfo.edition_number}</div>
+            <div>EDITION: {detailedCourseInfo.edition_number}</div>
 
-            <div>Duration: {detailedCourseInfo.hours_duration}h</div>
+            <div>DURATION: {detailedCourseInfo.hours_duration}h</div>
 
-            <div>Begin: {formatDate(detailedCourseInfo.begin_date)}</div>
+            <div>BEGIN: {FormatDate(detailedCourseInfo.begin_date)}</div>
 
-            <div>End: {formatDate(detailedCourseInfo.end_date)}</div>
+            <div>END: {FormatDate(detailedCourseInfo.end_date)}</div>
 
             {!hideWhenDataNull &&
                <div>Description: {detailedCourseInfo.description}</div>
             }
 
-            <div>Teacher:&nbsp;
+            <div>TEACHER:&nbsp;
                {userCategoryCheck(detailedCourseInfo) ? (
                   <Link href={"/teachers/" + detailedCourseInfo.teacher_id}>
                      {detailedCourseInfo.teacher_name}

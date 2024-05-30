@@ -89,6 +89,8 @@ function CreateLessonScheduleForm({ showCreateDialog, setShowCreateDialog }) {
          setFieldsRequired(true);
          return;
       };
+
+      console.log(formData.date)
       
       const result = await apiService.fetchData("lessons_schedule", "POST", formData);
       console.log(result);
@@ -96,7 +98,7 @@ function CreateLessonScheduleForm({ showCreateDialog, setShowCreateDialog }) {
 
       setFieldsRequired(false);
 
-      if (result.error === "WARNING") {
+      if (result.type === "WARNING") {
          setDialogMessageResult("Same date, same begin time, same end time and same course already exists!");
          setShowDialogMessageResult(true);
 
@@ -121,7 +123,7 @@ function CreateLessonScheduleForm({ showCreateDialog, setShowCreateDialog }) {
    async function handleMessageResultButtonClick() {
       setShowDialogMessageResult(false);
       
-      if (result.error !== "WARNING") {
+      if (result.type !== "WARNING") {
          window.location.reload();
       };
    };

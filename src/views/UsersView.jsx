@@ -39,19 +39,23 @@ function UsersView({ pathParams }) {
             const result = await apiService.fetchData(`users/${pathParams}`, "GET");
             console.log(result);
             
-            if (result.error === "WARNING") {
+            if (result.type === "WARNING") {
                setUserNotAuthorized(true);
                setError(result);
-            };
-
-            setDetailedUserInfo(result);
+            } else {
+               setDetailedUserInfo(result);
+            };            
 
          } else {
             // GET ALL USERS
             const result = await apiService.fetchData("users", "GET");
             console.log(result);
 
-            if (resultCookie.userCategory === "admin") {
+            if (result.type === "WARNING") {
+               setUserNotAuthorized(true);
+               setError(result);
+
+            } else if (resultCookie.userCategory === "admin") {
                setAllUsersInfo(result.results);
                setPaginationLinks(result.paginationLinksAccess);
                showPageButton(result.paginationLinksAccess); 
@@ -70,9 +74,15 @@ function UsersView({ pathParams }) {
          const result = await apiService.fetchData(paginationUrl, "GET");
          console.log(result);
 
-         setAllUsersInfo(result.results);
-         setPaginationLinks(result.paginationLinksAccess);
-         showPageButton(result.paginationLinksAccess);
+         if (result.type === "WARNING") {
+            setUserNotAuthorized(true);
+            setError(result);
+            
+         } else {
+            setAllUsersInfo(result.results);
+            setPaginationLinks(result.paginationLinksAccess);
+            showPageButton(result.paginationLinksAccess);
+         };
       };
 
 
@@ -98,8 +108,8 @@ function UsersView({ pathParams }) {
    return (
       <>
          {userNotAuthorized ? (
-            <div>
-               <div>{error.error} - {error.message}</div>
+            <div className="warning-message">
+               <div>{error.type}: {error.message}</div>
             </div>
             
          ) : (

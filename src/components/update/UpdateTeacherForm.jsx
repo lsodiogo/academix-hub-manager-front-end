@@ -9,14 +9,22 @@ function UpdateTeacherForm({ selectedTeacher, showUpdateDialog, setShowUpdateDia
       return;
    };
 
+
+   function FormatDate(item) {
+      const dateFormated = new Date(item).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" });
+
+      return dateFormated;
+   };
+
+
    const [formData, setFormData] = useState({
       name: selectedTeacher.name,
       surname: selectedTeacher.surname,
-      birthdate: new Date(selectedTeacher.birthdate).toISOString().split('T')[0],
+      birthdate: FormatDate(selectedTeacher.birthdate).split("/").reverse().join("-"),
       email: selectedTeacher.email,
       telef: selectedTeacher.telef,
       address: selectedTeacher.address,
-      started: new Date(selectedTeacher.started_at).toISOString().split('T')[0],
+      started: FormatDate(selectedTeacher.started_at).split("/").reverse().join("-"),
       status: selectedTeacher.status_id
    });
    const [result, setResult] = useState({});
@@ -86,7 +94,7 @@ function UpdateTeacherForm({ selectedTeacher, showUpdateDialog, setShowUpdateDia
 
       setFieldsRequired(false);
 
-      if (result.error === "WARNING") {
+      if (result.type === "WARNING") {
          setDialogMessageResult("Teacher already exists!");
          setShowDialogMessageResult(true);
 
@@ -102,7 +110,7 @@ function UpdateTeacherForm({ selectedTeacher, showUpdateDialog, setShowUpdateDia
    async function handleMessageResultButtonClick() {
       setShowDialogMessageResult(false);
       
-      if (result.error !== "WARNING") {
+      if (result.type !== "WARNING") {
          window.location.reload();
       };
    };

@@ -9,17 +9,25 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
       return;
    };
 
+
+   function FormatDate(item) {
+      const dateFormated = new Date(item).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" });
+
+      return dateFormated;
+   };
+
+
    const [formData, setFormData] = useState({
       name: selectedStudent.name,
       surname: selectedStudent.surname,
-      birthdate: new Date(selectedStudent.birthdate).toISOString().split('T')[0],
+      birthdate: FormatDate(selectedStudent.birthdate).split("/").reverse().join("-"),
       email: selectedStudent.email,
       telef: selectedStudent.telef,
       address: selectedStudent.address,
-      enrolled: new Date(selectedStudent.enrolled_at).toISOString().split('T')[0],
+      enrolled: FormatDate(selectedStudent.enrolled_at).split("/").reverse().join("-"),
       course: selectedStudent.course_id,
       grade: selectedStudent.grade !== null ? selectedStudent.grade : "",
-      graduated: selectedStudent.graduated_at !== null ? new Date(selectedStudent.graduated_at).toISOString().split('T')[0] : "",
+      graduated: selectedStudent.graduated_at !== null ? FormatDate(selectedStudent.graduated_at) : "",
       status: selectedStudent.status_id
    });
    const [result, setResult] = useState({});
@@ -97,7 +105,7 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
 
       setFieldsRequired(false);
 
-      if (result.error === "WARNING") {
+      if (result.type === "WARNING") {
          setDialogMessageResult("Student already exists!");
          setShowDialogMessageResult(true);
 
@@ -113,7 +121,7 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
    async function handleMessageResultButtonClick() {
       setShowDialogMessageResult(false);
       
-      if (result.error !== "WARNING") {
+      if (result.type !== "WARNING") {
          window.location.reload();
       };
    };

@@ -3,17 +3,28 @@ import { useEffect, useState } from "react";
 import apiService from "../services/apiService";
 
 import LoginForm from "../components/LoginForm";
-import NavigationTables from "../components/NavigationTables";
 
 
 function HomeView() {
 
-   const [cookieInfo, setCookieInfo] = useState({});
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
    const [rememberMe, setRememberMe] = useState(false);
    const [loginResult, setLoginResult] = useState({}); 
    const [showLoginForm, setShowLoginForm] = useState(false);
+
+   const [schoolInfo, setSchoolInfo] = useState({});
+
+   useEffect(function() {
+      async function getAllSchoolData() {
+
+         const result = await apiService.fetchData("school", "GET");
+         console.log(result);
+
+         setSchoolInfo(result.results);
+      };
+      getAllSchoolData();
+   }, []);
 
 
    useEffect(function() {
@@ -22,11 +33,9 @@ function HomeView() {
          const result = await apiService.fetchData("login", "GET");
          console.log(result);
 
-         if (result.error === "WARNING") {
+         if (result.type === "WARNING") {
             setShowLoginForm(true);
          };
-
-         setCookieInfo(result);
       };
       checkLogin();
    }, []);
@@ -47,12 +56,9 @@ function HomeView() {
 
       setLoginResult(result);
 
-      if (result.error === "SUCCESS") {
+      if (result.type === "SUCCESS") {
          setShowLoginForm(false);
-
-         // To get check login information again to be sent to Navigation Tables component
-         const result = await apiService.fetchData("login", "GET");
-         setCookieInfo(result);
+         window.location.reload();
       };
    };
 
@@ -71,20 +77,20 @@ function HomeView() {
                   loginPost={loginPost}
                />
                
-               {loginResult.error === "WARNING" &&
+               {loginResult.type === "WARNING" &&
                   <div className="warning-message">
-                     <div>{loginResult.error}: {loginResult.message}</div>
+                     <div>{loginResult.type}: {loginResult.message}</div>
                   </div>
                }
             </div>
 
          ) : (
 
-            <div>
-               <NavigationTables
-                  cookieInfo={cookieInfo}
-               />
-            </div>
+            schoolInfo && (
+               <div className="welcome-container">
+                  WELCOME TO ACADEMIX HUB MANAGER OF {schoolInfo.name}
+               </div>
+            )
          )}
       </>
    );

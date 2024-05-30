@@ -93,7 +93,7 @@ function CreateStudentForm({ showCreateDialog, setShowCreateDialog }) {
 
       setFieldsRequired(false);
 
-      if (result.error === "WARNING") {
+      if (result.type === "WARNING") {
          setDialogMessageResult("Student already exists!");
          setShowDialogMessageResult(true);
 
@@ -123,7 +123,7 @@ function CreateStudentForm({ showCreateDialog, setShowCreateDialog }) {
    async function handleMessageResultButtonClick() {
       setShowDialogMessageResult(false);
       
-      if (result.error !== "WARNING") {
+      if (result.type !== "WARNING") {
          window.location.reload();
       };
    };

@@ -10,8 +10,15 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
    };
 
 
+   function FormatDate(item) {
+      const dateFormated = new Date(item).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" });
+
+      return dateFormated;
+   };
+
+
    const [formData, setFormData] = useState({
-      date: new Date(selectedLessonSchedule.date).toISOString().split('T')[0],
+      date: FormatDate(selectedLessonSchedule.date).split("/").reverse().join("-"),
       begin: selectedLessonSchedule.begin_time.slice(0, 5),
       end: selectedLessonSchedule.end_time.slice(0, 5),
       description: selectedLessonSchedule.description !== null ? selectedLessonSchedule.description : "",
@@ -72,7 +79,7 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
 
       setFieldsRequired(false);
 
-      if (result.error === "WARNING") {
+      if (result.type === "WARNING") {
          setDialogMessageResult("Same date, same begin time, same end time and same course already exists!");
          setShowDialogMessageResult(true);
 
@@ -88,7 +95,7 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
    async function handleMessageResultButtonClick() {
       setShowDialogMessageResult(false);
       
-      if (result.error !== "WARNING") {
+      if (result.type !== "WARNING") {
          window.location.reload();
       };
    };
@@ -105,7 +112,7 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
                <div className="dialogScroll">
                   <form onSubmit={handleSubmit}>
                      <fieldset>
-                        <h2>Update lesson schedule for {selectedLessonSchedule.course_name} -  {new Date(selectedLessonSchedule.date).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" })}</h2>
+                        <h2>Update lesson schedule for {selectedLessonSchedule.course_name} -  {FormatDate(selectedLessonSchedule.date)}</h2>
 
                         <label>
                            Date *

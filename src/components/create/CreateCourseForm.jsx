@@ -69,7 +69,7 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
 
       setFieldsRequired(false);
 
-      if (result.error === "WARNING") {
+      if (result.type === "WARNING") {
          setDialogMessageResult("Same name and same edition number already exists!");
          setShowDialogMessageResult(true);
 
@@ -96,7 +96,7 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
    async function handleMessageResultButtonClick() {
       setShowDialogMessageResult(false);
       
-      if (result.error !== "WARNING") {
+      if (result.type !== "WARNING") {
          window.location.reload();
       };
    };

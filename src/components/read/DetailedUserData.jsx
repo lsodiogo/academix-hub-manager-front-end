@@ -8,7 +8,7 @@ function DetailedUserData({ detailedUserInfo }) {
          <div>
             <h3>{detailedUserInfo.email}</h3>
 
-            <div>Category: {detailedUserInfo.category}</div>
+            <div>CATEGORY: {detailedUserInfo.category}</div>
          </div>
       </>
    );

@@ -14,7 +14,7 @@ function AllLessonsScheduleData({ allLessonsScheduleInfo, cookieInfo }) {
    const [selectedLessonSchedule, setSelectedLessonSchedule] = useState(null);
 
 
-   function formatDate(item) {
+   function FormatDate(item) {
       const dateFormated = new Date(item).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" });
 
       return dateFormated;
@@ -23,16 +23,19 @@ function AllLessonsScheduleData({ allLessonsScheduleInfo, cookieInfo }) {
    
    return (
       <>
-         <h2>LESSONS SCHEDULES</h2>
+         <div className="table-top">
+            {cookieInfo.userCategory === "admin" &&
+               <button onClick={() => setShowCreateDialog(true)}>
+                  <span>ADD NEW</span>
+                  <img src="./images/add-calendar.svg" alt="add-calendar-icon"/>
+               </button>
+            }
+         </div>
 
-         {cookieInfo.userCategory === "admin" &&
-            <button onClick={() => setShowCreateDialog(true)}>
-               ADD NEW
-            </button>
-         }
-
-         <div>
+         <div className="table-container">
             <table>
+               <caption>LESSONS SCHEDULE</caption>
+
                <thead>
                   <tr>
                      <th>DATE</th>
@@ -41,7 +44,7 @@ function AllLessonsScheduleData({ allLessonsScheduleInfo, cookieInfo }) {
                      <th>COURSE</th>
                      <th>STATUS</th>
                      {cookieInfo.userCategory === "admin" &&
-                        <th></th>
+                        <th>ACTIONS</th>
                      }
                   </tr>
                </thead>
@@ -50,7 +53,7 @@ function AllLessonsScheduleData({ allLessonsScheduleInfo, cookieInfo }) {
                   {allLessonsScheduleInfo.map(item =>
                      <tr key={item.id}>
                         <td>
-                           <Link href={"/lessons_schedule/" + item.id}>{formatDate(item.date)}</Link>
+                           <Link href={"/lessons_schedule/" + item.id}>{FormatDate(item.date)}</Link>
                         </td>
 
                         <td>
@@ -73,24 +76,22 @@ function AllLessonsScheduleData({ allLessonsScheduleInfo, cookieInfo }) {
 
                         {cookieInfo.userCategory === "admin" &&
                            <td>
-                              <button
+                              <button className="update-button"
                                  onClick={() => {
                                     setSelectedLessonSchedule(item);
                                     setShowUpdateDialog(true);
                                  }}
                               >
-                                 ✏️
+                                 <img src="./images/update.svg" alt="update-icon"/>
                               </button>
                               
-                              &nbsp;
-                              
-                              <button
+                              <button  className="delete-button"
                                  onClick={() => {
                                     setSelectedLessonSchedule(item);
                                     setShowDeleteDialog(true);
                                  }}
                               >
-                                 ❌
+                                 <img src="./images/delete.svg" alt="delete-icon"/>
                               </button>
                            </td>
                         }

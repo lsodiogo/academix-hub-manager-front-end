@@ -10,12 +10,19 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
    };
 
 
+   function FormatDate(item) {
+      const dateFormated = new Date(item).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" });
+
+      return dateFormated;
+   };
+
+
    const [formData, setFormData] = useState({
       name: selectedCourse.name,
       edition: selectedCourse.edition_number,
       duration: selectedCourse.hours_duration,
-      start: new Date(selectedCourse.begin_date).toISOString().split('T')[0],
-      finish: new Date(selectedCourse.end_date).toISOString().split('T')[0],
+      start: FormatDate(selectedCourse.begin_date).split("/").reverse().join("-"),
+      finish: FormatDate(selectedCourse.end_date).split("/").reverse().join("-"),
       description: selectedCourse.description !== null ? selectedCourse.description : "",
       teacher: selectedCourse.teacher_id,
       status: selectedCourse.status_id
@@ -71,7 +78,7 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
 
       setFieldsRequired(false);
 
-      if (result.error === "WARNING") {
+      if (result.type === "WARNING") {
          setDialogMessageResult("Same name and same edition number already exists!");
          setShowDialogMessageResult(true);
 
@@ -87,7 +94,7 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
    async function handleMessageResultButtonClick() {
       setShowDialogMessageResult(false);
       
-      if (result.error !== "WARNING") {
+      if (result.type !== "WARNING") {
          window.location.reload();
       };
    };
