@@ -33,6 +33,7 @@ function UsersView({ pathParams }) {
          console.log(resultCookie);
 
          setCookieInfo(resultCookie);
+         
 
          if (pathParams) {
             // GET USER BY ID
@@ -46,7 +47,7 @@ function UsersView({ pathParams }) {
                setUserNotAuthorized(true);
                setError(result);
                
-            }else {
+            } else {
                setDetailedUserInfo(result);
             };          
 
@@ -62,10 +63,14 @@ function UsersView({ pathParams }) {
                setUserNotAuthorized(true);
                setError(result);
                
-            } else {
+            } else if (resultCookie.userCategory === "admin") {
                setAllUsersInfo(result.results);
                setPaginationLinks(result.paginationLinksAccess);
                showPageButton(result.paginationLinksAccess); 
+
+            } else {
+               setUserLoggedInInfo(result);
+               setshowPaginationButtons(false);
             };
          };
       };

@@ -45,7 +45,7 @@ function TeachersView({ pathParams }) {
                setUserNotAuthorized(true);
                setError(result);
                
-            }else {
+            } else {
                setDetailedTeacherInfo(result);
             };
 

@@ -9,8 +9,8 @@ import DeleteUserForm from "../delete/DeleteUserForm";
 
 
 function AllUsersData({ allUsersInfo, userLoggedInInfo, cookieInfo, setshowPaginationButtons }) {
-
-   if(!userLoggedInInfo) {
+   console.log("userloggedininfo", userLoggedInInfo);
+   if (!userLoggedInInfo) {
       return;
    };
 

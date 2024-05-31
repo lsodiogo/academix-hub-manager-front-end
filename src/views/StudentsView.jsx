@@ -46,7 +46,7 @@ function StudentsView({ pathParams }) {
                setUserNotAuthorized(true);
                setError(result);
                
-            }else {
+            } else {
                setDetailedStudentInfo(result);
             };
 

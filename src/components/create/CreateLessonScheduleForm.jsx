@@ -17,7 +17,6 @@ function CreateLessonScheduleForm({ showCreateDialog, setShowCreateDialog }) {
    
    const [courses, setCourses] = useState([]);
    const [status, setStatus] = useState([]);
-   /* const [allLessonsScheduleInfo, setAllLessonsScheduleInfo] = useState([]); */
    
    const [fieldsRequired, setFieldsRequired] = useState(false);
    const [dialogMessageResult, setDialogMessageResult] = useState(null);
@@ -41,18 +40,6 @@ function CreateLessonScheduleForm({ showCreateDialog, setShowCreateDialog }) {
    }, []);
 
 
-   /* useEffect(function() {
-      async function getAllLessonsSchedule() {
-
-         const getTotalLessonsSchedule = await apiService.fetchData("lessons_schedule", "GET");
-         const resultLessonsSchedule = await apiService.fetchData(`lessons_schedule/?limit=${getTotalLessonsSchedule.totalItems}&offset=0`, "GET");
-
-         setAllLessonsScheduleInfo(resultLessonsSchedule.results);
-      };
-      getAllLessonsSchedule();
-   }, []); */
-
-
    function handleChange(event) {
       event.preventDefault();
       
@@ -64,22 +51,6 @@ function CreateLessonScheduleForm({ showCreateDialog, setShowCreateDialog }) {
 
    
    const getTomorrowDate = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split("T")[0];
-
-   /* if (allLessonsScheduleInfo) {
-      for (let i = 0; i < allLessonsScheduleInfo.length; i++) {
-         const existingLesson = allLessonsScheduleInfo[i];
-
-
-         if ((formData.date === existingLesson.date) &&
-            (formData.begin >= existingLesson.begin_time && formData.begin <= existingLesson.end_time) ||
-            (formData.end >= existingLesson.begin_time && formData.end <= existingLesson.end_time)
-         ) {
-            console.log(existingLesson.id)
-         };
-
-         console.log("diferente");
-      };
-   }; */
 
 
    async function handleSubmit(event) {

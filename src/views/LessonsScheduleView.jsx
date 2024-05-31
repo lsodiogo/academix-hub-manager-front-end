@@ -47,7 +47,7 @@ function LessonsScheduleView({ pathParams }) {
                setUserNotAuthorized(true);
                setError(result);
 
-            }else {
+            } else {
                setDetailedLessonScheduleInfo(result);
             };
 

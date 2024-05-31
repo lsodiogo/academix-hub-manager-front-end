@@ -1,5 +1,9 @@
 function PaginationButtons({ handlePageChange, paginationLinks, paginationButtons, handlePerPageLimit }) {
 
+   if (!handlePageChange || !paginationLinks || !paginationButtons || !handlePerPageLimit) {
+      return;
+   };
+
 
    return (
       <>
