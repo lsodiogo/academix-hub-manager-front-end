@@ -25,18 +25,15 @@ function TeachersView({ pathParams }) {
    const [userNotAuthorized, setUserNotAuthorized] = useState(false);
    const [error, setError] = useState({});
 
-
    useEffect(function() {
       async function checkLoginAndGetData() {
          const resultCookie = await apiService.fetchData("login", "GET");
-         console.log(resultCookie);
 
          setCookieInfo(resultCookie);
 
          if (pathParams) {
             // GET TEACHER BY ID
             const result = await apiService.fetchData(`teachers/${pathParams}`, "GET");
-            console.log(result);
             
             if (result.message === "Please, login!") {
                window.location.href = "/";
@@ -52,7 +49,6 @@ function TeachersView({ pathParams }) {
          } else {
             // GET ALL TEACHERS
             const result = await apiService.fetchData("teachers", "GET");
-            console.log(result);
 
             if (result.message === "Please, login!") {
                window.location.href = "/";
@@ -71,10 +67,8 @@ function TeachersView({ pathParams }) {
       checkLoginAndGetData();
       }, [pathParams]);
 
-
       async function handlePageChange(paginationUrl) {
          const result = await apiService.fetchData(paginationUrl, "GET");
-         console.log(result);
 
          if (result.message === "Please, login!") {
             window.location.href = "/";
@@ -90,13 +84,11 @@ function TeachersView({ pathParams }) {
          };
       };
 
-
       async function handlePerPageLimit(event) {
          const value = event.target.value;
    
          await handlePageChange(`teachers/?limit=${value}&offset=${paginationLinks.offset}`);
       };
-
 
       function showPageButton(paginationLinks) {
          const buttons = {
@@ -109,7 +101,7 @@ function TeachersView({ pathParams }) {
          setPaginationButtons(buttons);
       };
 
-
+      
    return (
       <>
          {userNotAuthorized ? (

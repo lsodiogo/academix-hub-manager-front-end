@@ -1,10 +1,6 @@
 function AllBacklogData({ allBacklogInfo }) {
-console.log(allBacklogInfo)  
-try {
-   console.log(JSON.parse(allBacklogInfo[0].action_description));
-} catch (error) {
-   console.log(error);
-}
+
+
    return (
       <>
          <div className="table-container">

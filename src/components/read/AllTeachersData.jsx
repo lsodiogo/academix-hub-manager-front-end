@@ -14,7 +14,6 @@ function AllTeachersData({ allTeachersInfo, cookieInfo, setshowPaginationButtons
    const [showUpdateDialog, setShowUpdateDialog] = useState(false);
    const [showDeleteDialog, setShowDeleteDialog] = useState(false);
    const [selectedTeacher, setSelectedTeacher] = useState(null);
-   
 
    function userCategoryCheck(item) {
       if (cookieInfo.userCategory === "admin" || cookieInfo.userCategory === "teacher") {
@@ -23,7 +22,6 @@ function AllTeachersData({ allTeachersInfo, cookieInfo, setshowPaginationButtons
          return false;
       };
    };
-
 
    const [teachers, setTeachers] = useState([]);
    const [searchTerm, setSearchTerm] = useState("");

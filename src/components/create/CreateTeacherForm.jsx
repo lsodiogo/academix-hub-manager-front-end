@@ -15,14 +15,12 @@ function CreateTeacherForm({ showCreateDialog, setShowCreateDialog }) {
       started: "",
       status: ""
    });
-   const [result, setResult] = useState({});
    
    const [status, setStatus] = useState([]);
    
    const [fieldsRequired, setFieldsRequired] = useState(false);
    const [dialogMessageResult, setDialogMessageResult] = useState(null);
    const [showDialogMessageResult, setShowDialogMessageResult] = useState(false);
-
 
    useEffect(function() {
       async function getDataForSelectOptions() {
@@ -35,7 +33,6 @@ function CreateTeacherForm({ showCreateDialog, setShowCreateDialog }) {
       getDataForSelectOptions();
    }, []);
 
-
    function handleChange(event) {
       event.preventDefault();
 
@@ -44,7 +41,6 @@ function CreateTeacherForm({ showCreateDialog, setShowCreateDialog }) {
       setFieldsRequired(false);
       setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
    };
-
 
    function getMaxBirthdate() {
       const today = new Date();
@@ -67,7 +63,6 @@ function CreateTeacherForm({ showCreateDialog, setShowCreateDialog }) {
       return maxBirthdate;
    };
 
-
    async function handleSubmit(event) {
       event.preventDefault();
 
@@ -77,8 +72,6 @@ function CreateTeacherForm({ showCreateDialog, setShowCreateDialog }) {
       };
       
       const result = await apiService.fetchData("teachers", "POST", formData);
-      console.log(result);
-      setResult(result);
 
       setFieldsRequired(false);
 
@@ -105,7 +98,6 @@ function CreateTeacherForm({ showCreateDialog, setShowCreateDialog }) {
       };
    };
 
-
    async function handleMessageResultButtonClick() {
       setShowDialogMessageResult(false);
       
@@ -114,145 +106,144 @@ function CreateTeacherForm({ showCreateDialog, setShowCreateDialog }) {
       };
    };
 
-
    async function handleCancelClick() {
       window.location.reload();
    };
 
  
    return (
-        <>
-            <dialog open={showCreateDialog}>
-               <div className="dialogScroll">
-                  <form onSubmit={handleSubmit}>
-                     <fieldset>
-                        <h1>CREATE NEW TEACHER</h1>
+      <>
+         <dialog open={showCreateDialog}>
+            <div className="dialogScroll">
+               <form onSubmit={handleSubmit}>
+                  <fieldset>
+                     <h1>CREATE NEW TEACHER</h1>
 
-                        <label>
-                           NAME *
-                           <input
-                              placeholder="name"
-                              type="text"
-                              name="name"
-                              maxLength="255"
-                              value={formData.name}
-                              onChange={(event) => handleChange(event)}
-                           />
-                        </label>
-
-                        <label>
-                           SURNAME *
-                           <input
-                              placeholder="surname"
-                              type="text"
-                              name="surname"
-                              maxLength="255"
-                              value={formData.surname}
-                              onChange={(event) => handleChange(event)}
-                           />
-                        </label>
-
-                        <label>
-                           BIRTHDATE *
-                           <input
-                              type="date"
-                              name="birthdate"
-                              max={getMaxBirthdate()}
-                              value={formData.birthdate}
-                              onChange={(event) => handleChange(event)}
-                           />
-                           <div className="instruction">Teacher must be at least 18 years</div>
-                        </label>
-
-                        <label>
-                           EMAIL *
-                           <input
-                              placeholder="email"
-                              type="email"
-                              name="email"
-                              maxLength="255"
-                              value={formData.email}
-                              onChange={(event) => handleChange(event)}
-                           />
-                        </label>
-
-                        <label>
-                           PHONE *
-                           <input
-                              placeholder="phone"
-                              type="number"
-                              name="telef"
-                              value={formData.telef}
-                              onChange={(event) => handleChange(event)}
-                           />
-                        </label>
-
-                        <label>
-                           ADDRESS *
-                           <input
-                              placeholder="address"
-                              type="text"
-                              name="address"
-                              maxLength="255"
-                              value={formData.address}
-                              onChange={(event) => handleChange(event)}
-                           />
-                           <div className="instruction">Max 255 characters</div>
-                        </label>
-
-                        <label>
-                           STARTED *
-                           <input
-                              type="date"
-                              name="started"
-                              value={formData.started}
-                              onChange={(event) => handleChange(event)}
-                           />
-                        </label>                  
-
-                        <label>
-                           STATUS *
-                           <select
-                           name="status"
-                           value={formData.status}
+                     <label>
+                        NAME *
+                        <input
+                           placeholder="name"
+                           type="text"
+                           name="name"
+                           maxLength="255"
+                           value={formData.name}
                            onChange={(event) => handleChange(event)}
-                           >
-                              <option value="notanoption">select status</option>
-                              {status
-                                 .filter((status) => status.description.includes("teachers"))
-                                 .map((status) =>
-                                    <option key={status.id} value={status.id}>{status.name}</option>
-                                 )
-                              }
-                           </select>
-                        </label>
+                        />
+                     </label>
 
-                        {fieldsRequired &&
-                           <div className="alert-message">
-                           * FIELDS REQUIRED!
-                           </div>
-                        }
+                     <label>
+                        SURNAME *
+                        <input
+                           placeholder="surname"
+                           type="text"
+                           name="surname"
+                           maxLength="255"
+                           value={formData.surname}
+                           onChange={(event) => handleChange(event)}
+                        />
+                     </label>
 
-                        <div>
-                           <button type="submit">
-                              CREATE
-                           </button>
-                           <button type="button" onClick={handleCancelClick}>
-                              CANCEL
-                           </button>
+                     <label>
+                        BIRTHDATE *
+                        <input
+                           type="date"
+                           name="birthdate"
+                           max={getMaxBirthdate()}
+                           value={formData.birthdate}
+                           onChange={(event) => handleChange(event)}
+                        />
+                        <div className="instruction">Teacher must be at least 18 years</div>
+                     </label>
+
+                     <label>
+                        EMAIL *
+                        <input
+                           placeholder="email"
+                           type="email"
+                           name="email"
+                           maxLength="255"
+                           value={formData.email}
+                           onChange={(event) => handleChange(event)}
+                        />
+                     </label>
+
+                     <label>
+                        PHONE *
+                        <input
+                           placeholder="phone"
+                           type="number"
+                           name="telef"
+                           value={formData.telef}
+                           onChange={(event) => handleChange(event)}
+                        />
+                     </label>
+
+                     <label>
+                        ADDRESS *
+                        <input
+                           placeholder="address"
+                           type="text"
+                           name="address"
+                           maxLength="255"
+                           value={formData.address}
+                           onChange={(event) => handleChange(event)}
+                        />
+                        <div className="instruction">Max 255 characters</div>
+                     </label>
+
+                     <label>
+                        STARTED *
+                        <input
+                           type="date"
+                           name="started"
+                           value={formData.started}
+                           onChange={(event) => handleChange(event)}
+                        />
+                     </label>                  
+
+                     <label>
+                        STATUS *
+                        <select
+                        name="status"
+                        value={formData.status}
+                        onChange={(event) => handleChange(event)}
+                        >
+                           <option value="notanoption">select status</option>
+                           {status
+                              .filter((status) => status.description.includes("teachers"))
+                              .map((status) =>
+                                 <option key={status.id} value={status.id}>{status.name}</option>
+                              )
+                           }
+                        </select>
+                     </label>
+
+                     {fieldsRequired &&
+                        <div className="alert-message">
+                        * FIELDS REQUIRED!
                         </div>
-                     </fieldset>
-                  </form>
-               </div>
-            </dialog>
+                     }
 
-            <dialog open={showDialogMessageResult}>
-               <div>
-                  <h2>{dialogMessageResult}</h2>
-                  <button type="button" onClick={handleMessageResultButtonClick}>OK</button>
-               </div>
-            </dialog>
-        </>
+                     <div>
+                        <button type="submit">
+                           CREATE
+                        </button>
+                        <button type="button" onClick={handleCancelClick}>
+                           CANCEL
+                        </button>
+                     </div>
+                  </fieldset>
+               </form>
+            </div>
+         </dialog>
+
+         <dialog open={showDialogMessageResult}>
+            <div>
+               <h2>{dialogMessageResult}</h2>
+               <button type="button" onClick={handleMessageResultButtonClick}>OK</button>
+            </div>
+         </dialog>
+      </>
    );
 };
 

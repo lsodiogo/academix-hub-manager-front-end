@@ -1,5 +1,5 @@
-import { useEffect } from "react";
 import { useLocation } from "wouter";
+import { useEffect } from "react";
 
 
 function ScrollToTop() {
@@ -7,7 +7,9 @@ function ScrollToTop() {
   const [ pathname ] = useLocation();
 
   useEffect(function() {
+    
     window.scrollTo(0, 0);
+  
   }, [pathname]);
 
   return null;

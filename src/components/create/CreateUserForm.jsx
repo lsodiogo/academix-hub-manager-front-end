@@ -10,7 +10,6 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
       password: "",
       category: ""
    });
-   const [result, setResult] = useState({});
    
    const [teachers, setTeachers] = useState([]);
    const [students, setStudents] = useState([]);
@@ -22,7 +21,6 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
    const [showAlertMessage, setShowAlertMessage] = useState(false);
    const [dialogMessageResult, setDialogMessageResult] = useState(null);
    const [showDialogMessageResult, setShowDialogMessageResult] = useState(false);
-
 
    useEffect(function() {
       async function getDataToCheckTeacherStudentEmail() {
@@ -40,7 +38,6 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
       getDataToCheckTeacherStudentEmail();
    }, []);
 
-
    function handleChange(event) {
       event.preventDefault();
 
@@ -50,11 +47,9 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
       setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
    };
 
-
    function handleTogglePassword() {
       setShowPassword(!showPassword);
    };
-
 
    function getPasswordStrength(password) {
       let strength = {
@@ -88,8 +83,6 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
       return strength;
    };
 
-  
-
    async function handleSubmit(event) {
       event.preventDefault();
       
@@ -97,7 +90,6 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
          setFieldsRequired(true);
          return;
       };
-
 
       const strength = getPasswordStrength(formData.password);
 
@@ -111,12 +103,10 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
          setShowAlertMessage(false);
       };
 
-      
       if (!passwordRepeated) {
          setFieldsRequired(true);
          return;
       };
-
 
       if (formData.password !== passwordRepeated) {
          setFieldsRequired(false);
@@ -129,12 +119,10 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
          setAlertMessage(false);
       };
 
-
       if (!formData.category || formData.category === "notanoption") {
          setFieldsRequired(true);
          return;
       };
-
 
       const studentEmailExists = students.some(student => student.email === formData.email);
       const teacherEmailExists = teachers.some(teacher => teacher.email === formData.email);
@@ -154,15 +142,11 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
          return;
       };
       
-
       const result = await apiService.fetchData("users", "POST", formData);
-      console.log(result);
-      setResult(result);
 
       setFieldsRequired(false);
       setShowAlertMessage(false);
 
-      
       if (result.type === "WARNING") {
          setDialogMessageResult("User already exists!");
          setShowDialogMessageResult(true);
@@ -181,7 +165,6 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
       };
    };
 
-
    async function handleMessageResultButtonClick() {
       setShowDialogMessageResult(false);
       
@@ -190,126 +173,125 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
       };
    };
 
-
    async function handleCancelClick() {
       window.location.reload();
    };
 
  
    return (
-        <>
-            <dialog open={showCreateDialog}>
-               <div className="dialogScroll">
-                  <form onSubmit={handleSubmit}>
-                     <fieldset>
-                        <h1>CREATE NEW USER</h1>
+      <>
+         <dialog open={showCreateDialog}>
+            <div className="dialogScroll">
+               <form onSubmit={handleSubmit}>
+                  <fieldset>
+                     <h1>CREATE NEW USER</h1>
 
-                        <label>
-                           EMAIL *
-                           <input
-                              placeholder="email"
-                              type="email"
-                              name="email"
-                              maxLength="255"
-                              value={formData.email}
-                              onChange={(event) => handleChange(event)}
-                           />
-                        </label>
-
-                        <label>
-                           PASSWORD *
-                           <input
-                              placeholder="password"
-                              type={showPassword ? "text" : "password"}
-                              name="password"
-                              minLength="8"
-                              maxLength="18"
-                              value={formData.password}
-                              onChange={(event) => handleChange(event)}
-                           />
-                           <input
-                              placeholder="repeat password"
-                              type={showPassword ? "text" : "password"}
-                              name="passwordRepeated"
-                              minLength="8"
-                              maxLength="18"
-                              value={passwordRepeated}
-                              onChange={(event) => setPasswordRepeated(event.target.value)}
-                           />
-
-                           <div className="instruction">
-                              <span style={{ color: getPasswordStrength(formData.password).length ? "green" : "red" }}>
-                                 - At least 8 characters
-                              </span>
-
-                              <span style={{ color: getPasswordStrength(formData.password).lowercase ? "green" : "red" }}>
-                                 - At least one lowercase letter
-                              </span>
-
-                              <span style={{ color: getPasswordStrength(formData.password).uppercase ? "green" : "red" }}>
-                                 - At least one uppercase letter
-                              </span>
-                        
-                              <span style={{ color: getPasswordStrength(formData.password).number ? "green" : "red" }}>
-                                 - At least one number
-                              </span>
-
-                              <span style={{ color: getPasswordStrength(formData.password).specialCharacter ? "green" : "red" }}>
-                                 - At least one special character !@#$%^&*
-                              </span>
-
-                              <button type="button" onClick={handleTogglePassword}>
-                                 {showPassword ? "Hide Password" : "Show Password"}
-                              </button>
-                           </div>
-                        </label>
-
-                        <label>
-                           CATEGORY *
-                           <select
-                           name="category"
-                           value={formData.category}
+                     <label>
+                        EMAIL *
+                        <input
+                           placeholder="email"
+                           type="email"
+                           name="email"
+                           maxLength="255"
+                           value={formData.email}
                            onChange={(event) => handleChange(event)}
-                           >
-                              <option value="notanoption">select category</option>
-                              <option value="admin">Admin</option>
-                              <option value="student">Student</option>
-                              <option value="teacher">Teacher</option>
-                           </select>
-                        </label>
+                        />
+                     </label>
 
-                        {fieldsRequired &&
-                           <div className="alert-message">
-                           * FIELDS REQUIRED!
-                           </div>
-                        }
+                     <label>
+                        PASSWORD *
+                        <input
+                           placeholder="password"
+                           type={showPassword ? "text" : "password"}
+                           name="password"
+                           minLength="8"
+                           maxLength="18"
+                           value={formData.password}
+                           onChange={(event) => handleChange(event)}
+                        />
+                        <input
+                           placeholder="repeat password"
+                           type={showPassword ? "text" : "password"}
+                           name="passwordRepeated"
+                           minLength="8"
+                           maxLength="18"
+                           value={passwordRepeated}
+                           onChange={(event) => setPasswordRepeated(event.target.value)}
+                        />
 
-                        {showAlertMessage &&
-                           <div className="alert-message">
-                              {alertMessage}
-                           </div>
-                        }
+                        <div className="instruction">
+                           <span style={{ color: getPasswordStrength(formData.password).length ? "green" : "red" }}>
+                              - At least 8 characters
+                           </span>
 
-                        <div>
-                           <button type="submit">
-                              CREATE
-                           </button>
-                           <button type="button" onClick={handleCancelClick}>
-                              CANCEL
+                           <span style={{ color: getPasswordStrength(formData.password).lowercase ? "green" : "red" }}>
+                              - At least one lowercase letter
+                           </span>
+
+                           <span style={{ color: getPasswordStrength(formData.password).uppercase ? "green" : "red" }}>
+                              - At least one uppercase letter
+                           </span>
+                     
+                           <span style={{ color: getPasswordStrength(formData.password).number ? "green" : "red" }}>
+                              - At least one number
+                           </span>
+
+                           <span style={{ color: getPasswordStrength(formData.password).specialCharacter ? "green" : "red" }}>
+                              - At least one special character !@#$%^&*
+                           </span>
+
+                           <button type="button" onClick={handleTogglePassword}>
+                              {showPassword ? "Hide Password" : "Show Password"}
                            </button>
                         </div>
-                     </fieldset>
-                  </form>
-               </div>
-            </dialog>
+                     </label>
 
-            <dialog open={showDialogMessageResult}>
-               <div>
-                  <h2>{dialogMessageResult}</h2>
-                  <button type="button" onClick={handleMessageResultButtonClick}>OK</button>
-               </div>
-            </dialog>
-        </>
+                     <label>
+                        CATEGORY *
+                        <select
+                        name="category"
+                        value={formData.category}
+                        onChange={(event) => handleChange(event)}
+                        >
+                           <option value="notanoption">select category</option>
+                           <option value="admin">Admin</option>
+                           <option value="student">Student</option>
+                           <option value="teacher">Teacher</option>
+                        </select>
+                     </label>
+
+                     {fieldsRequired &&
+                        <div className="alert-message">
+                        * FIELDS REQUIRED!
+                        </div>
+                     }
+
+                     {showAlertMessage &&
+                        <div className="alert-message">
+                           {alertMessage}
+                        </div>
+                     }
+
+                     <div>
+                        <button type="submit">
+                           CREATE
+                        </button>
+                        <button type="button" onClick={handleCancelClick}>
+                           CANCEL
+                        </button>
+                     </div>
+                  </fieldset>
+               </form>
+            </div>
+         </dialog>
+
+         <dialog open={showDialogMessageResult}>
+            <div>
+               <h2>{dialogMessageResult}</h2>
+               <button type="button" onClick={handleMessageResultButtonClick}>OK</button>
+            </div>
+         </dialog>
+      </>
    );
 };
 

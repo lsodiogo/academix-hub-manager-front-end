@@ -11,7 +11,6 @@ function CourseDetailedData({ detailedCourseInfo, hideWhenDataNull, cookieInfo }
       };
    };
 
-
    function FormatDate(item) {
       const dateFormated = new Date(item).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" });
 

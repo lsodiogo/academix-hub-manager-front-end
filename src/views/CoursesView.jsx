@@ -19,7 +19,6 @@ function CoursesView({ pathParams }) {
    const [showPaginationButtons, setshowPaginationButtons] = useState(true);
 
    const [cookieInfo, setCookieInfo] = useState({});
-  
    const [allCoursesInfo, setAllCoursesInfo] = useState([]);
    const [detailedCourseInfo, setDetailedCourseInfo] = useState({});
 
@@ -27,18 +26,15 @@ function CoursesView({ pathParams }) {
    const [userNotAuthorized, setUserNotAuthorized] = useState(false);
    const [error, setError] = useState({});
 
-
    useEffect(function() {
       async function checkLoginAndGetData() {
          const resultCookie = await apiService.fetchData("login", "GET");
-         console.log(resultCookie);
 
          setCookieInfo(resultCookie);
          
          if (pathParams) {
             // GET COURSE BY ID
             const result = await apiService.fetchData(`courses/${pathParams}`, "GET");
-            console.log(result);
 
             if (result.message === "Please, login!") {
                window.location.href = "/";
@@ -58,7 +54,6 @@ function CoursesView({ pathParams }) {
          } else {
             // GET ALL COURSES
             const result = await apiService.fetchData("courses", "GET");
-            console.log(result);
 
             if (result.message === "Please, login!") {
                window.location.href = "/";
@@ -77,10 +72,8 @@ function CoursesView({ pathParams }) {
       checkLoginAndGetData();
       }, [pathParams]);
 
-
       async function handlePageChange(paginationUrl) {
          const result = await apiService.fetchData(paginationUrl, "GET");
-         console.log(result);
 
          if (result.message === "Please, login!") {
             window.location.href = "/";
@@ -96,13 +89,11 @@ function CoursesView({ pathParams }) {
          }; 
       };
 
-
       async function handlePerPageLimit(event) {
          const value = event.target.value;
    
          await handlePageChange(`courses/?limit=${value}&offset=${paginationLinks.offset}`);
       };
-
 
       function showPageButton(paginationLinks) {
          const buttons = {
@@ -118,7 +109,6 @@ function CoursesView({ pathParams }) {
       useEffect(() => {
          const fetchLatestResults = async () => {
            const result = await apiService.fetchData("courses", "GET");
-           console.log(result);
      
            setAllCoursesInfo(result.results);
            setPaginationLinks(result.paginationLinksAccess);

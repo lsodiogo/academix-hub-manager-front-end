@@ -9,13 +9,11 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
       return;
    };
 
-
    function FormatDate(item) {
       const dateFormated = new Date(item).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" });
 
       return dateFormated;
    };
-
 
    const [formData, setFormData] = useState({
       name: selectedStudent.name,
@@ -30,7 +28,6 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
       graduated: selectedStudent.graduated_at !== null ? FormatDate(selectedStudent.graduated_at) : "",
       status: selectedStudent.status_id
    });
-   const [result, setResult] = useState({});
    
    const [courses, setCourses] = useState([]);
    const [status, setStatus] = useState([]);
@@ -38,7 +35,6 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
    const [fieldsRequired, setFieldsRequired] = useState(false);
    const [dialogMessageResult, setDialogMessageResult] = useState(null);
    const [showDialogMessageResult, setShowDialogMessageResult] = useState(false);
-
 
    useEffect(function() {
       async function getDataForSelectOptions() {
@@ -56,7 +52,6 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
       getDataForSelectOptions();
    }, []);
 
-
    function handleChange(event) {
       event.preventDefault();
 
@@ -65,7 +60,6 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
       setFieldsRequired(false);
       setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
    };
-
 
    const getTomorrowDate = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split("T")[0];
    
@@ -90,7 +84,6 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
       return maxBirthdate;
    };
 
-
    async function handleSubmit(event) {
       event.preventDefault();
 
@@ -100,8 +93,6 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
       };
       
       const result = await apiService.fetchData(`students/${selectedStudent.id}`, "PUT", formData);
-      console.log(result);
-      setResult(result);
 
       setFieldsRequired(false);
 
@@ -117,7 +108,6 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
       };
    };
 
-
    async function handleMessageResultButtonClick() {
       setShowDialogMessageResult(false);
       
@@ -126,185 +116,184 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
       };
    };
 
-
    async function handleCancelClick() {
       window.location.reload();
    };
 
  
    return (
-        <>
-            <dialog open={showUpdateDialog}>
-               <div className="dialogScroll">
-                  <form onSubmit={handleSubmit}>
-                     <fieldset>
-                        <h1>UPDATE STUDENT {selectedStudent.name} {selectedStudent.surname}</h1>
+      <>
+         <dialog open={showUpdateDialog}>
+            <div className="dialogScroll">
+               <form onSubmit={handleSubmit}>
+                  <fieldset>
+                     <h1>UPDATE STUDENT {selectedStudent.name} {selectedStudent.surname}</h1>
 
-                        <label>
-                           NAME *
-                           <input
-                              placeholder="name"
-                              type="text"
-                              name="name"
-                              maxLength="255"
-                              value={formData.name}
-                              onChange={(event) => handleChange(event)}
-                           />
-                        </label>
-
-                        <label>
-                           SURNAME *
-                           <input
-                              placeholder="surname"
-                              type="text"
-                              name="surname"
-                              maxLength="255"
-                              value={formData.surname}
-                              onChange={(event) => handleChange(event)}
-                           />
-                        </label>
-
-                        <label>
-                           BIRTHDATE *
-                           <input
-                              type="date"
-                              name="birthdate"
-                              max={getMaxBirthdate()}
-                              value={formData.birthdate}
-                              onChange={(event) => handleChange(event)}
-                           />
-                        </label>
-
-                        <label>
-                           EMAIL *
-                           <input
-                              placeholder="email"
-                              type="email"
-                              name="email"
-                              maxLength="255"
-                              value={formData.email}
-                              onChange={(event) => handleChange(event)}
-                           />
-                        </label>
-
-                        <label>
-                           PHONE *
-                           <input
-                              placeholder="phone"
-                              type="number"
-                              name="telef"
-                              value={formData.telef}
-                              onChange={(event) => handleChange(event)}
-                           />
-                        </label>
-
-                        <label>
-                           ADDRESS *
-                           <input
-                              placeholder="address"
-                              type="text"
-                              name="address"
-                              maxLength="255"
-                              value={formData.address}
-                              onChange={(event) => handleChange(event)}
-                           />
-                           <div className="instruction">Max 255 characters</div>
-                        </label>
-
-                        <label>
-                           ENROLLED *
-                           <input
-                              type="date"
-                              name="enrolled"
-                              value={formData.enrolled}
-                              onChange={(event) => handleChange(event)}
-                           />
-                        </label>
-
-                        <label>
-                           COURSE *
-                           <select
-                           name="course"
-                           value={formData.course}
+                     <label>
+                        NAME *
+                        <input
+                           placeholder="name"
+                           type="text"
+                           name="name"
+                           maxLength="255"
+                           value={formData.name}
                            onChange={(event) => handleChange(event)}
-                           >
-                              {courses
-                                 .filter((course) => course.status_name === "Active")
-                                 .map((course) =>
-                                    <option key={course.id} value={course.id}>{course.name}</option>
-                                 )
-                              }
-                           </select>
-                           <div className="instruction">Only courses with active status</div>
-                        </label>
+                        />
+                     </label>
 
-                        <label>
-                           FINAL GRADE
-                           <input
-                              placeholder="grade"
-                              type="number"
-                              name="grade"
-                              min="0"
-                              max="20"
-                              value={formData.grade}
-                              onChange={(event) => handleChange(event)}
-                           />
-                           <div className="instruction">From 0 to 20</div>
-                        </label>
-
-                        <label>
-                           GRADUATED
-                           <input
-                              type="date"
-                              name="graduated"
-                              max={getTomorrowDate}
-                              value={formData.graduated}
-                              onChange={(event) => handleChange(event)}
-                           />
-                        </label>
-
-                        <label>
-                           STATUS *
-                           <select
-                           name="status"
-                           value={formData.status}
+                     <label>
+                        SURNAME *
+                        <input
+                           placeholder="surname"
+                           type="text"
+                           name="surname"
+                           maxLength="255"
+                           value={formData.surname}
                            onChange={(event) => handleChange(event)}
-                           >
-                              {status
-                                 .filter((status) => status.description.includes("students"))
-                                 .map((status) =>
-                                    <option key={status.id} value={status.id}>{status.name}</option>
-                                 )
-                              }
-                           </select>
-                        </label>
+                        />
+                     </label>
 
-                        {fieldsRequired &&
-                           <div className="alert-message">
-                           * FIELDS REQUIRED!
-                           </div>
-                        }
+                     <label>
+                        BIRTHDATE *
+                        <input
+                           type="date"
+                           name="birthdate"
+                           max={getMaxBirthdate()}
+                           value={formData.birthdate}
+                           onChange={(event) => handleChange(event)}
+                        />
+                     </label>
 
-                        <div>
-                           <button type="submit">
-                              UPDATE
-                           </button>
-                           <button type="button" onClick={handleCancelClick}>
-                              CANCEL
-                           </button>
+                     <label>
+                        EMAIL *
+                        <input
+                           placeholder="email"
+                           type="email"
+                           name="email"
+                           maxLength="255"
+                           value={formData.email}
+                           onChange={(event) => handleChange(event)}
+                        />
+                     </label>
+
+                     <label>
+                        PHONE *
+                        <input
+                           placeholder="phone"
+                           type="number"
+                           name="telef"
+                           value={formData.telef}
+                           onChange={(event) => handleChange(event)}
+                        />
+                     </label>
+
+                     <label>
+                        ADDRESS *
+                        <input
+                           placeholder="address"
+                           type="text"
+                           name="address"
+                           maxLength="255"
+                           value={formData.address}
+                           onChange={(event) => handleChange(event)}
+                        />
+                        <div className="instruction">Max 255 characters</div>
+                     </label>
+
+                     <label>
+                        ENROLLED *
+                        <input
+                           type="date"
+                           name="enrolled"
+                           value={formData.enrolled}
+                           onChange={(event) => handleChange(event)}
+                        />
+                     </label>
+
+                     <label>
+                        COURSE *
+                        <select
+                        name="course"
+                        value={formData.course}
+                        onChange={(event) => handleChange(event)}
+                        >
+                           {courses
+                              .filter((course) => course.status_name === "Active")
+                              .map((course) =>
+                                 <option key={course.id} value={course.id}>{course.name}</option>
+                              )
+                           }
+                        </select>
+                        <div className="instruction">Only courses with active status</div>
+                     </label>
+
+                     <label>
+                        FINAL GRADE
+                        <input
+                           placeholder="grade"
+                           type="number"
+                           name="grade"
+                           min="0"
+                           max="20"
+                           value={formData.grade}
+                           onChange={(event) => handleChange(event)}
+                        />
+                        <div className="instruction">From 0 to 20</div>
+                     </label>
+
+                     <label>
+                        GRADUATED
+                        <input
+                           type="date"
+                           name="graduated"
+                           max={getTomorrowDate}
+                           value={formData.graduated}
+                           onChange={(event) => handleChange(event)}
+                        />
+                     </label>
+
+                     <label>
+                        STATUS *
+                        <select
+                        name="status"
+                        value={formData.status}
+                        onChange={(event) => handleChange(event)}
+                        >
+                           {status
+                              .filter((status) => status.description.includes("students"))
+                              .map((status) =>
+                                 <option key={status.id} value={status.id}>{status.name}</option>
+                              )
+                           }
+                        </select>
+                     </label>
+
+                     {fieldsRequired &&
+                        <div className="alert-message">
+                        * FIELDS REQUIRED!
                         </div>
-                     </fieldset>
-                  </form>
-               </div>
-            </dialog>
+                     }
 
-            <dialog open={showDialogMessageResult}>
-               <div>
-                  <h2>{dialogMessageResult}</h2>
-                  <button type="button" onClick={handleMessageResultButtonClick}>OK</button>
-               </div>
-            </dialog>
-        </>
+                     <div>
+                        <button type="submit">
+                           UPDATE
+                        </button>
+                        <button type="button" onClick={handleCancelClick}>
+                           CANCEL
+                        </button>
+                     </div>
+                  </fieldset>
+               </form>
+            </div>
+         </dialog>
+
+         <dialog open={showDialogMessageResult}>
+            <div>
+               <h2>{dialogMessageResult}</h2>
+               <button type="button" onClick={handleMessageResultButtonClick}>OK</button>
+            </div>
+         </dialog>
+      </>
    );
 };
 

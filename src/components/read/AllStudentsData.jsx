@@ -15,7 +15,6 @@ function AllStudentsData({ allStudentsInfo, cookieInfo, setshowPaginationButtons
    const [showDeleteDialog, setShowDeleteDialog] = useState(false);
    const [selectedStudent, setSelectedStudent] = useState(null);
 
-
    function userCategoryCheck(item) {
       if (cookieInfo.userCategory === "admin" || cookieInfo.userCategory === "teacher" || (cookieInfo.userCategory === "student" && cookieInfo.userEmail === item.email)) {
          return true;
@@ -23,7 +22,6 @@ function AllStudentsData({ allStudentsInfo, cookieInfo, setshowPaginationButtons
          return false;
       };
    };
-
 
    const [students, setStudents] = useState([]);
    const [searchTerm, setSearchTerm] = useState("");

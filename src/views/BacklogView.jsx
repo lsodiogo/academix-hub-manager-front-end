@@ -16,15 +16,14 @@ function BacklogView() {
       nextPage: true,
       lastPage: true
    });
+
    const [userNotAuthorized, setUserNotAuthorized] = useState(false);
    const [error, setError] = useState({});
-
 
    useEffect(function() {
       async function getAllData() {
 
          const result = await apiService.fetchData("backlog", "GET");
-         console.log(result);
 
          if (result.message === "Please, login!") {
             window.location.href = "/";
@@ -42,11 +41,9 @@ function BacklogView() {
       getAllData();
    }, []);
 
-
    async function handlePageChange(paginationUrl) {
 
       const result = await apiService.fetchData(paginationUrl, "GET");
-      console.log(result);
 
       if (result.message === "Please, login!") {
          window.location.href = "/";
@@ -62,13 +59,11 @@ function BacklogView() {
       }; 
    };
 
-   
    async function handlePerPageLimit(event) {
       const value = event.target.value;
 
       await handlePageChange(`backlog/?limit=${value}&offset=${paginationLinks.offset}`);
    };
-
 
    function showPageButton(paginationLinks) {
 

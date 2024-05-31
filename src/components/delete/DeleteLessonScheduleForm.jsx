@@ -9,29 +9,32 @@ function DeleteLessonScheduleForm({ selectedLessonSchedule, showDeleteDialog, se
       return;
    };
 
-
    const [dialogMessageResult, setDialogMessageResult] = useState(null);
    const [showDialogMessageResult, setShowDialogMessageResult] = useState(false);
-
 
    async function handleDelete() {
 
       const result = await apiService.fetchData(`lessons_schedule/${selectedLessonSchedule.id}`, "DELETE");
-      console.log(result);
 
-      setShowDeleteDialog(false);
+      if (result.type !== "WARNING") {
+         setShowDeleteDialog(false);
 
-      setDialogMessageResult("Lesson schedule deleted with success!");
-      setShowDialogMessageResult(true);
+         setDialogMessageResult("Lesson schedule deleted with success!");
+         setShowDialogMessageResult(true);
+
+      } else {
+         setShowDeleteDialog(false);
+         
+         setDialogMessageResult("Something went wrong!");
+         setShowDialogMessageResult(true);
+      };
    };
 
-   
    async function handleMessageResultButtonClick() {
       setShowDialogMessageResult(false);
       
       window.location.reload();
    };
-
 
    async function handleCancelClick() {
       window.location.reload();

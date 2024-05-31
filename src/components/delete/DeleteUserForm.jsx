@@ -9,22 +9,25 @@ function DeleteUserForm({ selectedUser, showDeleteDialog, setShowDeleteDialog, c
       return;
    };
 
-
    const [dialogMessageResult, setDialogMessageResult] = useState(null);
    const [showDialogMessageResult, setShowDialogMessageResult] = useState(false);
 
-
    async function handleDelete() {
-
       const result = await apiService.fetchData(`users/${selectedUser.id}`, "DELETE");
-      console.log(result);
 
-      setShowDeleteDialog(false);
+      if (result.type !== "WARNING") {
+         setShowDeleteDialog(false);
 
-      setDialogMessageResult("User deleted with success!");
-      setShowDialogMessageResult(true);
+         setDialogMessageResult("User deleted with success!");
+         setShowDialogMessageResult(true);
+
+      } else {
+         setShowDeleteDialog(false);
+         
+         setDialogMessageResult("Something went wrong!");
+         setShowDialogMessageResult(true);
+      };
    };
-
 
    async function handleMessageResultButtonClick() {
       setShowDialogMessageResult(false);
@@ -37,7 +40,6 @@ function DeleteUserForm({ selectedUser, showDeleteDialog, setShowDeleteDialog, c
          window.location.reload();
       };
    };
-
 
    async function handleCancelClick() {
       window.location.reload();

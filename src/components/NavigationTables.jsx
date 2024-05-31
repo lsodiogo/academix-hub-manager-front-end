@@ -8,31 +8,26 @@ function NavigationTables() {
 
    const [cookieInfo, setCookieInfo] = useState({});
   
-
    useEffect(function() {
       async function checkLogin() {
 
          const result = await apiService.fetchData("login", "GET");
-         console.log(result);
 
          setCookieInfo(result);
       };
       checkLogin();
    }, []);
 
-   
    async function logoutPost(event) {
     
       event.preventDefault();
 
       const result = await apiService.fetchData("login/logout", "GET");
-      console.log(result);
       
       if (result.type === "SUCCESS") {        
          window.location.href = "/";
       };
    };
-   
    
    function userCategoryCheck(item) {
       if (cookieInfo.userCategory !== "admin" && (item === "backlog" || item === "status") ||

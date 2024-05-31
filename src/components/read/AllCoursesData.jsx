@@ -15,7 +15,6 @@ function AllCoursesData({ allCoursesInfo, cookieInfo, setshowPaginationButtons }
    const [showDeleteDialog, setShowDeleteDialog] = useState(false);
    const [selectedCourse, setSelectedCourse] = useState(null);
 
-   
    function userCategoryCheck(item) {
       if (cookieInfo.userCategory === "admin" || cookieInfo.userCategory === "teacher") {
          return true;
@@ -23,7 +22,6 @@ function AllCoursesData({ allCoursesInfo, cookieInfo, setshowPaginationButtons }
          return false;
       };
    };
-
 
    const [courses, setCourses] = useState([]);
    const [searchTerm, setSearchTerm] = useState("");

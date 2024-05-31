@@ -19,7 +19,6 @@ function LessonsScheduleView({ pathParams }) {
    const [showPaginationButtons, setshowPaginationButtons] = useState(true);
 
    const [cookieInfo, setCookieInfo] = useState({});
-
    const [allLessonsScheduleInfo, setAllLessonsScheduleInfo] = useState([]);
    const [detailedLessonScheduleInfo, setDetailedLessonScheduleInfo] = useState({});
 
@@ -27,18 +26,15 @@ function LessonsScheduleView({ pathParams }) {
    const [userNotAuthorized, setUserNotAuthorized] = useState(false);
    const [error, setError] = useState({});
 
-
    useEffect(function() {
       async function checkLoginAndGetData() {
          const resultCookie = await apiService.fetchData("login", "GET");
-         console.log(resultCookie);
 
          setCookieInfo(resultCookie);
          
          if (pathParams) {
             // GET LESSON SCHEDULE BY ID
             const result = await apiService.fetchData(`lessons_schedule/${pathParams}`, "GET");
-            console.log(result);
 
             if (result.message === "Please, login!") {
                window.location.href = "/";
@@ -58,7 +54,6 @@ function LessonsScheduleView({ pathParams }) {
          } else {
             // GET ALL LESSONS SCHEDULE
             const result = await apiService.fetchData("lessons_schedule", "GET");
-            console.log(result);
 
             if (result.message === "Please, login!") {
                window.location.href = "/";
@@ -77,10 +72,8 @@ function LessonsScheduleView({ pathParams }) {
       checkLoginAndGetData();
       }, [pathParams]);
 
-
       async function handlePageChange(paginationUrl) {
          const result = await apiService.fetchData(paginationUrl, "GET");
-         console.log(result);
 
          if (result.message === "Please, login!") {
             window.location.href = "/";
@@ -96,13 +89,11 @@ function LessonsScheduleView({ pathParams }) {
          };
       };
 
-
       async function handlePerPageLimit(event) {
          const value = event.target.value;
    
          await handlePageChange(`lessons_schedule/?limit=${value}&offset=${paginationLinks.offset}`);
       };
-
 
       function showPageButton(paginationLinks) {
          const buttons = {

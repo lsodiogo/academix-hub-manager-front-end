@@ -19,19 +19,16 @@ function HomeView() {
       async function getAllSchoolData() {
 
          const result = await apiService.fetchData("school", "GET");
-         console.log(result);
 
          setSchoolInfo(result.results);
       };
       getAllSchoolData();
    }, []);
 
-
    useEffect(function() {
       async function checkLogin() {
 
          const result = await apiService.fetchData("login", "GET");
-         console.log(result);
 
          if (result.type === "WARNING") {
             setShowLoginForm(true);
@@ -40,9 +37,7 @@ function HomeView() {
       checkLogin();
    }, []);
    
-   
    async function loginPost(event) {
-
       event.preventDefault();
 
       const body = {
@@ -52,7 +47,6 @@ function HomeView() {
       };
 
       const result = await apiService.fetchData("login", "POST", body);
-      console.log(result);
 
       setLoginResult(result);
 

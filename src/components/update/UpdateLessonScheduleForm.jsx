@@ -9,13 +9,11 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
       return;
    };
 
-
    function FormatDate(item) {
       const dateFormated = new Date(item).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" });
 
       return dateFormated;
    };
-
 
    const [formData, setFormData] = useState({
       date: FormatDate(selectedLessonSchedule.date).split("/").reverse().join("-"),
@@ -25,15 +23,13 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
       course: selectedLessonSchedule.course_id,
       status: selectedLessonSchedule.status_id
    });
-   const [result, setResult] = useState({});
-   
+
    const [courses, setCourses] = useState([]);
    const [status, setStatus] = useState([]);
    
    const [fieldsRequired, setFieldsRequired] = useState(false);
    const [dialogMessageResult, setDialogMessageResult] = useState(null);
    const [showDialogMessageResult, setShowDialogMessageResult] = useState(false);
-
 
    useEffect(function() {
       async function getDataForSelectOptions() {
@@ -51,10 +47,8 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
       getDataForSelectOptions();
    }, []);
 
-
    const getTomorrowDate = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split("T")[0];
      
-
    function handleChange(event) {
       event.preventDefault();
 
@@ -63,7 +57,6 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
       setFieldsRequired(false);
       setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
    };
-
 
    async function handleSubmit(event) {
       event.preventDefault();
@@ -74,8 +67,6 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
       };
       
       const result = await apiService.fetchData(`lessons_schedule/${selectedLessonSchedule.id}`, "PUT", formData);
-      console.log(result);
-      setResult(result);
 
       setFieldsRequired(false);
 
@@ -91,7 +82,6 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
       };
    };
 
-
    async function handleMessageResultButtonClick() {
       setShowDialogMessageResult(false);
       
@@ -100,133 +90,132 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
       };
    };
 
-
    async function handleCancelClick() {
       window.location.reload();
    };
 
  
    return (
-        <>
-            <dialog open={showUpdateDialog}>
-               <div className="dialogScroll">
-                  <form onSubmit={handleSubmit}>
-                     <fieldset>
-                        <h1>{selectedLessonSchedule.course_name} -  {FormatDate(selectedLessonSchedule.date)}</h1>
+      <>
+         <dialog open={showUpdateDialog}>
+            <div className="dialogScroll">
+               <form onSubmit={handleSubmit}>
+                  <fieldset>
+                     <h1>{selectedLessonSchedule.course_name} -  {FormatDate(selectedLessonSchedule.date)}</h1>
 
-                        {formData.date >= getTomorrowDate ? 
-                           <>
-                           <label>
-                              DATE *
-                              <input
-                                 type="date"
-                                 name="date"
-                                 min={getTomorrowDate}
-                                 value={formData.date}
-                                 onChange={(event) => handleChange(event)}
-                              />
-                           </label>
-                        
-                           <label>
-                              BEGIN *
-                              <input
-                                 type="time"
-                                 name="begin"
-                                 min="09:00"
-                                 max="19:00"
-                                 value={formData.begin}
-                                 onChange={(event) => handleChange(event)}
-                              />
-                           </label>
-
-                           <label>
-                              END *
-                              <input
-                                 type="time"
-                                 name="end"
-                                 min="09:00"
-                                 max="19:00"
-                                 value={formData.end}
-                                 onChange={(event) => handleChange(event)}
-                              />
-                           </label>
-                           </>
-                        :
-                           <div className="alert-message">NOT POSSIBLE TO CHANGE DATE & TIME OF FINISHED LESSONS</div>
-                        }
-
+                     {formData.date >= getTomorrowDate ? 
+                        <>
                         <label>
-                           DESCRIPTION
+                           DATE *
                            <input
-                              placeholder="description"
-                              type="text"
-                              name="description"
-                              maxLength="255"
-                              value={formData.description}
+                              type="date"
+                              name="date"
+                              min={getTomorrowDate}
+                              value={formData.date}
                               onChange={(event) => handleChange(event)}
                            />
-                           <div className="instruction">Max 255 characters</div>
+                        </label>
+                     
+                        <label>
+                           BEGIN *
+                           <input
+                              type="time"
+                              name="begin"
+                              min="09:00"
+                              max="19:00"
+                              value={formData.begin}
+                              onChange={(event) => handleChange(event)}
+                           />
                         </label>
 
                         <label>
-                           COURSE *
-                           <select
-                           name="course"
-                           value={formData.course}
-                           onChange={(event) => handleChange(event)}
-                           >
-                              {courses
-                                 .filter((course) => course.status_name === "Active")
-                                 .map((course) =>
-                                    <option key={course.id} value={course.id}>{course.name}</option>
-                                 )
-                              }
-                           </select>
-                           <div className="instruction">Only courses with active status</div>
+                           END *
+                           <input
+                              type="time"
+                              name="end"
+                              min="09:00"
+                              max="19:00"
+                              value={formData.end}
+                              onChange={(event) => handleChange(event)}
+                           />
                         </label>
+                        </>
+                     :
+                        <div className="alert-message">NOT POSSIBLE TO CHANGE DATE & TIME OF FINISHED LESSONS</div>
+                     }
 
-                        <label>
-                           STATUS *
-                           <select
-                           name="status"
-                           value={formData.status}
+                     <label>
+                        DESCRIPTION
+                        <input
+                           placeholder="description"
+                           type="text"
+                           name="description"
+                           maxLength="255"
+                           value={formData.description}
                            onChange={(event) => handleChange(event)}
-                           >
-                              {status
-                                 .filter((status) => status.description.includes("lessons_schedule"))
-                                 .map((status) =>
-                                    <option key={status.id} value={status.id}>{status.name}</option>
-                                 )
-                              }
-                           </select>
-                        </label>
+                        />
+                        <div className="instruction">Max 255 characters</div>
+                     </label>
 
-                        {fieldsRequired &&
-                           <div className="alert-message">
-                           * FIELDS REQUIRED!
-                           </div>
-                        }
+                     <label>
+                        COURSE *
+                        <select
+                        name="course"
+                        value={formData.course}
+                        onChange={(event) => handleChange(event)}
+                        >
+                           {courses
+                              .filter((course) => course.status_name === "Active")
+                              .map((course) =>
+                                 <option key={course.id} value={course.id}>{course.name}</option>
+                              )
+                           }
+                        </select>
+                        <div className="instruction">Only courses with active status</div>
+                     </label>
 
-                        <div>
-                           <button type="submit">
-                              UPDATE
-                           </button>
-                           <button type="button" onClick={handleCancelClick}>
-                              CANCEL
-                           </button>
+                     <label>
+                        STATUS *
+                        <select
+                        name="status"
+                        value={formData.status}
+                        onChange={(event) => handleChange(event)}
+                        >
+                           {status
+                              .filter((status) => status.description.includes("lessons_schedule"))
+                              .map((status) =>
+                                 <option key={status.id} value={status.id}>{status.name}</option>
+                              )
+                           }
+                        </select>
+                     </label>
+
+                     {fieldsRequired &&
+                        <div className="alert-message">
+                        * FIELDS REQUIRED!
                         </div>
-                     </fieldset>
-                  </form>
-               </div>
-            </dialog>
+                     }
 
-            <dialog open={showDialogMessageResult}>
-               <div>
-                  <h2>{dialogMessageResult}</h2>
-                  <button type="button" onClick={handleMessageResultButtonClick}>OK</button>
-               </div>
-            </dialog>
-        </>
+                     <div>
+                        <button type="submit">
+                           UPDATE
+                        </button>
+                        <button type="button" onClick={handleCancelClick}>
+                           CANCEL
+                        </button>
+                     </div>
+                  </fieldset>
+               </form>
+            </div>
+         </dialog>
+
+         <dialog open={showDialogMessageResult}>
+            <div>
+               <h2>{dialogMessageResult}</h2>
+               <button type="button" onClick={handleMessageResultButtonClick}>OK</button>
+            </div>
+         </dialog>
+      </>
    );
 };
 

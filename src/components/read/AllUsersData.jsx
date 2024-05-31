@@ -9,7 +9,7 @@ import DeleteUserForm from "../delete/DeleteUserForm";
 
 
 function AllUsersData({ allUsersInfo, userLoggedInInfo, cookieInfo, setshowPaginationButtons }) {
-   console.log("userloggedininfo", userLoggedInInfo);
+
    if (!userLoggedInInfo) {
       return;
    };
@@ -18,7 +18,6 @@ function AllUsersData({ allUsersInfo, userLoggedInInfo, cookieInfo, setshowPagin
    const [showUpdateDialog, setShowUpdateDialog] = useState(false);
    const [showDeleteDialog, setShowDeleteDialog] = useState(false);
    const [selectedUser, setSelectedUser] = useState(null);
-
 
    const [users, setUsers] = useState([]);
    const [searchTerm, setSearchTerm] = useState("");

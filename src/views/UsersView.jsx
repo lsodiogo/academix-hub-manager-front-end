@@ -16,29 +16,25 @@ function UsersView({ pathParams }) {
       nextPage: true,
       lastPage: true
    });
-  const [showPaginationButtons, setshowPaginationButtons] = useState(true);
+   const [showPaginationButtons, setshowPaginationButtons] = useState(true);
 
-  const [cookieInfo, setCookieInfo] = useState({});
-  const [userLoggedInInfo, setUserLoggedInInfo] = useState({});
-  const [allUsersInfo, setAllUsersInfo] = useState([]);
-  const [detailedUserInfo, setDetailedUserInfo] = useState({});
+   const [cookieInfo, setCookieInfo] = useState({});
+   const [userLoggedInInfo, setUserLoggedInInfo] = useState({});
+   const [allUsersInfo, setAllUsersInfo] = useState([]);
+   const [detailedUserInfo, setDetailedUserInfo] = useState({});
 
    const [userNotAuthorized, setUserNotAuthorized] = useState(false);
    const [error, setError] = useState({});
 
-
    useEffect(function() {
       async function checkLoginAndGetData() {
          const resultCookie = await apiService.fetchData("login", "GET");
-         console.log(resultCookie);
 
          setCookieInfo(resultCookie);
          
-
          if (pathParams) {
             // GET USER BY ID
             const result = await apiService.fetchData(`users/${pathParams}`, "GET");
-            console.log(result);
             
             if (result.message === "Please, login!") {
                window.location.href = "/";
@@ -54,7 +50,6 @@ function UsersView({ pathParams }) {
          } else {
             // GET ALL USERS
             const result = await apiService.fetchData("users", "GET");
-            console.log(result);
 
             if (result.message === "Please, login!") {
                window.location.href = "/";
@@ -80,7 +75,6 @@ function UsersView({ pathParams }) {
 
       async function handlePageChange(paginationUrl) {
          const result = await apiService.fetchData(paginationUrl, "GET");
-         console.log(result);
 
          if (result.message === "Please, login!") {
             window.location.href = "/";
@@ -96,13 +90,11 @@ function UsersView({ pathParams }) {
          };
       };
 
-
       async function handlePerPageLimit(event) {
          const value = event.target.value;
    
          await handlePageChange(`users/?limit=${value}&offset=${paginationLinks.offset}`);
       };
-
 
       function showPageButton(paginationLinks) {
          const buttons = {
