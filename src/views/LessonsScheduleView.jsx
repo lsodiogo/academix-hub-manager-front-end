@@ -40,10 +40,14 @@ function LessonsScheduleView({ pathParams }) {
             const result = await apiService.fetchData(`lessons_schedule/${pathParams}`, "GET");
             console.log(result);
 
-            if (result.type === "WARNING") {
+            if (result.message === "Please, login!") {
+               window.location.href = "/";
+
+            } else if (result.type === "WARNING") {
                setUserNotAuthorized(true);
                setError(result);
-            } else {
+
+            }else {
                setDetailedLessonScheduleInfo(result);
             };
 
@@ -56,10 +60,13 @@ function LessonsScheduleView({ pathParams }) {
             const result = await apiService.fetchData("lessons_schedule", "GET");
             console.log(result);
 
-            if (result.type === "WARNING") {
+            if (result.message === "Please, login!") {
+               window.location.href = "/";
+   
+            } else if (result.type === "WARNING") {
                setUserNotAuthorized(true);
                setError(result);
-            
+               
             } else {
                setAllLessonsScheduleInfo(result.results);
                setPaginationLinks(result.paginationLinksAccess);
@@ -75,10 +82,13 @@ function LessonsScheduleView({ pathParams }) {
          const result = await apiService.fetchData(paginationUrl, "GET");
          console.log(result);
 
-         if (result.type === "WARNING") {
+         if (result.message === "Please, login!") {
+            window.location.href = "/";
+
+         } else if (result.type === "WARNING") {
             setUserNotAuthorized(true);
             setError(result);
-         
+            
          } else {
             setAllLessonsScheduleInfo(result.results);
             setPaginationLinks(result.paginationLinksAccess);

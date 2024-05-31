@@ -4,7 +4,7 @@ import { Link } from "wouter";
 function CourseDetailedData({ detailedCourseInfo, hideWhenDataNull, cookieInfo }) {
    
    function userCategoryCheck(item) {
-      if (cookieInfo.userCategory === "admin" || (cookieInfo.userCategory === "teacher" && cookieInfo.userEmail === item.teacher_email)) {
+      if (cookieInfo.userCategory === "admin" || cookieInfo.userCategory === "teacher") {
          return true;
       } else {
          return false;
@@ -21,9 +21,9 @@ function CourseDetailedData({ detailedCourseInfo, hideWhenDataNull, cookieInfo }
    
    return (
       <>
-         <h2>COURSES</h2>
+         <div className="page-detailed-title">COURSES</div>
          
-         <div>
+         <div className="page-detailed-info">
             <h3>{detailedCourseInfo.name}</h3>
 
             <div>EDITION: {detailedCourseInfo.edition_number}</div>
@@ -52,7 +52,7 @@ function CourseDetailedData({ detailedCourseInfo, hideWhenDataNull, cookieInfo }
                )}
             </div>
             
-            <div>Status: {detailedCourseInfo.status_name}</div>
+            <div>STATUS: {detailedCourseInfo.status_name}</div>
          </div>
       </>
    );

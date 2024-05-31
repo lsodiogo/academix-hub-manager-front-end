@@ -43,13 +43,15 @@ function DeleteLessonScheduleForm({ selectedLessonSchedule, showDeleteDialog, se
          {selectedLessonSchedule && (
             <dialog open={showDeleteDialog}>
                <div>
-                  <h2>Are you sure you want to delete this lesson schedule?</h2>
-                  <button type="submit" onClick={handleDelete}>
-                     CONFIRM
-                  </button>
-                  <button type="button" onClick={handleCancelClick}>
-                     CANCEL
-                  </button>
+                  <h2>ARE YOU SURE YOU WANT TO DELETE THIS LESSON SCHEDULE?</h2>
+                  <div className="confirmation-buttons">
+                     <button className="confirm-button" type="submit" onClick={handleDelete}>
+                        CONFIRM
+                     </button>
+                     <button className="cancel-button" type="button" onClick={handleCancelClick}>
+                        CANCEL
+                     </button>
+                  </div>
                </div>
             </dialog>
          )}

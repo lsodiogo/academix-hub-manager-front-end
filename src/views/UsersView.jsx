@@ -39,30 +39,33 @@ function UsersView({ pathParams }) {
             const result = await apiService.fetchData(`users/${pathParams}`, "GET");
             console.log(result);
             
-            if (result.type === "WARNING") {
+            if (result.message === "Please, login!") {
+               window.location.href = "/";
+
+            } else if (result.type === "WARNING") {
                setUserNotAuthorized(true);
                setError(result);
-            } else {
+               
+            }else {
                setDetailedUserInfo(result);
-            };            
+            };          
 
          } else {
             // GET ALL USERS
             const result = await apiService.fetchData("users", "GET");
             console.log(result);
 
-            if (result.type === "WARNING") {
+            if (result.message === "Please, login!") {
+               window.location.href = "/";
+   
+            } else if (result.type === "WARNING") {
                setUserNotAuthorized(true);
                setError(result);
-
-            } else if (resultCookie.userCategory === "admin") {
+               
+            } else {
                setAllUsersInfo(result.results);
                setPaginationLinks(result.paginationLinksAccess);
                showPageButton(result.paginationLinksAccess); 
-   
-            } else {
-               setUserLoggedInInfo(result);
-               setshowPaginationButtons(false);
             };
          };
       };
@@ -74,14 +77,17 @@ function UsersView({ pathParams }) {
          const result = await apiService.fetchData(paginationUrl, "GET");
          console.log(result);
 
-         if (result.type === "WARNING") {
+         if (result.message === "Please, login!") {
+            window.location.href = "/";
+
+         } else if (result.type === "WARNING") {
             setUserNotAuthorized(true);
             setError(result);
             
          } else {
             setAllUsersInfo(result.results);
             setPaginationLinks(result.paginationLinksAccess);
-            showPageButton(result.paginationLinksAccess);
+            showPageButton(result.paginationLinksAccess); 
          };
       };
 

@@ -9,9 +9,9 @@ function TeacherDetailedData({ detailedTeacherInfo }) {
    
    return (
       <>
-         <h2>TEACHERS</h2>
+         <div className="page-detailed-title">TEACHERS</div>
          
-         <div>
+         <div  className="page-detailed-info">
             <h3>{detailedTeacherInfo.name} {detailedTeacherInfo.surname}</h3>
 
             <div>BIRTHDATE: {FormatDate(detailedTeacherInfo.birthdate)}</div>

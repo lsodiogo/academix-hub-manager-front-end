@@ -47,29 +47,29 @@ function NavigationTables() {
          {!cookieInfo.type && <div className="navigation-tables-container">
 
             <Link href="/courses">
-               <img src="./images/course.svg" alt="course-icon"/>
+               <img src="../images/course.svg" alt="course-icon"/>
                <span>COURSES</span>
             </Link>
 
             <Link href="/lessons_schedule">
-               <img src="./images/calendar.svg" alt="calendar-icon"/>
+               <img src="../images/calendar.svg" alt="calendar-icon"/>
                <span>LESSONS SCHEDULE</span>
             </Link>
 
             {userCategoryCheck("teachers") &&
                <Link href="/teachers">
-                  <img src="./images/teacher.svg" alt="teacher-icon"/>
+                  <img src="../images/teacher.svg" alt="teacher-icon"/>
                   <span>TEACHERS</span>
                </Link>
             }
 
             <Link href="/students">
-               <img src="./images/student.svg" alt="student-icon"/>
+               <img src="../images/student.svg" alt="student-icon"/>
                <span>STUDENTS</span>
             </Link>
 
             <Link href="/users">
-               <img src="./images/user.svg" alt="user-icon"/>
+               <img src="../images/user.svg" alt="user-icon"/>
                <span>USERS</span>
             </Link>
 
@@ -82,7 +82,7 @@ function NavigationTables() {
 
             {userCategoryCheck("backlog") && 
                <Link href="/backlog">
-                  <img src="./images/backlog.svg" alt="backlog-icon"/>
+                  <img src="../images/backlog.svg" alt="backlog-icon"/>
                   <span>BACKLOG</span>
                </Link>
             }
@@ -90,7 +90,7 @@ function NavigationTables() {
             <div>
                <button className="logout-button" onClick={logoutPost}>
                   <span>LOGOUT</span>
-                  <img src="./images/logout.svg" alt="logout-icon"/>
+                  <img src="../images/logout.svg" alt="logout-icon"/>
                </button>
             </div>
          </div>}

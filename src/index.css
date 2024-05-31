@@ -250,7 +250,7 @@ header h1 {
    display: block;
 }
 
-.fieldsRequired {
+.alert-message {
    background-color: #F8D7DA;
    font-size: 15px;
    margin-bottom: 15px;
@@ -337,8 +337,7 @@ header h1 {
    display: flex;
    padding: 10px;
    width: 100%;
-   word-wrap: break-word;
-   overflow-wrap: break-word;
+   margin: auto;
 }
 
 .table-container caption {
@@ -360,7 +359,7 @@ header h1 {
 .table-container th {
    white-space: nowrap;
    text-align: center;
-   background-color: #D1D8C5;
+   background-color: #FFE8C8;
    color: #4B4C4D;
    height: 100px;
    border: 1px solid #AAAAAA;
@@ -395,10 +394,23 @@ header h1 {
 .delete-button {
    background-color: #EE4E4E;
 }
+
+.table-container td .wrap {
+   overflow-wrap: break-word;
+   word-wrap: break-word;
+   -ms-word-break: break-all;
+   word-break: break-all;
+   word-break: break-word;
+   -ms-hyphens: auto;
+   -moz-hyphens: auto;
+   -webkit-hyphens: auto;
+   hyphens: auto;
+}
 /* -------------------------------------------------- */
 
 
 
+/* ----------------- PAGINATION --------------------- */
 .pagination-container {
    display: flex;
    align-items: center;
@@ -416,3 +428,76 @@ header h1 {
 .pagination-container div button img {
    width: 15px;
 }
+/* -------------------------------------------------- */
+
+
+
+/* ----------------- DETAILED PAGE ------------------ */
+.page-detailed-title, h3 {
+   background-color: #272727;
+   color: #EEEEEE;
+
+   font-size: 24px;
+   letter-spacing: 15px;
+   font-family: "Lato", sans-serif;
+
+   padding: 10px;
+   line-height: 50px;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+h3 {
+   background-color: #303030;
+}
+
+.page-detailed-info {
+   margin: 25px;
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+}
+/* -------------------------------------------------- */
+
+
+
+
+/* ----------------- CONFRIM FORM ------------------- */
+h2 {
+   background-color: #272727;
+   color: #EEEEEE;
+   border-radius: 5px;
+
+   font-size: 20px;
+   letter-spacing: 10px;
+   font-family: "Lato", sans-serif;
+
+   padding: 10px;
+   line-height: 50px;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.confirmation-buttons {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 20px;
+}
+
+.confirm-button {
+   background-color: #799351;
+   border: none;
+   border-radius: 5px;
+}
+
+.cancel-button {
+   background-color: #EE4E4E;
+   border: none;
+   border-radius: 5px;
+}
+/* -------------------------------------------------- */

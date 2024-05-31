@@ -17,7 +17,7 @@ function AllCoursesData({ allCoursesInfo, cookieInfo, setshowPaginationButtons }
 
    
    function userCategoryCheck(item) {
-      if (cookieInfo.userCategory === "admin" || (cookieInfo.userCategory === "teacher" && cookieInfo.userEmail === item.teacher_email)) {
+      if (cookieInfo.userCategory === "admin" || cookieInfo.userCategory === "teacher") {
          return true;
       } else {
          return false;
@@ -66,7 +66,7 @@ function AllCoursesData({ allCoursesInfo, cookieInfo, setshowPaginationButtons }
          <div className="table-top">
             <input
                type="text"
-               placeholder="Search..."
+               placeholder="search name"
                value={searchTerm}
                onChange={(event) => handleSearch(event)}
             />
@@ -74,7 +74,7 @@ function AllCoursesData({ allCoursesInfo, cookieInfo, setshowPaginationButtons }
             {cookieInfo.userCategory === "admin" &&
                <button onClick={() => setShowCreateDialog(true)}>
                   <span>ADD NEW</span>
-                  <img src="./images/add-file.svg" alt="add-file-icon"/>
+                  <img src="../images/add-file.svg" alt="add-file-icon"/>
                </button>
             }
          </div>
@@ -90,7 +90,8 @@ function AllCoursesData({ allCoursesInfo, cookieInfo, setshowPaginationButtons }
                      <th>TEACHER</th>
                      <th>STATUS</th>
                      {cookieInfo.userCategory === "admin" &&
-                        <th>ACTIONS</th>
+                        <><th>UPDATE</th>
+                        <th>DELETE</th></>
                      }
                   </tr>
                </thead>
@@ -133,6 +134,7 @@ function AllCoursesData({ allCoursesInfo, cookieInfo, setshowPaginationButtons }
                               </td>
 
                               {cookieInfo.userCategory === "admin" &&
+                                 <>
                                  <td>
                                     <button className="update-button"
                                        onClick={() => {
@@ -140,18 +142,21 @@ function AllCoursesData({ allCoursesInfo, cookieInfo, setshowPaginationButtons }
                                           setShowUpdateDialog(true);
                                        }}
                                     >
-                                       <img src="./images/update.svg" alt="update-icon"/>
+                                       <img src="../images/update.svg" alt="update-icon"/>
                                     </button>
+                                 </td>
 
+                                 <td>
                                     <button className="delete-button"
                                        onClick={() => {
                                           setSelectedCourse(item);
                                           setShowDeleteDialog(true);
                                        }}
                                     >
-                                       <img src="./images/delete.svg" alt="delete-icon"/>
+                                       <img src="../images/delete.svg" alt="delete-icon"/>
                                     </button>
                                  </td>
+                                 </>
                               }
                            </tr>
                         )
@@ -189,6 +194,7 @@ function AllCoursesData({ allCoursesInfo, cookieInfo, setshowPaginationButtons }
                            </td>
 
                            {cookieInfo.userCategory === "admin" &&
+                              <>
                               <td>
                                  <button className="update-button"
                                     onClick={() => {
@@ -196,18 +202,21 @@ function AllCoursesData({ allCoursesInfo, cookieInfo, setshowPaginationButtons }
                                        setShowUpdateDialog(true);
                                     }}
                                  >
-                                    <img src="./images/update.svg" alt="update-icon"/>
+                                    <img src="../images/update.svg" alt="update-icon"/>
                                  </button>
+                              </td>
 
+                              <td>
                                  <button  className="delete-button"
                                     onClick={() => {
                                        setSelectedCourse(item);
                                        setShowDeleteDialog(true);
                                     }}
                                  >
-                                    <img src="./images/delete.svg" alt="delete-icon"/>
+                                    <img src="../images/delete.svg" alt="delete-icon"/>
                                  </button>
                               </td>
+                              </>
                            }
                         </tr>
                      )}

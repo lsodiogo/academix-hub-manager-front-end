@@ -112,45 +112,51 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
                <div className="dialogScroll">
                   <form onSubmit={handleSubmit}>
                      <fieldset>
-                        <h2>Update lesson schedule for {selectedLessonSchedule.course_name} -  {FormatDate(selectedLessonSchedule.date)}</h2>
+                        <h1>{selectedLessonSchedule.course_name} -  {FormatDate(selectedLessonSchedule.date)}</h1>
+
+                        {formData.date >= getTomorrowDate ? 
+                           <>
+                           <label>
+                              DATE *
+                              <input
+                                 type="date"
+                                 name="date"
+                                 min={getTomorrowDate}
+                                 value={formData.date}
+                                 onChange={(event) => handleChange(event)}
+                              />
+                           </label>
+                        
+                           <label>
+                              BEGIN *
+                              <input
+                                 type="time"
+                                 name="begin"
+                                 min="09:00"
+                                 max="19:00"
+                                 value={formData.begin}
+                                 onChange={(event) => handleChange(event)}
+                              />
+                           </label>
+
+                           <label>
+                              END *
+                              <input
+                                 type="time"
+                                 name="end"
+                                 min="09:00"
+                                 max="19:00"
+                                 value={formData.end}
+                                 onChange={(event) => handleChange(event)}
+                              />
+                           </label>
+                           </>
+                        :
+                           <div className="alert-message">NOT POSSIBLE TO CHANGE DATE & TIME OF FINISHED LESSONS</div>
+                        }
 
                         <label>
-                           Date *
-                           <input
-                              type="date"
-                              name="date"
-                              min={getTomorrowDate}
-                              value={formData.date}
-                              onChange={(event) => handleChange(event)}
-                           />
-                        </label>
-
-                        <label>
-                           Begin *
-                           <input
-                              type="time"
-                              name="begin"
-                              min="09:00"
-                              max="19:00"
-                              value={formData.begin}
-                              onChange={(event) => handleChange(event)}
-                           />
-                        </label>
-
-                        <label>
-                           End *
-                           <input
-                              type="time"
-                              name="end"
-                              min="09:00"
-                              max="19:00"
-                              value={formData.end}
-                              onChange={(event) => handleChange(event)}
-                           />
-                        </label>
-
-                        <label>
-                           Description
+                           DESCRIPTION
                            <input
                               placeholder="description"
                               type="text"
@@ -163,7 +169,7 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
                         </label>
 
                         <label>
-                           Course *
+                           COURSE *
                            <select
                            name="course"
                            value={formData.course}
@@ -180,7 +186,7 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
                         </label>
 
                         <label>
-                           Status *
+                           STATUS *
                            <select
                            name="status"
                            value={formData.status}
@@ -196,8 +202,8 @@ function UpdateLessonScheduleForm({ selectedLessonSchedule, showUpdateDialog, se
                         </label>
 
                         {fieldsRequired &&
-                           <div className="fieldsRequired">
-                           * fields required!
+                           <div className="alert-message">
+                           * FIELDS REQUIRED!
                            </div>
                         }
 

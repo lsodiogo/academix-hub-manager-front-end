@@ -39,7 +39,7 @@ function AllUsersData({ allUsersInfo, userLoggedInInfo, cookieInfo, setshowPagin
    }, [userLoggedInInfo]);
 
    useEffect(function() {
-      if (Object.keys(userLoggedInInfo).length === 0) {
+      if (Object.keys(userLoggedInInfo).length === 0 && users) {
          const results = users.filter((item) =>
             item.email.toLowerCase().includes(searchTerm.toLowerCase())
          );
@@ -67,7 +67,7 @@ function AllUsersData({ allUsersInfo, userLoggedInInfo, cookieInfo, setshowPagin
             {Object.keys(userLoggedInInfo).length === 0 &&
                <input
                   type="text"
-                  placeholder="Search..."
+                  placeholder="search email"
                   value={searchTerm}
                   onChange={(event) => handleSearch(event)}
                />
@@ -76,7 +76,7 @@ function AllUsersData({ allUsersInfo, userLoggedInInfo, cookieInfo, setshowPagin
             {cookieInfo.userCategory === "admin" &&
                <button onClick={() => setShowCreateDialog(true)}>
                   <span>ADD NEW</span>
-                  <img src="./images/add-user.svg" alt="add-user-icon"/>
+                  <img src="../images/add-user.svg" alt="add-user-icon"/>
                </button>
             }
          </div>
@@ -89,8 +89,12 @@ function AllUsersData({ allUsersInfo, userLoggedInInfo, cookieInfo, setshowPagin
                   <tr>
                      <th>EMAIL</th>
                      <th>CATEGORY</th>
-                     {(cookieInfo.userCategory === "admin" || userLoggedInInfo) &&
-                        <th>ACTIONS</th>
+                     {(cookieInfo.userCategory === "admin") &&
+                        <><th>UPDATE</th>
+                        <th>DELETE</th></>
+
+                        || userLoggedInInfo &&
+                        <th>UPDATE</th>
                      }
                   </tr>
                </thead>
@@ -124,17 +128,19 @@ function AllUsersData({ allUsersInfo, userLoggedInInfo, cookieInfo, setshowPagin
                                              setShowUpdateDialog(true);
                                           }}
                                        >
-                                          <img src="./images/update.svg" alt="update-icon"/>
+                                          <img src="../images/update.svg" alt="update-icon"/>
                                        </button>
                                     }
+                                 </td>
 
+                                 <td>
                                     {(item.email === cookieInfo.userEmail || item.category !== cookieInfo.userCategory) && <button  className="delete-button"
                                        onClick={() => {
                                           setSelectedUser(item);
                                           setShowDeleteDialog(true);
                                        }}
                                     >
-                                       <img src="./images/delete.svg" alt="delete-icon"/>
+                                       <img src="../images/delete.svg" alt="delete-icon"/>
                                     </button>}
                                  </td>
                               </tr>
@@ -161,17 +167,19 @@ function AllUsersData({ allUsersInfo, userLoggedInInfo, cookieInfo, setshowPagin
                                           setShowUpdateDialog(true);
                                        }}
                                     >
-                                       <img src="./images/update.svg" alt="update-icon"/>
+                                       <img src="../images/update.svg" alt="update-icon"/>
                                     </button>
                                  }
-
+                              </td>
+                              
+                              <td>
                                  {(item.email === cookieInfo.userEmail || item.category !== cookieInfo.userCategory) && <button  className="delete-button"
                                     onClick={() => {
                                        setSelectedUser(item);
                                        setShowDeleteDialog(true);
                                     }}
                                  >
-                                    <img src="./images/delete.svg" alt="delete-icon"/>
+                                    <img src="../images/delete.svg" alt="delete-icon"/>
                                  </button>}
                               </td>
                            </tr>
@@ -197,7 +205,7 @@ function AllUsersData({ allUsersInfo, userLoggedInInfo, cookieInfo, setshowPagin
                                     setShowUpdateDialog(true);
                                  }}
                               >
-                                 <img src="./images/update.svg" alt="update-icon"/>
+                                 <img src="../images/update.svg" alt="update-icon"/>
                               </button>
                            }
                         </td>

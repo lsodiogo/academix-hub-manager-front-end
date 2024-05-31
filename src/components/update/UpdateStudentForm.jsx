@@ -138,10 +138,10 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
                <div className="dialogScroll">
                   <form onSubmit={handleSubmit}>
                      <fieldset>
-                        <h2>Update student {selectedStudent.name} {selectedStudent.surname}</h2>
+                        <h1>UPDATE STUDENT {selectedStudent.name} {selectedStudent.surname}</h1>
 
                         <label>
-                           Name *
+                           NAME *
                            <input
                               placeholder="name"
                               type="text"
@@ -153,7 +153,7 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
                         </label>
 
                         <label>
-                           Surname *
+                           SURNAME *
                            <input
                               placeholder="surname"
                               type="text"
@@ -165,7 +165,7 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
                         </label>
 
                         <label>
-                           Birthdate *
+                           BIRTHDATE *
                            <input
                               type="date"
                               name="birthdate"
@@ -176,7 +176,7 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
                         </label>
 
                         <label>
-                           Email *
+                           EMAIL *
                            <input
                               placeholder="email"
                               type="email"
@@ -188,7 +188,7 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
                         </label>
 
                         <label>
-                           Phone *
+                           PHONE *
                            <input
                               placeholder="phone"
                               type="number"
@@ -199,7 +199,7 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
                         </label>
 
                         <label>
-                           Address *
+                           ADDRESS *
                            <input
                               placeholder="address"
                               type="text"
@@ -212,7 +212,7 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
                         </label>
 
                         <label>
-                           Enrolled *
+                           ENROLLED *
                            <input
                               type="date"
                               name="enrolled"
@@ -222,7 +222,7 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
                         </label>
 
                         <label>
-                           Course *
+                           COURSE *
                            <select
                            name="course"
                            value={formData.course}
@@ -239,7 +239,7 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
                         </label>
 
                         <label>
-                           Final Grade
+                           FINAL GRADE
                            <input
                               placeholder="grade"
                               type="number"
@@ -253,7 +253,7 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
                         </label>
 
                         <label>
-                           Graduated
+                           GRADUATED
                            <input
                               type="date"
                               name="graduated"
@@ -264,7 +264,7 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
                         </label>
 
                         <label>
-                           Status *
+                           STATUS *
                            <select
                            name="status"
                            value={formData.status}
@@ -280,8 +280,8 @@ function UpdateStudentForm({ selectedStudent, showUpdateDialog, setShowUpdateDia
                         </label>
 
                         {fieldsRequired &&
-                           <div className="fieldsRequired">
-                           * fields required!
+                           <div className="alert-message">
+                           * FIELDS REQUIRED!
                            </div>
                         }
 

@@ -140,10 +140,10 @@ function CreateStudentForm({ showCreateDialog, setShowCreateDialog }) {
                <div className="dialogScroll">
                   <form onSubmit={handleSubmit}>
                      <fieldset>
-                        <h2>Create new student</h2>
+                        <h1>CREATE NEW STUDENT</h1>
 
                         <label>
-                           Name *
+                           NAME *
                            <input
                               placeholder="name"
                               type="text"
@@ -155,7 +155,7 @@ function CreateStudentForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           Surname *
+                           SURNAME *
                            <input
                               placeholder="surname"
                               type="text"
@@ -167,7 +167,7 @@ function CreateStudentForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           Birthdate *
+                           BIRTHDATE *
                            <input
                               type="date"
                               name="birthdate"
@@ -179,7 +179,7 @@ function CreateStudentForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           Email *
+                           EMAIL *
                            <input
                               placeholder="email"
                               type="email"
@@ -191,7 +191,7 @@ function CreateStudentForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           Phone *
+                           PHONE *
                            <input
                               placeholder="phone"
                               type="number"
@@ -202,7 +202,7 @@ function CreateStudentForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           Address *
+                           ADDRESS *
                            <input
                               placeholder="address"
                               type="text"
@@ -215,7 +215,7 @@ function CreateStudentForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           Enrolled *
+                           ENROLLED *
                            <input
                               type="date"
                               name="enrolled"
@@ -225,7 +225,7 @@ function CreateStudentForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           Course *
+                           COURSE *
                            <select
                            name="course"
                            value={formData.course}
@@ -243,7 +243,7 @@ function CreateStudentForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           Final Grade
+                           FINAL GRADE
                            <input
                               placeholder="grade"
                               type="number"
@@ -257,7 +257,7 @@ function CreateStudentForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           Graduated
+                           GRADUATED
                            <input
                               type="date"
                               name="graduated"
@@ -268,7 +268,7 @@ function CreateStudentForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           Status *
+                           STATUS *
                            <select
                            name="status"
                            value={formData.status}
@@ -285,8 +285,8 @@ function CreateStudentForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         {fieldsRequired &&
-                           <div className="fieldsRequired">
-                           * fields required!
+                           <div className="alert-message">
+                           * FIELDS REQUIRED!
                            </div>
                         }
 

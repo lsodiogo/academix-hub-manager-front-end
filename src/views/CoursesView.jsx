@@ -40,9 +40,13 @@ function CoursesView({ pathParams }) {
             const result = await apiService.fetchData(`courses/${pathParams}`, "GET");
             console.log(result);
 
-            if (result.type === "WARNING") {
+            if (result.message === "Please, login!") {
+               window.location.href = "/";
+
+            } else if (result.type === "WARNING") {
                setUserNotAuthorized(true);
                setError(result);
+
             } else {
                setDetailedCourseInfo(result);
             };
@@ -56,15 +60,18 @@ function CoursesView({ pathParams }) {
             const result = await apiService.fetchData("courses", "GET");
             console.log(result);
 
-            if (result.type === "WARNING") {
+            if (result.message === "Please, login!") {
+               window.location.href = "/";
+   
+            } else if (result.type === "WARNING") {
                setUserNotAuthorized(true);
                setError(result);
-
+               
             } else {
                setAllCoursesInfo(result.results);
                setPaginationLinks(result.paginationLinksAccess);
                showPageButton(result.paginationLinksAccess);
-            };
+            }; 
          };
       };
       checkLoginAndGetData();
@@ -75,7 +82,10 @@ function CoursesView({ pathParams }) {
          const result = await apiService.fetchData(paginationUrl, "GET");
          console.log(result);
 
-         if (result.type === "WARNING") {
+         if (result.message === "Please, login!") {
+            window.location.href = "/";
+
+         } else if (result.type === "WARNING") {
             setUserNotAuthorized(true);
             setError(result);
             
@@ -83,7 +93,7 @@ function CoursesView({ pathParams }) {
             setAllCoursesInfo(result.results);
             setPaginationLinks(result.paginationLinksAccess);
             showPageButton(result.paginationLinksAccess);
-         };
+         }; 
       };
 
 

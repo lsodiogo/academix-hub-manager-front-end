@@ -27,7 +27,7 @@ function AllLessonsScheduleData({ allLessonsScheduleInfo, cookieInfo }) {
             {cookieInfo.userCategory === "admin" &&
                <button onClick={() => setShowCreateDialog(true)}>
                   <span>ADD NEW</span>
-                  <img src="./images/add-calendar.svg" alt="add-calendar-icon"/>
+                  <img src="../images/add-calendar.svg" alt="add-calendar-icon"/>
                </button>
             }
          </div>
@@ -42,9 +42,11 @@ function AllLessonsScheduleData({ allLessonsScheduleInfo, cookieInfo }) {
                      <th>BEGIN</th>
                      <th>END</th>
                      <th>COURSE</th>
+                     <th>DESCRIPTION</th>
                      <th>STATUS</th>
                      {cookieInfo.userCategory === "admin" &&
-                        <th>ACTIONS</th>
+                        <><th>UPDATE</th>
+                        <th>DELETE</th></>
                      }
                   </tr>
                </thead>
@@ -71,10 +73,15 @@ function AllLessonsScheduleData({ allLessonsScheduleInfo, cookieInfo }) {
                         </td>
 
                         <td>
+                           {item.description}
+                        </td>
+
+                        <td>
                            {item.status_name}
                         </td>
 
                         {cookieInfo.userCategory === "admin" &&
+                           <>
                            <td>
                               <button className="update-button"
                                  onClick={() => {
@@ -82,18 +89,21 @@ function AllLessonsScheduleData({ allLessonsScheduleInfo, cookieInfo }) {
                                     setShowUpdateDialog(true);
                                  }}
                               >
-                                 <img src="./images/update.svg" alt="update-icon"/>
+                                 <img src="../images/update.svg" alt="update-icon"/>
                               </button>
-                              
+                           </td>
+                           
+                           <td>
                               <button  className="delete-button"
                                  onClick={() => {
                                     setSelectedLessonSchedule(item);
                                     setShowDeleteDialog(true);
                                  }}
                               >
-                                 <img src="./images/delete.svg" alt="delete-icon"/>
+                                 <img src="../images/delete.svg" alt="delete-icon"/>
                               </button>
                            </td>
+                           </>
                         }
                      </tr>
                   )}

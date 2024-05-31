@@ -25,16 +25,19 @@ function BacklogView() {
 
          const result = await apiService.fetchData("backlog", "GET");
          console.log(result);
-         
-         if (result.type === "WARNING") {
+
+         if (result.message === "Please, login!") {
+            window.location.href = "/";
+
+         } else if (result.type === "WARNING") {
             setUserNotAuthorized(true);
             setError(result);
-
+            
          } else {
             setAllBacklogInfo(result.results);
             setPaginationLinks(result.paginationLinksAccess);
             showPageButton(result.paginationLinksAccess);
-         };
+         }; 
       };
       getAllData();
    }, []);
@@ -45,14 +48,18 @@ function BacklogView() {
       const result = await apiService.fetchData(paginationUrl, "GET");
       console.log(result);
 
-      if (result.type === "WARNING") {
+      if (result.message === "Please, login!") {
+         window.location.href = "/";
+
+      } else if (result.type === "WARNING") {
          setUserNotAuthorized(true);
          setError(result);
-      };
-      
-      setAllBacklogInfo(result.results);
-      setPaginationLinks(result.paginationLinksAccess);
-      showPageButton(result.paginationLinksAccess); 
+         
+      } else {
+         setAllBacklogInfo(result.results);
+         setPaginationLinks(result.paginationLinksAccess);
+         showPageButton(result.paginationLinksAccess);
+      }; 
    };
 
    

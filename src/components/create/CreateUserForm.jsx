@@ -18,6 +18,8 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
    const [passwordRepeated, setPasswordRepeated] =  useState("");
    const [showPassword, setShowPassword] = useState(false);
    const [fieldsRequired, setFieldsRequired] = useState(false);
+   const [alertMessage, setAlertMessage] = useState(null);
+   const [showAlertMessage, setShowAlertMessage] = useState(false);
    const [dialogMessageResult, setDialogMessageResult] = useState(null);
    const [showDialogMessageResult, setShowDialogMessageResult] = useState(false);
 
@@ -91,7 +93,7 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
    async function handleSubmit(event) {
       event.preventDefault();
       
-      if (!formData.email || !formData.password || !formData.category || formData.category === "notanoption") {
+      if (!formData.email || !formData.password) {
          setFieldsRequired(true);
          return;
       };
@@ -100,15 +102,36 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
       const strength = getPasswordStrength(formData.password);
 
       if (!strength.length || !strength.lowercase || !strength.uppercase || !strength.number || !strength.specialCharacter) {
-         setDialogMessageResult("Password must be at least 8 characters, contain at least one lowercase letter, one uppercase letter, one number, and one special character.");
-         setShowDialogMessageResult(true);
+         setFieldsRequired(false);
+
+         setAlertMessage("PASSWORD MUST BE AT LEAST 8 CHARACTERS, CONTAIN AT LEAST ONE LOWERCASE LETTER, ONE UPPERCASE LETTER, ONE NUMBER, AND ONE SPECIAL CHARACTER.");
+         setShowAlertMessage(true);
          return;
+      } else {
+         setShowAlertMessage(false);
       };
 
       
+      if (!passwordRepeated) {
+         setFieldsRequired(true);
+         return;
+      };
+
+
       if (formData.password !== passwordRepeated) {
-         setDialogMessageResult("Passwords do not match!");
-         setShowDialogMessageResult(true);
+         setFieldsRequired(false);
+         
+         setAlertMessage("PASSWORD DO NOT MATCH");
+         setShowAlertMessage(true);
+         return;
+      } else {
+         setFieldsRequired(false);
+         setAlertMessage(false);
+      };
+
+
+      if (!formData.category || formData.category === "notanoption") {
+         setFieldsRequired(true);
          return;
       };
 
@@ -119,15 +142,15 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
       if (formData.category === "student" && !studentEmailExists) {
          setFieldsRequired(false);
 
-         setDialogMessageResult("User you are trying to introduce is not yet registered as a student!");
-         setShowDialogMessageResult(true);
+         setAlertMessage("User you are trying to introduce is not yet registered as a student!");
+         setShowAlertMessage(true);
          return;
 
       } else if (formData.category === "teacher" && !teacherEmailExists) {
          setFieldsRequired(false);
 
-         setDialogMessageResult("User you are trying to introduce is not yet registered as a teacher!");
-         setShowDialogMessageResult(true);
+         setAlertMessage("User you are trying to introduce is not yet registered as a teacher!");
+         setShowAlertMessage(true);
          return;
       };
       
@@ -137,6 +160,7 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
       setResult(result);
 
       setFieldsRequired(false);
+      setShowAlertMessage(false);
 
       
       if (result.type === "WARNING") {
@@ -178,10 +202,10 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
                <div className="dialogScroll">
                   <form onSubmit={handleSubmit}>
                      <fieldset>
-                        <h2>Create new user</h2>
+                        <h1>CREATE NEW USER</h1>
 
                         <label>
-                           Email *
+                           EMAIL *
                            <input
                               placeholder="email"
                               type="email"
@@ -193,7 +217,7 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           Password *
+                           PASSWORD *
                            <input
                               placeholder="password"
                               type={showPassword ? "text" : "password"}
@@ -241,7 +265,7 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           Category *
+                           CATEGORY *
                            <select
                            name="category"
                            value={formData.category}
@@ -255,8 +279,14 @@ function CreateUserForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         {fieldsRequired &&
-                           <div className="fieldsRequired">
-                           * fields required!
+                           <div className="alert-message">
+                           * FIELDS REQUIRED!
+                           </div>
+                        }
+
+                        {showAlertMessage &&
+                           <div className="alert-message">
+                              {alertMessage}
                            </div>
                         }
 

@@ -7,7 +7,7 @@ function PaginationButtons({ handlePageChange, paginationLinks, paginationButton
             {paginationButtons.firstPage &&
                <div>
                   <button onClick={() => handlePageChange(paginationLinks.firstPage)}>
-                     <img src="./images/first-page.svg" alt="first-page-icon"/>
+                     <img src="../images/first-page.svg" alt="first-page-icon"/>
                   </button>
                </div>
             }
@@ -15,7 +15,7 @@ function PaginationButtons({ handlePageChange, paginationLinks, paginationButton
             {paginationButtons.previousPage &&
                <div>
                   <button onClick={() => handlePageChange(paginationLinks.previousPage)}>
-                     <img src="./images/previous-page.svg" alt="previous-page-icon"/>
+                     <img src="../images/previous-page.svg" alt="previous-page-icon"/>
                   </button>
                </div>
             }
@@ -38,7 +38,7 @@ function PaginationButtons({ handlePageChange, paginationLinks, paginationButton
             {paginationButtons.nextPage &&
                <div>
                   <button onClick={() => handlePageChange(paginationLinks.nextPage)}>
-                     <img src="./images/next-page.svg" alt="next-page-icon"/>
+                     <img src="../images/next-page.svg" alt="next-page-icon"/>
                   </button>
                </div>
             }
@@ -46,7 +46,7 @@ function PaginationButtons({ handlePageChange, paginationLinks, paginationButton
             {paginationButtons.lastPage &&
                <div>
                   <button onClick={() => handlePageChange(paginationLinks.lastPage)}>
-                     <img src="./images/last-page.svg" alt="last-page-icon"/>
+                     <img src="../images/last-page.svg" alt="last-page-icon"/>
                   </button>
                </div>
             }

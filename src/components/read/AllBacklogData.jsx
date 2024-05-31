@@ -1,6 +1,10 @@
 function AllBacklogData({ allBacklogInfo }) {
-
-   
+console.log(allBacklogInfo)  
+try {
+   console.log(JSON.parse(allBacklogInfo[0].action_description));
+} catch (error) {
+   console.log(error);
+}
    return (
       <>
          <div className="table-container">
@@ -24,18 +28,44 @@ function AllBacklogData({ allBacklogInfo }) {
                         <td>
                            {item.id}
                         </td>
+
                         <td>
                            {item.action}
                         </td>
+
                         <td>
                            {item.table_name}
                         </td>
+
                         <td>
                            {item.row_id}
                         </td>
+                        
                         <td>
-                           {item.action_description}
+                           {Object.keys(JSON.parse(item.action_description)).map(key => (
+                              <div key={key}>
+                                 <span>
+                                    {key} -&nbsp;
+                                 </span>
+
+                                 {typeof JSON.parse(item.action_description)[key] === "object" && JSON.parse(item.action_description)[key] !== null ? (
+                                    Object.keys(JSON.parse(item.action_description)[key]).map(innerKey => (
+                                       <span key={innerKey} className="wrap">
+                                          {innerKey}:&nbsp;
+                                          {JSON.parse(item.action_description)[key][innerKey]}&nbsp;
+                                       </span>
+                                    ))
+
+                                 ) : (
+                                 
+                                    <span className="wrap">
+                                       {JSON.parse(item.action_description)[key]}
+                                    </span>
+                                 )}
+                              </div>
+                           ))}
                         </td>
+
                         <td>
                            {item.user_email}
                         </td>

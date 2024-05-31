@@ -17,6 +17,8 @@ function UpdateUserForm({ selectedUser, showUpdateDialog, setShowUpdateDialog, c
    const [passwordRepeated, setPasswordRepeated] =  useState("");
    const [showPassword, setShowPassword] = useState(false);
    const [fieldsRequired, setFieldsRequired] = useState(false);
+   const [alertMessage, setAlertMessage] = useState(null);
+   const [showAlertMessage, setShowAlertMessage] = useState(false);
    const [dialogMessageResult, setDialogMessageResult] = useState(null);
    const [showDialogMessageResult, setShowDialogMessageResult] = useState(false);
 
@@ -81,16 +83,31 @@ function UpdateUserForm({ selectedUser, showUpdateDialog, setShowUpdateDialog, c
       const strength = getPasswordStrength(formData.password);
 
       if (!strength.length || !strength.lowercase || !strength.uppercase || !strength.number || !strength.specialCharacter) {
-         setDialogMessageResult("Password must contain at least: 8 characters, one lowercase letter, one uppercase letter, one number and one special character.");
-         setShowDialogMessageResult(true);
+         setFieldsRequired(false);
+
+         setAlertMessage("PASSWORD MUST BE AT LEAST 8 CHARACTERS, CONTAIN AT LEAST ONE LOWERCASE LETTER, ONE UPPERCASE LETTER, ONE NUMBER, AND ONE SPECIAL CHARACTER.");
+         setShowAlertMessage(true);
+         return;
+      } else {
+         setShowAlertMessage(false);
+      };
+
+
+      if (!passwordRepeated) {
+         setFieldsRequired(true);
          return;
       };
 
 
       if (formData.password !== passwordRepeated) {
-         setDialogMessageResult("Passwords do not match!");
-         setShowDialogMessageResult(true);
+         setFieldsRequired(false);
+         
+         setAlertMessage("PASSWORD DO NOT MATCH");
+         setShowAlertMessage(true);
          return;
+      } else {
+         setFieldsRequired(false);
+         setAlertMessage(false);
       };
 
       
@@ -104,6 +121,8 @@ function UpdateUserForm({ selectedUser, showUpdateDialog, setShowUpdateDialog, c
       });
 
       setShowUpdateDialog(false);
+      setFieldsRequired(false);
+      setShowAlertMessage(false);
 
       setDialogMessageResult("Password updated with success! Please, login again.");
       setShowDialogMessageResult(true);
@@ -134,10 +153,10 @@ function UpdateUserForm({ selectedUser, showUpdateDialog, setShowUpdateDialog, c
                <div className="dialogScroll">
                   <form onSubmit={handleSubmit}>
                      <fieldset>
-                        <h2>Update password</h2>
+                        <h1>UPDATE PASSWORD</h1>
 
                         <label>
-                           New Password *
+                           NEW PASSWORD *
                            <input
                               placeholder="new password"
                               type={showPassword ? "text" : "password"}
@@ -185,8 +204,14 @@ function UpdateUserForm({ selectedUser, showUpdateDialog, setShowUpdateDialog, c
                         </label>
 
                         {fieldsRequired &&
-                           <div className="fieldsRequired">
-                           * fields required!
+                           <div className="alert-message">
+                           * FIELDS REQUIRED!
+                           </div>
+                        }
+
+                        {showAlertMessage &&
+                           <div className="alert-message">
+                              {alertMessage}
                            </div>
                         }
 
@@ -203,12 +228,12 @@ function UpdateUserForm({ selectedUser, showUpdateDialog, setShowUpdateDialog, c
                </div>
             </dialog>
 
-            {<dialog open={showDialogMessageResult}>
+            <dialog open={showDialogMessageResult}>
                <div>
                   <h2>{dialogMessageResult}</h2>
                   <button type="button" onClick={handleMessageResultButtonClick}>OK</button>
                </div>
-            </dialog>}
+            </dialog>
         </>
    );
 };

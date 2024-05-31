@@ -38,10 +38,14 @@ function TeachersView({ pathParams }) {
             const result = await apiService.fetchData(`teachers/${pathParams}`, "GET");
             console.log(result);
             
-            if (result.type === "WARNING") {
+            if (result.message === "Please, login!") {
+               window.location.href = "/";
+
+            } else if (result.type === "WARNING") {
                setUserNotAuthorized(true);
                setError(result);
-            } else {
+               
+            }else {
                setDetailedTeacherInfo(result);
             };
 
@@ -50,10 +54,13 @@ function TeachersView({ pathParams }) {
             const result = await apiService.fetchData("teachers", "GET");
             console.log(result);
 
-            if (result.type === "WARNING") {
+            if (result.message === "Please, login!") {
+               window.location.href = "/";
+   
+            } else if (result.type === "WARNING") {
                setUserNotAuthorized(true);
                setError(result);
-
+               
             } else {
                setAllTeachersInfo(result.results);
                setPaginationLinks(result.paginationLinksAccess);
@@ -69,7 +76,10 @@ function TeachersView({ pathParams }) {
          const result = await apiService.fetchData(paginationUrl, "GET");
          console.log(result);
 
-         if (result.type === "WARNING") {
+         if (result.message === "Please, login!") {
+            window.location.href = "/";
+
+         } else if (result.type === "WARNING") {
             setUserNotAuthorized(true);
             setError(result);
             

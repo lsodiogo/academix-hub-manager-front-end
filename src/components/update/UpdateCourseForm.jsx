@@ -112,10 +112,10 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
                   <div className="dialogScroll">
                      <form onSubmit={handleSubmit}>
                         <fieldset> 
-                           <h2>Update course {selectedCourse.name}</h2>
+                           <h1>UPDATE COURSE {selectedCourse.name}</h1>
       
                            <label>
-                              Name *
+                              NAME *
                               <input
                                  placeholder="ex: Full Stack Web Development"
                                  type="text"
@@ -127,7 +127,7 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
                            </label>
 
                            <label>
-                              Edition number *
+                              EDITION NUMBER *
                               <input
                                  placeholder="ex: 12345"
                                  type="number"
@@ -142,7 +142,7 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
                            </label>
 
                            <label>
-                              Duration *
+                              DURATION *
                               <input
                                  placeholder="ex: 720"
                                  type="number"
@@ -156,7 +156,7 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
                            </label>
 
                            <label>
-                              Start *
+                              START *
                               <input
                                  type="date"
                                  name="start"
@@ -167,7 +167,7 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
                            </label>
 
                            <label>
-                              Finish *
+                              FINISH *
                               <input
                                  type="date"
                                  name="finish"
@@ -178,7 +178,7 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
                            </label>
 
                            <label>
-                              Description
+                              DESCRIPTION
                               <input
                                  placeholder="description"
                                  type="text"
@@ -191,7 +191,7 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
                            </label>
 
                            <label>
-                              Teacher *
+                              TEACHER *
                               <select
                               name="teacher"
                               value={formData.teacher}
@@ -208,7 +208,7 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
                            </label>
 
                            <label>
-                              Status *
+                              STATUS *
                               <select
                               name="status"
                               value={formData.status}
@@ -223,8 +223,8 @@ function UpdateCourseForm({ selectedCourse, showUpdateDialog, setShowUpdateDialo
                               </select>
                            </label>
 
-                           {fieldsRequired && <div className="fieldsRequired">
-                              * fields required!
+                           {fieldsRequired && <div className="alert-message">
+                              * FIELDS REQUIRED!
                            </div>}
 
                            <div>

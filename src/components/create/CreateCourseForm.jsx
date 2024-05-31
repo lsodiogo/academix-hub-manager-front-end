@@ -113,10 +113,10 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
                <div className="dialogScroll">
                   <form onSubmit={handleSubmit}>
                      <fieldset>
-                        <h2>Create new course</h2>
+                        <h1>CREATE NEW COURSE</h1>
 
                         <label>
-                           Name *
+                           NAME *
                            <input
                               placeholder="ex: Full Stack Web Development"
                               type="text"
@@ -128,7 +128,7 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           Edition number *
+                           EDITION NUMBER *
                            <input
                               placeholder="ex: 12345"
                               type="number"
@@ -143,7 +143,7 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           Duration *
+                           DURATION *
                            <input
                               placeholder="ex: 720"
                               type="number"
@@ -157,7 +157,7 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           Start *
+                           START *
                            <input
                               type="date"
                               name="start"
@@ -168,7 +168,7 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           Finish *
+                           FINISH *
                            <input
                               type="date"
                               name="finish"
@@ -179,7 +179,7 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           Description
+                           DESCRIPTION
                            <input
                               placeholder="description"
                               type="text"
@@ -192,7 +192,7 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           Teacher *
+                           TEACHER *
                            <select
                            name="teacher"
                            value={formData.teacher}
@@ -210,7 +210,7 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           Status *
+                           STATUS *
                            <select
                            name="status"
                            value={formData.status}
@@ -227,8 +227,8 @@ function CreateCourseForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         {fieldsRequired &&
-                           <div className="fieldsRequired">
-                           * fields required!
+                           <div className="alert-message">
+                           * FIELDS REQUIRED!
                            </div>
                         }
 

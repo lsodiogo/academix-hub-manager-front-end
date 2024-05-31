@@ -8,22 +8,22 @@ function Footer() {
          <footer className="footer">
             <div className="socialMedia">
                <Link href="/">
-                  <img src="./images/home.svg" alt="home-icon" />
+                  <img src="../images/home.svg" alt="home-icon" />
                   <span></span>
                </Link>
 
                <a href="https://www.instagram.com/diogooslima/" target="_blank">
-                  <img src="./images/instagram.svg" alt="instagram-icon"/>
+                  <img src="../images/instagram.svg" alt="instagram-icon"/>
                   <span></span>
                </a>
 
                <a href="https://www.linkedin.com/in/diogooslima/" target="_blank">
-                  <img src="./images/linkedin.svg" alt="linkedin-icon"/>
+                  <img src="../images/linkedin.svg" alt="linkedin-icon"/>
                   <span></span>
                </a>
 
                <a href="https://www.github.com/lsodiogo/" target="_blank">
-                  <img src="./images/github.svg" alt="github-icon"/>
+                  <img src="../images/github.svg" alt="github-icon"/>
                   <span></span>
                </a>
             </div>

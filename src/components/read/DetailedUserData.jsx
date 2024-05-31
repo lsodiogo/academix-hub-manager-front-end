@@ -3,9 +3,9 @@ function DetailedUserData({ detailedUserInfo }) {
    
    return (
       <>
-         <h2>USERS</h2>
+         <div className="page-detailed-title">USERS</div>
          
-         <div>
+         <div className="page-detailed-info">
             <h3>{detailedUserInfo.email}</h3>
 
             <div>CATEGORY: {detailedUserInfo.category}</div>

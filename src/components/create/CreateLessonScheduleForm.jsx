@@ -140,10 +140,10 @@ function CreateLessonScheduleForm({ showCreateDialog, setShowCreateDialog }) {
                <div className="dialogScroll">
                   <form onSubmit={handleSubmit}>
                      <fieldset>
-                        <h2>Create new lesson schedule</h2>
+                        <h1>CREATE NEW LESSON SCHEDULE</h1>
 
                         <label>
-                           Date *
+                           DATE *
                            <input
                               type="date"
                               name="date"
@@ -154,7 +154,7 @@ function CreateLessonScheduleForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           Begin *
+                           BEGIN *
                            <input
                               type="time"
                               name="begin"
@@ -166,7 +166,7 @@ function CreateLessonScheduleForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           End *
+                           END *
                            <input
                               type="time"
                               name="end"
@@ -178,7 +178,7 @@ function CreateLessonScheduleForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           Description
+                           DESCRIPTION
                            <input
                               placeholder="description"
                               type="text"
@@ -191,7 +191,7 @@ function CreateLessonScheduleForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           Course *
+                           COURSE *
                            <select
                            name="course"
                            value={formData.course}
@@ -209,7 +209,7 @@ function CreateLessonScheduleForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         <label>
-                           Status *
+                           STATUS *
                            <select
                            name="status"
                            value={formData.status}
@@ -226,8 +226,8 @@ function CreateLessonScheduleForm({ showCreateDialog, setShowCreateDialog }) {
                         </label>
 
                         {fieldsRequired &&
-                           <div className="fieldsRequired">
-                           * fields required!
+                           <div className="alert-message">
+                           * FIELDS REQUIRED!
                            </div>
                         }
 

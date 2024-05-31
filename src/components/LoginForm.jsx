@@ -45,7 +45,7 @@ function LoginForm({ email, setEmail, password, setPassword, rememberMe, setReme
                <label>
                   <button className="submit-button" type="submit">
                      <span>LOGIN </span>
-                     <img src="./images/login.svg" alt="login-icon"/>
+                     <img src="../images/login.svg" alt="login-icon"/>
                   </button>
                </label>
             </fieldset>

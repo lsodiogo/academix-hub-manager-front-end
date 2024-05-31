@@ -12,11 +12,11 @@ function StudentDetailedData({ detailedStudentInfo, hideWhenDataNull }) {
    
    return (
       <>
-         <h2>STUDENTS</h2>
+         <div className="page-detailed-title">STUDENTS</div>
          
-         <div>
+         <div className="page-detailed-info">
             <h3>{detailedStudentInfo.name} {detailedStudentInfo.surname}</h3>
-
+            
             <div>BIRTHDATE: {FormatDate(detailedStudentInfo.birthdate)}</div>
 
             <div>EMAIL: {detailedStudentInfo.email}</div>
@@ -34,14 +34,14 @@ function StudentDetailedData({ detailedStudentInfo, hideWhenDataNull }) {
             </div>
 
             {!hideWhenDataNull &&
-               <div>Grade: {detailedStudentInfo.grade}</div>
+               <div>GRADE: {detailedStudentInfo.grade}</div>
             }
 
             {!hideWhenDataNull &&
-               <div>Graduated at: {detailedStudentInfo.graduated_at}</div>
+               <div>GRADUATED: {detailedStudentInfo.graduated_at}</div>
             }
 
-            <div>Status: {detailedStudentInfo.status_name}</div>
+            <div>STATUS: {detailedStudentInfo.status_name}</div>
          </div>
       </>
    );

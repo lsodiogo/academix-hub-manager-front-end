@@ -39,10 +39,14 @@ function StudentsView({ pathParams }) {
             const result = await apiService.fetchData(`students/${pathParams}`, "GET");
             console.log(result);
             
-            if (result.type === "WARNING") {
+            if (result.message === "Please, login!") {
+               window.location.href = "/";
+
+            } else if (result.type === "WARNING") {
                setUserNotAuthorized(true);
                setError(result);
-            } else {
+               
+            }else {
                setDetailedStudentInfo(result);
             };
 
@@ -55,16 +59,18 @@ function StudentsView({ pathParams }) {
             const result = await apiService.fetchData("students", "GET");
             console.log(result);
 
-            if (result.type === "WARNING") {
+            if (result.message === "Please, login!") {
+               window.location.href = "/";
+   
+            } else if (result.type === "WARNING") {
                setUserNotAuthorized(true);
                setError(result);
-
+               
             } else {
                setAllStudentsInfo(result.results);
                setPaginationLinks(result.paginationLinksAccess);
                showPageButton(result.paginationLinksAccess);
             };
-
          };
       };
       checkLoginAndGetData();
@@ -75,10 +81,13 @@ function StudentsView({ pathParams }) {
       const result = await apiService.fetchData(paginationUrl, "GET");
       console.log(result);
 
-      if (result.type === "WARNING") {
+      if (result.message === "Please, login!") {
+         window.location.href = "/";
+
+      } else if (result.type === "WARNING") {
          setUserNotAuthorized(true);
          setError(result);
-
+         
       } else {
          setAllStudentsInfo(result.results);
          setPaginationLinks(result.paginationLinksAccess);

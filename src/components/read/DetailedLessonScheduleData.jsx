@@ -12,9 +12,9 @@ function DetailedLessonScheduleData({ detailedLessonScheduleInfo, hideWhenDataNu
    
    return (
       <>
-         <h2>LESSONS SCHEDULES</h2>
+         <div className="page-detailed-title">LESSONS SCHEDULES</div>
          
-         <div>
+         <div className="page-detailed-info">
             <h3>{FormatDate(detailedLessonScheduleInfo.date)}</h3>
 
             <div>BEGIN: {detailedLessonScheduleInfo.begin_time}</div>

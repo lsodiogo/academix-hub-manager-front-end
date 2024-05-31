@@ -127,10 +127,10 @@ function UpdateTeacherForm({ selectedTeacher, showUpdateDialog, setShowUpdateDia
                <div className="dialogScroll">
                   <form onSubmit={handleSubmit}>
                      <fieldset>
-                        <h2>Update teacher {selectedTeacher.name} {selectedTeacher.surname}</h2>
+                        <h1>UPDATE TEACHER {selectedTeacher.name} {selectedTeacher.surname}</h1>
 
                         <label>
-                           Name *
+                           NAME *
                            <input
                               placeholder="name"
                               type="text"
@@ -142,7 +142,7 @@ function UpdateTeacherForm({ selectedTeacher, showUpdateDialog, setShowUpdateDia
                         </label>
 
                         <label>
-                           Surname *
+                           SURNAME *
                            <input
                               placeholder="surname"
                               type="text"
@@ -154,7 +154,7 @@ function UpdateTeacherForm({ selectedTeacher, showUpdateDialog, setShowUpdateDia
                         </label>
 
                         <label>
-                           Birthdate *
+                           BIRTHDATE *
                            <input
                               type="date"
                               name="birthdate"
@@ -166,7 +166,7 @@ function UpdateTeacherForm({ selectedTeacher, showUpdateDialog, setShowUpdateDia
                         </label>
 
                         <label>
-                           Email *
+                           EMAIL *
                            <input
                               placeholder="email"
                               type="email"
@@ -178,7 +178,7 @@ function UpdateTeacherForm({ selectedTeacher, showUpdateDialog, setShowUpdateDia
                         </label>
 
                         <label>
-                           Phone *
+                           PHONE *
                            <input
                               placeholder="phone"
                               type="number"
@@ -189,7 +189,7 @@ function UpdateTeacherForm({ selectedTeacher, showUpdateDialog, setShowUpdateDia
                         </label>
 
                         <label>
-                           Address *
+                           ADDRESS *
                            <input
                               placeholder="address"
                               type="text"
@@ -202,7 +202,7 @@ function UpdateTeacherForm({ selectedTeacher, showUpdateDialog, setShowUpdateDia
                         </label>
 
                         <label>
-                           Started *
+                           STARTED *
                            <input
                               type="date"
                               name="started"
@@ -212,7 +212,7 @@ function UpdateTeacherForm({ selectedTeacher, showUpdateDialog, setShowUpdateDia
                         </label>                  
 
                         <label>
-                           Status *
+                           STATUS *
                            <select
                            name="status"
                            value={formData.status}
@@ -228,8 +228,8 @@ function UpdateTeacherForm({ selectedTeacher, showUpdateDialog, setShowUpdateDia
                         </label>
 
                         {fieldsRequired &&
-                           <div className="fieldsRequired">
-                           * fields required!
+                           <div className="alert-message">
+                           * FIELDS REQUIRED!
                            </div>
                         }
 
