@@ -74,7 +74,7 @@ Feel free to browse, discover and explore 💻
 
 # BRIEFING
 
-![BRIEFING](https://github.com/lsodiogo/academix-hub-manager/blob/main/docs/briefing.svg)
+![BRIEFING](https://github.com/lsodiogo/academix-hub-manager-front-end/blob/main/docs/briefing.svg)
 
 ---
 ---
